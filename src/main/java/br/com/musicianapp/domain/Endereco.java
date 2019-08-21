@@ -42,8 +42,8 @@ public class Endereco  extends EntidadeDominio{
 	@Column(name="end_estado")
 	private String estado;
 	
-	@ManyToOne(fetch =FetchType.EAGER)
-	@JoinColumn(name="pes_id")
+	@ManyToOne
+	@JoinColumn(name="pes_end_id")
 	private Pessoa pessoa;
 	public Endereco() {
 		

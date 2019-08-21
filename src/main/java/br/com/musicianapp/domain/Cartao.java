@@ -2,12 +2,10 @@ package br.com.musicianapp.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
 
@@ -34,8 +32,8 @@ public class Cartao extends EntidadeDominio{
 	@Column(name="car_bandeira")
 	private Bandeira bandeira;
 	
-	@ManyToOne(fetch =FetchType.EAGER)
-	@JoinColumn(name="pes_id")
+	@ManyToOne
+	@JoinColumn(name="pes_car_id")
 	private Pessoa pessoa;
 	public Cartao() {
 	}

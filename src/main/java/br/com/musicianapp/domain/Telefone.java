@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.stereotype.Component;
 
@@ -24,8 +25,8 @@ public class Telefone  extends EntidadeDominio{
 	@Column(name="tel_numero")
 	private String numero;
 	
-	@ManyToOne(fetch =FetchType.EAGER)
-	@JoinColumn(name="pes_id")
+	@ManyToOne
+	@JoinColumn(name="pes_tel_id")
 	private Pessoa pessoa;
 	
 	public Telefone() {

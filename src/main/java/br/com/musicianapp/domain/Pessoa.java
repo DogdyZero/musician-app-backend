@@ -8,7 +8,11 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.websocket.OnOpen;
 
 import org.hibernate.annotations.Fetch;
 import org.springframework.stereotype.Component;
@@ -32,18 +36,15 @@ public class Pessoa  extends EntidadeDominio{
 	private String rg;
 //	private Date dataAniversario;
 	
-	@OneToMany(mappedBy="pessoa",targetEntity=Telefone.class, fetch = FetchType.EAGER)
-			@Fetch(org.hibernate.annotations.FetchMode.SUBSELECT)	
+	@OneToMany(mappedBy="pessoa")
 	private List<Telefone> telefones;
 
-	@OneToMany(mappedBy="pessoa",targetEntity=Cartao.class, fetch =FetchType.EAGER)
-	@Fetch(org.hibernate.annotations.FetchMode.SUBSELECT)	
+	@OneToMany(mappedBy="pessoa")
 	private List<Cartao> cartoes;
 
-	@OneToMany(mappedBy="pessoa",targetEntity=Endereco.class, fetch =FetchType.EAGER)
-	@Fetch(org.hibernate.annotations.FetchMode.SUBSELECT)	
+	@OneToMany(mappedBy="pessoa")
 	private List<Endereco> enderecos;
-//	
+	
 	public Pessoa() {
 		
 	}
@@ -91,18 +92,18 @@ public class Pessoa  extends EntidadeDominio{
 	public void setTelefones(List<Telefone> telefones) {
 		this.telefones = telefones;
 	}
-	public List<Cartao> getCartoes() {
-		return cartoes;
-	}
-	public void setCartoes(List<Cartao> cartoes) {
-		this.cartoes = cartoes;
-	}
-	public List<Endereco> getEnderecos() {
-		return enderecos;
-	}
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
-	}
-	
+//	public List<Cartao> getCartoes() {
+//		return cartoes;
+//	}
+//	public void setCartoes(List<Cartao> cartoes) {
+//		this.cartoes = cartoes;
+//	}
+//	public List<Endereco> getEnderecos() {
+//		return enderecos;
+//	}
+//	public void setEnderecos(List<Endereco> enderecos) {
+//		this.enderecos = enderecos;
+//	}
+//	
 	
 }
