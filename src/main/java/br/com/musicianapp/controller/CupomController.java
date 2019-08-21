@@ -2,42 +2,41 @@ package br.com.musicianapp.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.musicianapp.domain.Cartao;
-import br.com.musicianapp.repository.CartoesRepository;
+import br.com.musicianapp.domain.Cupom;
+import br.com.musicianapp.repository.CuponsRepository;
 
 
 @RestController
-@RequestMapping("/cartoes")
-public class CartaoController {
-
-	private CartoesRepository cardRepo;
+@RequestMapping("/Cupons")
+public class CupomController {
 	
-	@GetMapping
-	public List<Cartao> consultarCartao(){
-		return cardRepo.findAll();
+	@Autowired
+	private CuponsRepository cupomRepository;
+	
+	@GetMapping 
+	public List<Cupom> consultarCupom(){
+		return cupomRepository.findAll();
 	}
 	
 	@PostMapping
-	public void salvarCartao(){
+	public void salvarCupom(){
 		
 	}
 	
-	@PutMapping
-	public Cartao alterarCartao(){
+	@PostMapping
+	public Cupom alterarCupom(){
 		return null;
 	}
 	
 	@DeleteMapping
-	public void deletarCartao(){
+	public void deletarCupom(){
 		
 	}
-	
-	
 }

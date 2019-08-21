@@ -17,6 +17,8 @@ import javax.websocket.OnOpen;
 import org.hibernate.annotations.Fetch;
 import org.springframework.stereotype.Component;
 
+import br.com.musicianapp.Enum.Perfil;
+
 @Entity
 @Component
 public class Pessoa  extends EntidadeDominio{
@@ -28,6 +30,9 @@ public class Pessoa  extends EntidadeDominio{
 
 	@Column(name="pes_nome")
 	private String nome;
+	
+	@Column(name="pes_perfil")
+	private Perfil perfil;
 	
 	@Column(name="pes_cpf")
 	private String cpf;
@@ -48,9 +53,10 @@ public class Pessoa  extends EntidadeDominio{
 	public Pessoa() {
 		
 	}
-	public Pessoa(String nome, String cpf, String rg, Date dataAniversario) {
+	public Pessoa(String nome, Perfil perfil, String cpf, String rg, Date dataAniversario) {
 		super();
 		this.nome = nome;
+		this.perfil = perfil;
 		this.cpf = cpf;
 		this.rg = rg;
 //		this.dataAniversario = dataAniversario;
@@ -67,6 +73,12 @@ public class Pessoa  extends EntidadeDominio{
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public Perfil getPerfil(){
+		return perfil;
+	}
+	public void setPerfil(Perfil perfil){
+		this.perfil = perfil;
 	}
 	public String getCpf() {
 		return cpf;

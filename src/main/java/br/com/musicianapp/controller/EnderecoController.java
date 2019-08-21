@@ -2,6 +2,7 @@ package br.com.musicianapp.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,35 +10,33 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.musicianapp.domain.Cartao;
-import br.com.musicianapp.repository.CartoesRepository;
-
+import br.com.musicianapp.domain.Endereco;
+import br.com.musicianapp.repository.EnderecosRepository;
 
 @RestController
-@RequestMapping("/cartoes")
-public class CartaoController {
+@RequestMapping("/enderecos")
+public class EnderecoController {
 
-	private CartoesRepository cardRepo;
+	@Autowired
+	private EnderecosRepository enderecoRepository;
 	
 	@GetMapping
-	public List<Cartao> consultarCartao(){
-		return cardRepo.findAll();
+	public List<Endereco> consultarEndereco(){
+		return enderecoRepository.findAll();
 	}
 	
 	@PostMapping
-	public void salvarCartao(){
+	public void salvarEndereco(){
 		
 	}
 	
 	@PutMapping
-	public Cartao alterarCartao(){
+	public Endereco alterarEndereco(){
 		return null;
 	}
 	
 	@DeleteMapping
-	public void deletarCartao(){
+	public void deletarEndereco(){
 		
 	}
-	
-	
 }
