@@ -34,7 +34,7 @@ public class Cartao extends EntidadeDominio{
 	
 	@ManyToOne
 	@JoinColumn(name="pes_car_id")
-	private Pessoa pessoa;
+	private Pessoa pessoaCartao;
 	public Cartao() {
 	}
 	public Cartao(String nomeCartao, String numeroCartao, String validade, int codSeguranca, Bandeira bandeira) {

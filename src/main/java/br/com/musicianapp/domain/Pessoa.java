@@ -36,13 +36,13 @@ public class Pessoa  extends EntidadeDominio{
 	private String rg;
 //	private Date dataAniversario;
 	
-	@OneToMany(mappedBy="pessoa")
+	@OneToMany(mappedBy="pessoaTelefone",targetEntity=Telefone.class)
 	private List<Telefone> telefones;
 
-	@OneToMany(mappedBy="pessoa")
+	@OneToMany(mappedBy="pessoaCartao",targetEntity=Cartao.class)
 	private List<Cartao> cartoes;
 
-	@OneToMany(mappedBy="pessoa")
+	@OneToMany(mappedBy="pessoaEndereco",targetEntity=Endereco.class)
 	private List<Endereco> enderecos;
 	
 	public Pessoa() {
