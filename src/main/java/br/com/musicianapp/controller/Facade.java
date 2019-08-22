@@ -57,7 +57,7 @@ public class Facade implements IFacade{
 
 	@Override
 	public void apagar(EntidadeDominio entidade) {
-		getDaoInstance(entidade).salvar(entidade);
+		getDaoInstance(entidade).apagar(entidade);
 
 	}
 	
