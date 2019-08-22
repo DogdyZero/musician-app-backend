@@ -1,9 +1,9 @@
 package br.com.musicianapp.domain;
 
 public enum Bandeira {
-	Dinheiro("Dinheiro"),
-	Crédito("Cartão de Crédito"), 
-	Débito ("Cartão de Débito");
+	MASTERCARD("Mastercard"),
+	VISA("Visa"), 
+	HYPERCARD ("Hypercard");
 	
 	private String descricao;
 	
