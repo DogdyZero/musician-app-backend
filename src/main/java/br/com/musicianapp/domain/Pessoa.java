@@ -12,8 +12,6 @@ import javax.persistence.OneToMany;
 
 import org.springframework.stereotype.Component;
 
-import br.com.musicianapp.Enum.Perfil;
-
 @Entity
 @Component
 public class Pessoa extends EntidadeDominio{
@@ -26,8 +24,8 @@ public class Pessoa extends EntidadeDominio{
 	@Column(name="pes_nome")
 	private String nome;
 	
-	@Column(name="pes_login")
-	private Login login;
+	@Column(name="pes_usuario")
+	private Usuario usuario;
 	
 	@Column(name="pes_cpf")
 	private String cpf;
@@ -48,10 +46,10 @@ public class Pessoa extends EntidadeDominio{
 	public Pessoa() {
 		
 	}
-	public Pessoa(String nome, Login login, String cpf, String rg, Date dataAniversario) {
+	public Pessoa(String nome, Usuario usuario, String cpf, String rg, Date dataAniversario) {
 		super();
 		this.nome = nome;
-		this.login = login;
+		this.usuario = usuario;
 		this.cpf = cpf;
 		this.rg = rg;
 //		this.dataAniversario = dataAniversario;
@@ -69,11 +67,11 @@ public class Pessoa extends EntidadeDominio{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Login getLogin() {
-		return login;
+	public Usuario getLogin() {
+		return usuario;
 	}
-	public void setLogin(Login login) {
-		this.login = login;
+	public void setLogin(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	public String getCpf() {
 		return cpf;

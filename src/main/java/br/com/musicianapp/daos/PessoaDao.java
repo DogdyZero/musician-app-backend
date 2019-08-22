@@ -40,6 +40,8 @@ public class PessoaDao implements IDAO {
 
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
+		// implementar a pesquisa
+		
 		System.out.println("Consulta com sucesso");
 		return null;
 	}
