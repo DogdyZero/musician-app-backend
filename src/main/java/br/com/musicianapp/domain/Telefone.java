@@ -25,7 +25,7 @@ public class Telefone  extends EntidadeDominio{
 	
 	@ManyToOne
 	@JoinColumn(name="pes_tel_id")
-	private Pessoa pessoaTelefone;
+	private Pessoa pessoa;
 	
 	public Telefone() {
 		

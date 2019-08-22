@@ -45,7 +45,6 @@ public class Endereco  extends EntidadeDominio{
 	@ManyToOne
 	@JoinColumn(name="pes_end_id")
 	private Pessoa pessoaEndereco;
-	
 	public Endereco() {
 		
 	}
