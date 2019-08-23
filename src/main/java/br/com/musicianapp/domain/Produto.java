@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 import org.springframework.stereotype.Component;
 
@@ -44,9 +44,13 @@ public class Produto extends EntidadeDominio {
 	@Column(name="prod_qtd")
 	private int quantidade;
 
-	@OneToOne
-	@JoinColumn(name="prod_categoria_id")
-	private Categoria categoriaProduto;
+	@ManyToOne
+	@JoinColumn(name="prod_ped_id")
+	private Pedido pedido;
+	
+//	@OneToOne
+//	@JoinColumn(name="prod_categoria_id")
+//	private Categoria categoriaProduto;
 	
 	public Produto(){
 		
@@ -63,7 +67,7 @@ public class Produto extends EntidadeDominio {
 		this.pathImage = pathImage;
 		this.descricao = descricao;
 		this.quantidade = quantidade;
-		this.categoriaProduto = categoriaProduto;
+//		this.categoriaProduto = categoriaProduto;
 	}
 
 	public int getId() {
@@ -130,13 +134,13 @@ public class Produto extends EntidadeDominio {
 		this.quantidade = quantidade;
 	}
 
-	public Categoria getCategoriaProduto() {
-		return categoriaProduto;
-	}
-
-	public void setCategoriaProduto(Categoria categoriaProduto) {
-		this.categoriaProduto = categoriaProduto;
-	}
+//	public Categoria getCategoriaProduto() {
+//		return categoriaProduto;
+//	}
+//
+//	public void setCategoriaProduto(Categoria categoriaProduto) {
+//		this.categoriaProduto = categoriaProduto;
+//	}
 
 	public String getEan() {
 		return ean;
@@ -144,9 +148,5 @@ public class Produto extends EntidadeDominio {
 
 	public void setEan(String ean) {
 		this.ean = ean;
-	}
-	
-	
-	
-	
+	}	
 }

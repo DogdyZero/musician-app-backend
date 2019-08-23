@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -27,7 +28,7 @@ public class Pedido extends EntidadeDominio{
 	@JoinColumn(name="ped_pes_id")
 	private Pessoa cliente;
 	
-	@OneToMany(mappedBy="pedidoProdutos",targetEntity=Produto.class)
+	@OneToMany(mappedBy="pedido",fetch=FetchType.LAZY)
 	private List<Produto> produtos;
 	
 	@Column(name="ped_frete")
@@ -42,6 +43,8 @@ public class Pedido extends EntidadeDominio{
 	@Column(name="ped_status")
 	private StatusPedido status;
 
+	public Pedido() {}
+	
 	public Pedido(Pessoa cliente, double frete, double total,
 			Date data, StatusPedido status) {
 		super();
