@@ -36,8 +36,11 @@ public class UsuarioController {
 	}
 	@PostMapping
 	public Usuario fazerLogin(@RequestBody Usuario usuario) {
+		this.facade.setParametro("login");
+		List<EntidadeDominio> entidades = facade.consultar(usuario);
+		usuario = (Usuario) entidades.get(0);
 		
-		return null;
+		return usuario;	
 	}
 
 }
