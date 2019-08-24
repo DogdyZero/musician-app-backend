@@ -12,8 +12,9 @@ import br.com.musicianapp.domain.Usuario;
 import br.com.musicianapp.repository.UsuarioRepository;
 
 @Service
-public class UsuarioDao implements IDAO {
+public class UsuarioDao extends AbstractDao {
 	private final String CLASSE = Usuario.class.getName();
+	List<EntidadeDominio> entidades;;
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -32,17 +33,33 @@ public class UsuarioDao implements IDAO {
 
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-		List<EntidadeDominio> entidades = new ArrayList<EntidadeDominio>();
+		entidades = new ArrayList<EntidadeDominio>();
+		String parametro=super.getParametro().toLowerCase();
 		if(entidade.getClass().getName().equals(CLASSE)) {
 			Usuario usuario = (Usuario)entidade;
-			Optional<Usuario> optionalUsuario = usuarioRepository.findById(usuario.getId());
-			usuario = optionalUsuario.get();
-			entidades.add(usuario);
-			System.out.println("Resultado: " + usuario.getLogin());
-			return entidades;
+
+			if(parametro.equals("usuarioid")) {
+				return consultarPorID(usuario);
+			} else if(parametro.equals("login")) {
+				return validarAcesso(usuario);
+			}
 		}
-		System.out.println("Consulta com sucesso");
 		return null;
+	}
+	
+	private List<EntidadeDominio> consultarPorID(Usuario usuario){
+		Optional<Usuario> optionalUsuario = usuarioRepository.findById(usuario.getId());
+		usuario = optionalUsuario.get();
+		entidades.add(usuario);
+		System.out.println("Resultado: " + usuario.getLogin());
+		return entidades;
+	}
+	
+	private List<EntidadeDominio> validarAcesso(Usuario usuario){
+		usuario = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
+		entidades.add(usuario);
+		System.out.println("Resultado: " + usuario.getLogin());
+		return entidades;
 	}
 
 	@Override
