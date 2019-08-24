@@ -2,13 +2,16 @@ package br.com.musicianapp.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
@@ -34,14 +37,14 @@ public class Pessoa extends EntidadeDominio{
 	private String rg;
 //	private Date dataAniversario;
 	
-	@OneToMany(mappedBy="pessoa",fetch=FetchType.LAZY)
-	private List<Telefone> telefones;
+	@OneToMany(mappedBy="pessoa",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private Set<Telefone> telefone;
 
-	@OneToMany(mappedBy="pessoa",fetch=FetchType.LAZY)
-	private List<Cartao> cartoes;
+	@OneToMany(mappedBy="pessoa",fetch=FetchType.EAGER)
+	private Set<Cartao> cartao;
 
-	@OneToMany(mappedBy="pessoa",fetch=FetchType.LAZY)
-	private List<Endereco> enderecos;
+	@OneToMany(mappedBy="pessoa",fetch=FetchType.EAGER)
+	private Set<Endereco> endereco;
 	
 	public Pessoa() {
 		
@@ -91,23 +94,23 @@ public class Pessoa extends EntidadeDominio{
 //	public void setDataAniversario(Date dataAniversario) {
 //		this.dataAniversario = dataAniversario;
 //	}
-	public List<Telefone> getTelefones() {
-		return telefones;
+	public Set<Telefone> getTelefone() {
+		return telefone;
 	}
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setTelefones(Set<Telefone> telefone) {
+		this.telefone = telefone;
 	}
-	public List<Cartao> getCartoes() {
-		return cartoes;
+	public Set<Cartao> getCartoes() {
+		return cartao;
 	}
-	public void setCartoes(List<Cartao> cartoes) {
-		this.cartoes = cartoes;
+	public void setCartoes(Set<Cartao> cartoes) {
+		this.cartao = cartoes;
 	}
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+	public Set<Endereco> getEnderecos() {
+		return endereco;
 	}
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setEnderecos(Set<Endereco> enderecos) {
+		this.endereco = enderecos;
 	}
 	
 	

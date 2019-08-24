@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.Cupom;
-import br.com.musicianapp.repository.CuponsRepository;
+import br.com.musicianapp.repository.CupomRepository;
 
 
 @RestController
@@ -19,7 +19,7 @@ import br.com.musicianapp.repository.CuponsRepository;
 public class CupomController {
 	
 	@Autowired
-	private CuponsRepository cupomRepository;
+	private CupomRepository cupomRepository;
 	
 	@GetMapping 
 	public List<Cupom> consultarCupom(){

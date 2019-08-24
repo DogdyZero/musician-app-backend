@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.Categoria;
-import br.com.musicianapp.repository.CategoriasRepository;
+import br.com.musicianapp.repository.CategoriaRepository;
 
 @RestController
 @RequestMapping("/categorias")
 public class CategoriaController {
 	
 	@Autowired
-	private CategoriasRepository categoriaRepository;
+	private CategoriaRepository categoriaRepository;
 	
 	@GetMapping
 	public List<Categoria> consultarCategoria(){

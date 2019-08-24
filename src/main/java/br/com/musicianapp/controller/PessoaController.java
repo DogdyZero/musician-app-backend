@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaController {
@@ -26,17 +27,16 @@ public class PessoaController {
 	@Autowired
 	private Pessoa pessoa;
 	
-	@CrossOrigin
 	@GetMapping("{id}")
-	public List<Pessoa> consultarPessoas(@PathVariable int id){
+	public Pessoa consultarPessoa(@PathVariable int id){
 		this.pessoa.setId(id);
 		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
-		return null;	
+		Pessoa pessoa = (Pessoa) entidades.get(0);
+		
+		return pessoa;	
 	}
-	@CrossOrigin
 	@PostMapping
 	public Pessoa salvarPessoa(@RequestBody Pessoa pessoa) {
-		System.out.println("requisição");
 		EntidadeDominio e = facade.salvar(pessoa);
 		if(e!=null)
 			return (Pessoa) e;

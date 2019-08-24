@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.Produto;
-import br.com.musicianapp.repository.ProdutosRepository;
+import br.com.musicianapp.repository.ProdutoRepository;
 
 
 @RestController
@@ -19,7 +19,7 @@ import br.com.musicianapp.repository.ProdutosRepository;
 public class ProdutoController {
 	
 	@Autowired
-	private ProdutosRepository pRepository;
+	private ProdutoRepository pRepository;
 	
 	@GetMapping
 	public List<Produto> consultarProdutos(){

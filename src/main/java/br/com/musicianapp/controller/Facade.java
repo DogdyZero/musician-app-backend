@@ -12,11 +12,13 @@ import br.com.musicianapp.daos.EnderecoDao;
 import br.com.musicianapp.daos.IDAO;
 import br.com.musicianapp.daos.PessoaDao;
 import br.com.musicianapp.daos.TelefoneDao;
+import br.com.musicianapp.daos.UsuarioDao;
 import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Telefone;
+import br.com.musicianapp.domain.Usuario;
 
 @Service
 public class Facade implements IFacade{
@@ -25,6 +27,7 @@ public class Facade implements IFacade{
 	@Autowired private TelefoneDao telefoneDao;
 	@Autowired private CartaoDao cartaoDao;
 	@Autowired private EnderecoDao enderecoDao;
+	@Autowired private UsuarioDao usuarioDao;
 
 	private Map<String,IDAO> daos;
 	
@@ -34,6 +37,8 @@ public class Facade implements IFacade{
 		daos.put(Telefone.class.getName(), telefoneDao);
 		daos.put(Cartao.class.getName(), cartaoDao);
 		daos.put(Endereco.class.getName(), enderecoDao);
+		daos.put(Usuario.class.getName(), usuarioDao);
+
 	}
 	private IDAO getDaoInstance(EntidadeDominio entidade) {
 		startMaps();

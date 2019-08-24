@@ -1,7 +1,9 @@
 package br.com.musicianapp.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -23,8 +25,8 @@ public class Telefone  extends EntidadeDominio{
 	@Column(name="tel_numero")
 	private String numero;
 	
-	@ManyToOne
-	@JoinColumn(name="pes_tel_id")
+	@ManyToOne (targetEntity=Pessoa.class)
+	@JoinColumn(name="pes_id")
 	private Pessoa pessoa;
 	
 	public Telefone() {
