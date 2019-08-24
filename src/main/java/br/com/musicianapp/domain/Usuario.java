@@ -4,10 +4,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.print.attribute.IntegerSyntax;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.musicianapp.Enum.Perfil;
+import br.com.musicianapp.impl.IStyleQuery;
 
 @Entity
 @Component

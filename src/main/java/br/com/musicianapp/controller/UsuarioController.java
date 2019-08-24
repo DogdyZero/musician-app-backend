@@ -25,14 +25,10 @@ public class UsuarioController {
 	@Autowired
 	private Usuario usuario;
 	
-	/*
-	 * @Autowired
-	 */private IStyleQuery parametro;
-	
 	@GetMapping("{id}")
 	public Usuario consultarUsuario(@PathVariable int id){
 		this.usuario.setId(id);
-		parametro.setParametro("login");
+		this.facade.setParametro("usuarioID");
 		List<EntidadeDominio> entidades = facade.consultar(this.usuario);
 		Usuario usuario = (Usuario) entidades.get(0);
 		

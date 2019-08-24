@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.musicianapp.daos.AbstractDao;
 import br.com.musicianapp.daos.CartaoDao;
 import br.com.musicianapp.daos.EnderecoDao;
 import br.com.musicianapp.daos.IDAO;
@@ -19,17 +20,20 @@ import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.domain.Usuario;
+import br.com.musicianapp.impl.IStyleQuery;
 
 @Service
-public class Facade implements IFacade{
+public class Facade implements IFacade,IStyleQuery{
 	
 	@Autowired private PessoaDao pessoaDao;
 	@Autowired private TelefoneDao telefoneDao;
 	@Autowired private CartaoDao cartaoDao;
 	@Autowired private EnderecoDao enderecoDao;
 	@Autowired private UsuarioDao usuarioDao;
-
+	
+	private IDAO dao;
 	private Map<String,IDAO> daos;
+	private String parametro;
 	
 	private void startMaps() {
 		daos = new HashMap<String, IDAO>();
@@ -42,8 +46,12 @@ public class Facade implements IFacade{
 	}
 	private IDAO getDaoInstance(EntidadeDominio entidade) {
 		startMaps();
-		return daos.get(entidade.getClass().getName());
-	
+		this.dao =daos.get(entidade.getClass().getName());
+		if(parametro!=null) {
+			AbstractDao absDao = (AbstractDao)dao;
+			absDao.setParametro(parametro);
+		}
+		return this.dao;
 	}
 	@Override
 	public EntidadeDominio salvar(EntidadeDominio entidade) {
@@ -65,9 +73,15 @@ public class Facade implements IFacade{
 		getDaoInstance(entidade).apagar(entidade);
 
 	}
-	
-	
-	
+	@Override
+	public String getParametro() {
+		AbstractDao absDao = (AbstractDao)dao;
+		return absDao.getParametro();
+	}
+	@Override
+	public void setParametro(String parametro) {
+		this.parametro = parametro;
+	}
 	
 	
 }
