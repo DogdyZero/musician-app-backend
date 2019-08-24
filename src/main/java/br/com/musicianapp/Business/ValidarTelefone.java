@@ -1,6 +1,6 @@
 package br.com.musicianapp.Business;
 
-import java.util.List;
+import java.util.Set;
 
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
@@ -12,7 +12,7 @@ public class ValidarTelefone implements IStrategy {
 	@Override
 	public String processar(EntidadeDominio entidade) {
 		Pessoa pessoa = (Pessoa) entidade;
-		List<Telefone> telefones = pessoa.getTelefones();
+		Set<Telefone> telefones = pessoa.getTelefone();
 		
 		StringBuilder st = new StringBuilder();
 		

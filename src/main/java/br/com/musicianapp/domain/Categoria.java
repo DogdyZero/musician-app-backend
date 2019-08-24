@@ -20,8 +20,8 @@ public class Categoria extends EntidadeDominio {
 	@Column(name="categoria_nome")
 	private String nome;
 	
-	@OneToMany(mappedBy="categoriaProduto",targetEntity=Produto.class)
-	private Produto produto;
+	//@OneToMany(mappedBy="categoriaProduto",targetEntity=Produto.class)
+//	private Produto produto;
 	
 	public Categoria(){
 		
@@ -30,7 +30,7 @@ public class Categoria extends EntidadeDominio {
 	public Categoria(String nome, Produto produto) {
 		super();
 		this.nome = nome;
-		this.produto = produto;
+//		this.produto = produto;
 	}
 
 	public int getId() {
@@ -49,14 +49,7 @@ public class Categoria extends EntidadeDominio {
 		this.nome = nome;
 	}
 
-	public Produto getProduto() {
-		return produto;
-	}
-
-	public void setProduto(Produto produto) {
-		this.produto = produto;
-	}
-	
+//	q	
 	
 	
 	

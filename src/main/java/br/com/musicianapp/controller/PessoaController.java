@@ -3,6 +3,7 @@ package br.com.musicianapp.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaController {
@@ -26,12 +28,13 @@ public class PessoaController {
 	private Pessoa pessoa;
 	
 	@GetMapping("{id}")
-	public List<Pessoa> consultarPessoas(@PathVariable int id){
+	public Pessoa consultarPessoa(@PathVariable int id){
 		this.pessoa.setId(id);
 		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
-		return null;	
+		Pessoa pessoa = (Pessoa) entidades.get(0);
+		
+		return pessoa;	
 	}
-	
 	@PostMapping
 	public Pessoa salvarPessoa(@RequestBody Pessoa pessoa) {
 		EntidadeDominio e = facade.salvar(pessoa);

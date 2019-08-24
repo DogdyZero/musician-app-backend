@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import br.com.musicianapp.domain.Produto;
 
-public interface ProdutosRepository extends JpaRepository<Produto, Integer>{
+public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 
 }

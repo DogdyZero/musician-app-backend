@@ -21,6 +21,10 @@ public class Cupom extends EntidadeDominio{
 	@Column(name="cupom_valor")
 	private double  valor;
 
+	public Cupom() {
+		
+	}
+	
 	public Cupom(String codigo, double valor) {
 		super();
 		this.codigo = codigo;

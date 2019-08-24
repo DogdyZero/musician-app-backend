@@ -1,6 +1,8 @@
 package br.com.musicianapp.daos;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,15 @@ public class PessoaDao implements IDAO {
 
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
+		List<EntidadeDominio> entidades = new ArrayList<EntidadeDominio>();
+		if(entidade.getClass().getName().equals(CLASSE)) {
+			Pessoa pessoa = (Pessoa)entidade;
+			Optional<Pessoa> optionalPessoa = pessoaRepository.findById(pessoa.getId());
+			pessoa = optionalPessoa.get();
+			entidades.add(pessoa);
+			System.out.println("Resultado: " + pessoa.getNome());
+			return entidades;
+		}
 		System.out.println("Consulta com sucesso");
 		return null;
 	}

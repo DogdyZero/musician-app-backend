@@ -6,11 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.Cupom;
-import br.com.musicianapp.repository.CuponsRepository;
+import br.com.musicianapp.repository.CupomRepository;
 
 
 @RestController
@@ -18,7 +19,7 @@ import br.com.musicianapp.repository.CuponsRepository;
 public class CupomController {
 	
 	@Autowired
-	private CuponsRepository cupomRepository;
+	private CupomRepository cupomRepository;
 	
 	@GetMapping 
 	public List<Cupom> consultarCupom(){
@@ -30,7 +31,7 @@ public class CupomController {
 		
 	}
 	
-	@PostMapping
+	@PutMapping
 	public Cupom alterarCupom(){
 		return null;
 	}

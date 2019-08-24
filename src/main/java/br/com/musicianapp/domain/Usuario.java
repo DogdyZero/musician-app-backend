@@ -11,22 +11,44 @@ import br.com.musicianapp.Enum.Perfil;
 
 @Entity
 @Component
-public class Login extends EntidadeDominio {
+public class Usuario extends EntidadeDominio {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="login_id")
+	@Column(name="log_id")
 	private int id;
 	
 	@Column(name="pes_perfil")
 	private Perfil perfil;
 	
-	@Column(name="login_senha")
+	@Column(name="usu_login")
+	private String login;
+	
+	@Column(name="usu_hashcode")
+	private String hashCore;
+	
+	@Column(name="log_senha")
 	private String senha;
 
-	public Login(Perfil perfil, String senha) {
+	public Usuario() {
+		
+	}
+	
+	public Usuario(Perfil perfil, String senha) {
 		super();
 		this.perfil = perfil;
+		this.senha = senha;
+	}
+
+	public Usuario(String hashCore) {
+		super();
+		this.hashCore = hashCore;
+	}
+
+	public Usuario(Perfil perfil, String login, String senha) {
+		super();
+		this.perfil = perfil;
+		this.login = login;
 		this.senha = senha;
 	}
 
@@ -52,6 +74,22 @@ public class Login extends EntidadeDominio {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public String getHashCore() {
+		return hashCore;
+	}
+
+	public void setHashCore(String hashCore) {
+		this.hashCore = hashCore;
 	}
 	
 	

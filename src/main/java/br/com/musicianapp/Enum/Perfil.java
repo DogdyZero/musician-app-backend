@@ -2,7 +2,7 @@ package br.com.musicianapp.Enum;
 
 public enum Perfil {
 	CLIENTE("Cliente"),
-	ADMINISTRADORSS("Administrador");
+	ADMINISTRADOR("Administrador");
 	
 	private String perfil;
 
