@@ -1,5 +1,6 @@
 package br.com.musicianapp.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -42,8 +43,8 @@ public class Endereco  extends EntidadeDominio{
 	@Column(name="end_estado")
 	private String estado;
 	
-	@ManyToOne
-	@JoinColumn(name="pes_end_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")
 	private Pessoa pessoa;
 	public Endereco() {
 		

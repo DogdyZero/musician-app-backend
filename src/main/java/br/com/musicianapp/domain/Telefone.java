@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.stereotype.Component;
 
@@ -25,8 +26,8 @@ public class Telefone  extends EntidadeDominio{
 	@Column(name="tel_numero")
 	private String numero;
 	
-	@ManyToOne (targetEntity=Pessoa.class)
-	@JoinColumn(name="pes_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")
 	private Pessoa pessoa;
 	
 	public Telefone() {
@@ -39,6 +40,14 @@ public class Telefone  extends EntidadeDominio{
 		this.numero = numero;
 	}
 	
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
 	public int getId() {
 		return id;
 	}

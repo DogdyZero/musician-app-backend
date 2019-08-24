@@ -1,5 +1,6 @@
 package br.com.musicianapp.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,8 +33,8 @@ public class Cartao extends EntidadeDominio{
 	@Column(name="car_bandeira")
 	private Bandeira bandeira;
 	
-	@ManyToOne
-	@JoinColumn(name="pes_car_id")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")
 	private Pessoa pessoa;
 	public Cartao() {
 	}

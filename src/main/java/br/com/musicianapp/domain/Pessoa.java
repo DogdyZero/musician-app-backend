@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -37,13 +38,16 @@ public class Pessoa extends EntidadeDominio{
 	private String rg;
 //	private Date dataAniversario;
 	
-	@OneToMany(mappedBy="pessoa",fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")
 	private Set<Telefone> telefone;
 
-	@OneToMany(mappedBy="pessoa",fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")	
 	private Set<Cartao> cartao;
 
-	@OneToMany(mappedBy="pessoa",fetch=FetchType.EAGER)
+	@OneToMany(cascade=CascadeType.ALL)
+	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")
 	private Set<Endereco> endereco;
 	
 	public Pessoa() {
