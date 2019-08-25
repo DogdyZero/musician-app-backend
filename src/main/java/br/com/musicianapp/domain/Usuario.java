@@ -3,7 +3,9 @@ package br.com.musicianapp.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.print.attribute.IntegerSyntax;
 
 import org.springframework.stereotype.Component;
@@ -15,10 +17,11 @@ import br.com.musicianapp.impl.IStyleQuery;
 
 @Entity
 @Component
+@SequenceGenerator(name="usuario_generator", sequenceName = "cartao_seq", allocationSize=50,initialValue=1)
 public class Usuario extends EntidadeDominio {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_generator")
 	@Column(name="log_id")
 	private int id;
 	

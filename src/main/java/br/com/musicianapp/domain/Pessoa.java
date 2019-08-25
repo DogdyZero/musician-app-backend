@@ -1,7 +1,6 @@
 package br.com.musicianapp.domain;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,19 +8,21 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 @Entity
 @Component
+@SequenceGenerator(name="pessoa_generator", sequenceName = "pessoa_seq", allocationSize=50,initialValue=1)
 public class Pessoa extends EntidadeDominio{
 	
 	@Id
-	@GeneratedValue 
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_generator")
 	@Column(name="pes_id")
 	private int id;
 
@@ -38,16 +39,16 @@ public class Pessoa extends EntidadeDominio{
 	private String rg;
 //	private Date dataAniversario;
 	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")
+	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@JoinColumn(name="pes_id")
 	private Set<Telefone> telefone;
 
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")	
+	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@JoinColumn(name="pes_id")
 	private Set<Cartao> cartao;
 
-	@OneToMany(cascade=CascadeType.ALL)
-	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")
+	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@JoinColumn(name="pes_id")
 	private Set<Endereco> endereco;
 	
 	public Pessoa() {
@@ -101,19 +102,19 @@ public class Pessoa extends EntidadeDominio{
 	public Set<Telefone> getTelefone() {
 		return telefone;
 	}
-	public void setTelefones(Set<Telefone> telefone) {
+	public void setTelefone(Set<Telefone> telefone) {
 		this.telefone = telefone;
 	}
-	public Set<Cartao> getCartoes() {
+	public Set<Cartao> getCartao() {
 		return cartao;
 	}
-	public void setCartoes(Set<Cartao> cartoes) {
+	public void setCartao(Set<Cartao> cartoes) {
 		this.cartao = cartoes;
 	}
-	public Set<Endereco> getEnderecos() {
+	public Set<Endereco> getEndereco() {
 		return endereco;
 	}
-	public void setEnderecos(Set<Endereco> enderecos) {
+	public void setEndereco(Set<Endereco> enderecos) {
 		this.endereco = enderecos;
 	}
 	

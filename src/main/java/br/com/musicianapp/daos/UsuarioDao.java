@@ -39,8 +39,10 @@ public class UsuarioDao extends AbstractDao {
 			Usuario usuario = (Usuario)entidade;
 
 			if(parametro.equals("usuarioid")) {
+				parametro=null;
 				return consultarPorID(usuario);
 			} else if(parametro.equals("login")) {
+				parametro=null;
 				return validarAcesso(usuario);
 			}
 		}

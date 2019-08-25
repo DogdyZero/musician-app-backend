@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
+import br.com.musicianapp.domain.Telefone;
 
 @CrossOrigin
 @RestController
@@ -32,7 +33,9 @@ public class PessoaController {
 		this.pessoa.setId(id);
 		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
 		Pessoa pessoa = (Pessoa) entidades.get(0);
-		
+		for(Telefone t: pessoa.getTelefone()) {
+			System.out.println(t.getNumero());
+		}
 		return pessoa;	
 	}
 	@PostMapping

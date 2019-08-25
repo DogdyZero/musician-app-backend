@@ -1,22 +1,20 @@
 package br.com.musicianapp.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 @Entity @Component
+@SequenceGenerator(name="telefone_generator", sequenceName = "telefone_seq", allocationSize=50,initialValue=1)
 public class Telefone  extends EntidadeDominio{
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "telefone_generator")
 	@Column(name="tel_id")
 	private int id;
 
@@ -25,11 +23,7 @@ public class Telefone  extends EntidadeDominio{
 
 	@Column(name="tel_numero")
 	private String numero;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")
-	private Pessoa pessoa;
-	
+		
 	public Telefone() {
 		
 	}
@@ -40,14 +34,6 @@ public class Telefone  extends EntidadeDominio{
 		this.numero = numero;
 	}
 	
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
 	public int getId() {
 		return id;
 	}

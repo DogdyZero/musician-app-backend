@@ -1,21 +1,22 @@
 package br.com.musicianapp.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 @Entity @Component
+@SequenceGenerator(name="endereco_generator", sequenceName = "endereco_seq", allocationSize=50,initialValue=1)
 public class Endereco  extends EntidadeDominio{
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "endereco_generator")
 	@Column(name="end_id")
 	private int id;
 	
@@ -43,9 +44,6 @@ public class Endereco  extends EntidadeDominio{
 	@Column(name="end_estado")
 	private String estado;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")
-	private Pessoa pessoa;
 	public Endereco() {
 		
 	}
