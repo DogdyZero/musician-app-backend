@@ -50,6 +50,7 @@ public class Facade implements IFacade,IStyleQuery{
 		if(parametro!=null) {
 			AbstractDao absDao = (AbstractDao)dao;
 			absDao.setParametro(parametro);
+			parametro=null;
 		}
 		return this.dao;
 	}

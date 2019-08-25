@@ -1,20 +1,22 @@
 package br.com.musicianapp.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 @Entity @Component
+@SequenceGenerator(name="cartao_generator", sequenceName = "cartao_seq", allocationSize=50,initialValue=1)
 public class Cartao extends EntidadeDominio{
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cartao_generator")
 	@Column(name="car_id")
 	private int id;
 	
@@ -33,9 +35,6 @@ public class Cartao extends EntidadeDominio{
 	@Column(name="car_bandeira")
 	private Bandeira bandeira;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="pes_id", referencedColumnName = "pes_id")
-	private Pessoa pessoa;
 	public Cartao() {
 	}
 	public Cartao(String nomeCartao, String numeroCartao, String validade, int codSeguranca, Bandeira bandeira) {
