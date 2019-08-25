@@ -17,15 +17,15 @@ import br.com.musicianapp.impl.IStyleQuery;
 
 @Entity
 @Component
-@SequenceGenerator(name="usuario_generator", sequenceName = "cartao_seq", allocationSize=50,initialValue=1)
+@SequenceGenerator(name="usuario_generator", sequenceName = "usuario_seq", allocationSize=50,initialValue=1)
 public class Usuario extends EntidadeDominio {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_generator")
-	@Column(name="log_id")
+	@Column(name="usu_id")
 	private int id;
 	
-	@Column(name="pes_perfil")
+	@Column(name="usu_perfil")
 	private Perfil perfil;
 	
 	@Column(name="usu_login")
@@ -34,7 +34,7 @@ public class Usuario extends EntidadeDominio {
 	@Column(name="usu_hashcode")
 	private String hashCore;
 	
-	@Column(name="log_senha")
+	@Column(name="usu_senha")
 	private String senha;
 
 	public Usuario() {

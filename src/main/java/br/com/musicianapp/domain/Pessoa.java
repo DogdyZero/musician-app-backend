@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
@@ -29,8 +30,9 @@ public class Pessoa extends EntidadeDominio{
 	@Column(name="pes_nome")
 	private String nome;
 	
-//	@Column(name="pes_usuario")
-//	private Usuario usuario;
+	@OneToOne(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@JoinColumn(name="pes_id")
+	private Usuario usuario;
 	
 	@Column(name="pes_cpf")
 	private String cpf;
@@ -75,12 +77,12 @@ public class Pessoa extends EntidadeDominio{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-//	public Usuario getLogin() {
-//		return usuario;
-//	}
-//	public void setLogin(Usuario usuario) {
-//		this.usuario = usuario;
-//	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	public String getCpf() {
 		return cpf;
 	}
