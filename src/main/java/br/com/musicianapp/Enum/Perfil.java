@@ -1,8 +1,8 @@
 package br.com.musicianapp.Enum;
 
 public enum Perfil {
-	CLIENTE("Cliente"),
-	ADMINISTRADOR("Administrador");
+	CLIENTE("cliente"),
+	ADMINISTRADOR("administrador");
 	
 	private String perfil;
 
