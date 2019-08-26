@@ -28,11 +28,10 @@ public class PessoaDao extends AbstractDao {
 	}
 	
 	@Override
-	public EntidadeDominio salvar(EntidadeDominio entidade) {
+	public void salvar(EntidadeDominio entidade) {
 		Pessoa pessoa = convertClass(entidade);
 		if(pessoa!=null)
-			return pessoaRepository.save(pessoa);
-		return null;
+		pessoaRepository.save(pessoa);
 	}
 
 	@Override

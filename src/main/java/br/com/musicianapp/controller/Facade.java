@@ -93,7 +93,7 @@ public class Facade implements IFacade,IStyleQuery{
 		return this.dao;
 	}
 	@Override
-	public EntidadeDominio salvar(EntidadeDominio entidade) {
+	public void salvar(EntidadeDominio entidade) {
 		getDaoInstance(entidade);
 		// aplicar regras
 		Map<String,List<IStrategy>> rn = rns.get(entidade.getClass().getName());
@@ -107,10 +107,10 @@ public class Facade implements IFacade,IStyleQuery{
 				}
 			}
 		}
-		if(sb==null)
-			entidade = this.dao.salvar(entidade);
-		
-		return null;
+		if(sb==null){
+			this.dao.salvar(entidade);
+		}
+
 	}
 
 	@Override

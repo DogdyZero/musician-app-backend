@@ -5,7 +5,7 @@ import java.util.List;
 import br.com.musicianapp.domain.EntidadeDominio;
 
 public interface IDAO {
-	public EntidadeDominio salvar(EntidadeDominio entidade);
+	public void salvar(EntidadeDominio entidade);
 	
 	public EntidadeDominio alterar(EntidadeDominio entidade);
 	

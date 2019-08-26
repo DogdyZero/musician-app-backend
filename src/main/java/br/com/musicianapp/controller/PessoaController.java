@@ -50,12 +50,8 @@ public class PessoaController {
 		return pessoas;		
 	}
 	@PostMapping
-	public Pessoa salvarPessoa(@RequestBody Pessoa pessoa) {
-		EntidadeDominio e = facade.salvar(pessoa);
-		if(e!=null)
-			return (Pessoa) e;
-		else 
-			return null;
+	public void salvarPessoa(@RequestBody Pessoa pessoa) {
+		facade.salvar(pessoa);
 	}
 	
 	@PutMapping("{id}")
