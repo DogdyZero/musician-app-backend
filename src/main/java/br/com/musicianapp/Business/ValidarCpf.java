@@ -1,10 +1,11 @@
 package br.com.musicianapp.Business;
 
+import org.springframework.stereotype.Service;
+
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 
-
-
+@Service
 public class ValidarCpf implements IStrategy {
 	
 	@Override

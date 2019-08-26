@@ -3,10 +3,13 @@ package br.com.musicianapp.Business;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import br.com.musicianapp.daos.PessoaDao;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 
+@Service
 public class ValidarExistencia implements IStrategy {
 	
 	public String processar(EntidadeDominio entidade) {
