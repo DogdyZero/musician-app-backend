@@ -3,9 +3,11 @@ package br.com.musicianapp.Business;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.stereotype.Service;
+
 import br.com.musicianapp.domain.EntidadeDominio;
 
-
+@Service
 public class CompletarDataCadastro implements IStrategy {
 	
 	@Override

@@ -2,11 +2,13 @@ package br.com.musicianapp.Business;
 
 import java.util.Set;
 
+import org.springframework.stereotype.Service;
+
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Telefone;
 
-
+@Service
 public class ValidarTelefone implements IStrategy {
 	
 	@Override
