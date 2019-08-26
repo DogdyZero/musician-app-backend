@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.musicianapp.Enum.Perfil;
+import br.com.musicianapp.Enum.Status;
 import br.com.musicianapp.impl.IStyleQuery;
 
 @Entity
@@ -36,6 +37,9 @@ public class Usuario extends EntidadeDominio {
 	
 	@Column(name="usu_senha")
 	private String senha;
+	
+	@Column(name="usu_status")
+	private Status status;
 
 	public Usuario() {
 		
@@ -52,11 +56,12 @@ public class Usuario extends EntidadeDominio {
 		this.hashCore = hashCore;
 	}
 
-	public Usuario(Perfil perfil, String login, String senha) {
+	public Usuario(Perfil perfil, String login, String senha, Status status) {
 		super();
 		this.perfil = perfil;
 		this.login = login;
 		this.senha = senha;
+		this.status = status;
 	}
 
 	public int getId() {
@@ -98,6 +103,15 @@ public class Usuario extends EntidadeDominio {
 	public void setHashCore(String hashCore) {
 		this.hashCore = hashCore;
 	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
 	
 	
 	

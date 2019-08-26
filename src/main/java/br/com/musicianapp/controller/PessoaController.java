@@ -1,5 +1,6 @@
 package br.com.musicianapp.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +32,22 @@ public class PessoaController {
 	@GetMapping("{id}")
 	public Pessoa consultarPessoa(@PathVariable int id){
 		this.pessoa.setId(id);
+		this.facade.setParametro("consId");
 		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
 		Pessoa pessoa = (Pessoa) entidades.get(0);
-		for(Telefone t: pessoa.getTelefone()) {
-			System.out.println(t.getNumero());
-		}
 		return pessoa;	
+	}
+	
+	@GetMapping()
+	public List<Pessoa> consultarPessoa(){
+		this.facade.setParametro("all");
+		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		for (EntidadeDominio ent : entidades) {
+			
+			pessoas.add((Pessoa)ent);
+		}
+		return pessoas;		
 	}
 	@PostMapping
 	public Pessoa salvarPessoa(@RequestBody Pessoa pessoa) {
@@ -53,7 +64,7 @@ public class PessoaController {
 		return this.facade.alterar(pessoa);
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("{id}")
 	public void deletarPessoa(@PathVariable int id) {
 		this.pessoa.setId(id);
 		this.facade.apagar(pessoa);

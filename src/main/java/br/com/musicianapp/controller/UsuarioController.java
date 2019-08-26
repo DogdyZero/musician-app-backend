@@ -1,9 +1,11 @@
 package br.com.musicianapp.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import br.com.musicianapp.impl.IStyleQuery;
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
+	
 	@Autowired
 	private Facade facade;
 	
@@ -31,8 +34,18 @@ public class UsuarioController {
 		this.facade.setParametro("usuarioID");
 		List<EntidadeDominio> entidades = facade.consultar(this.usuario);
 		Usuario usuario = (Usuario) entidades.get(0);
-		
 		return usuario;	
+	}
+	
+	@GetMapping()
+	public List<Usuario> consultarTodos(){
+		this.facade.setParametro("all");
+		List<EntidadeDominio> entidades = facade.consultar(this.usuario);
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		for (EntidadeDominio ent : entidades) {
+			usuarios.add((Usuario)ent);
+		}
+		return usuarios;	
 	}
 	@PostMapping
 	public Usuario fazerLogin(@RequestBody Usuario usuario) {
@@ -41,6 +54,12 @@ public class UsuarioController {
 		usuario = (Usuario) entidades.get(0);
 		
 		return usuario;	
+	}
+	
+	@DeleteMapping("{id}")
+	public void deletarUsuario(@PathVariable int id){
+		this.usuario.setId(id);
+		facade.apagar(this.usuario);
 	}
 
 }
