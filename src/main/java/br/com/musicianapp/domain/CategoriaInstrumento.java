@@ -4,14 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
 import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-public class Categoria extends EntidadeDominio {
+public class CategoriaInstrumento extends EntidadeDominio {
 	
 	@Id
 	@GeneratedValue
@@ -23,11 +21,11 @@ public class Categoria extends EntidadeDominio {
 	//@OneToMany(mappedBy="categoriaProduto",targetEntity=Produto.class)
 //	private Produto produto;
 	
-	public Categoria(){
+	public CategoriaInstrumento(){
 		
 	}
 	
-	public Categoria(String nome, Produto produto) {
+	public CategoriaInstrumento(String nome, Produto produto) {
 		super();
 		this.nome = nome;
 //		this.produto = produto;

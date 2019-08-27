@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
-import br.com.musicianapp.domain.Telefone;
 
 @CrossOrigin
 @RestController
@@ -56,8 +55,9 @@ public class PessoaController {
 	
 	@PutMapping("{id}")
 	public EntidadeDominio alterarPessoa(@PathVariable int id, @RequestBody Pessoa pessoa) {
-		pessoa.setId(id);
-		return this.facade.alterar(pessoa);
+//		pessoa.setId(id);
+//		return this.facade.alterar(pessoa);
+		return null;
 	}
 	
 	@DeleteMapping("{id}")

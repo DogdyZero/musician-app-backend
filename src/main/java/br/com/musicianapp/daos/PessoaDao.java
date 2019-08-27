@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
-import br.com.musicianapp.domain.Usuario;
 import br.com.musicianapp.repository.PessoaRepository;
 
 @Service
@@ -28,10 +27,11 @@ public class PessoaDao extends AbstractDao {
 	}
 	
 	@Override
-	public void salvar(EntidadeDominio entidade) {
+	public EntidadeDominio salvar(EntidadeDominio entidade) {
 		Pessoa pessoa = convertClass(entidade);
 		if(pessoa!=null)
-		pessoaRepository.save(pessoa);
+			return pessoaRepository.save(pessoa);
+		return null;
 	}
 
 	@Override
