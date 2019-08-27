@@ -53,16 +53,20 @@ public class Pessoa extends EntidadeDominio{
 	@JoinColumn(name="pes_id")
 	private Set<Endereco> endereco;
 	
+	@Column(name="pes_genero")
+	private String genero;
+	
 	public Pessoa() {
 		
 	}
-	public Pessoa(String nome, Usuario usuario, String cpf, String rg, Date dataAniversario) {
+	public Pessoa(String nome, Usuario usuario, String cpf, String rg, Date dataAniversario, String genero) {
 		super();
 		this.nome = nome;
 //		this.usuario = usuario;
 		this.cpf = cpf;
 		this.rg = rg;
 //		this.dataAniversario = dataAniversario;
+		this.genero = genero;
 	}
 	
 	public int getId() {
@@ -119,6 +123,13 @@ public class Pessoa extends EntidadeDominio{
 	public void setEndereco(Set<Endereco> enderecos) {
 		this.endereco = enderecos;
 	}
+	public String getGenero() {
+		return genero;
+	}
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+	
 	
 	
 }

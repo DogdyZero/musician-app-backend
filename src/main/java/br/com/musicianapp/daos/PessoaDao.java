@@ -74,6 +74,7 @@ public class PessoaDao extends AbstractDao {
 		}
 		return entidades;
 	}
+	
 	private List<EntidadeDominio> consultaId(Pessoa pessoa){
 		Optional<Pessoa> optionalPessoa = pessoaRepository.findById(pessoa.getId());
 		pessoa = optionalPessoa.get();
