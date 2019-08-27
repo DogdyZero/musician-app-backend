@@ -28,6 +28,7 @@ import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.domain.Usuario;
 import br.com.musicianapp.impl.IStyleQuery;
+import br.com.musicianapp.impl.Resultado;
 
 @Service
 public class Facade implements IFacade,IStyleQuery{
@@ -50,10 +51,11 @@ public class Facade implements IFacade,IStyleQuery{
 	private Map<String, Map<String,List<IStrategy>>> rns;
 	private String parametro;
 	private StringBuilder sb;
-	
+	private Resultado resultado;
 	private final String SALVAR= "SALVAR";
 	
 	private void startMaps() {
+		resultado = new Resultado();
 		sb = new StringBuilder();
 		daos = new HashMap<String, IDAO>();
 		rns = new HashMap<String, Map<String,List<IStrategy>>>();
@@ -72,11 +74,11 @@ public class Facade implements IFacade,IStyleQuery{
 		Map<String, List<IStrategy>> rnsCliente = new HashMap<String,List<IStrategy>>();
 		
 		List<IStrategy> rnSalvar = new ArrayList<IStrategy>();
-//		rnSalvar.add(completarDataCadastro);
+		rnSalvar.add(completarDataCadastro);
 //		rnSalvar.add(validarExistencia);
-//		rnSalvar.add(validarCpf);
-//		rnSalvar.add(validarSenha);
-//		rnSalvar.add(validarTelefone);
+		rnSalvar.add(validarCpf);
+		rnSalvar.add(validarSenha);
+		rnSalvar.add(validarTelefone);
 		rnsCliente.put(SALVAR,rnSalvar);
 		
 		rns.put(Pessoa.class.getName(), rnsCliente);		
@@ -93,30 +95,28 @@ public class Facade implements IFacade,IStyleQuery{
 		return this.dao;
 	}
 	@Override
-	public void salvar(EntidadeDominio entidade) {
+	public Resultado salvar(EntidadeDominio entidade) {
 		getDaoInstance(entidade);
 		// aplicar regras
-//		Map<String,List<IStrategy>> rn = rns.get(entidade.getClass().getName());
-//		
-//		List<IStrategy> regras = rn.get(SALVAR);
-//		if(regras!=null) {
-//			for (IStrategy strategies :regras) {
-//				String msg= strategies.processar(entidade);
-//				if (msg!=null) {
-//					sb.append(msg + "\n");
-//					System.out.println(msg);
-//				}
-//			}
-//		}
-//		if(sb.length() < 0 ){
-			this.dao.salvar(entidade);
-//		}
+		
+		String r  = executarRegras(entidade,SALVAR);
+		if(r.length() < 0 || r==null){
+			entidade = this.dao.salvar(entidade);
+			if(entidade!=null) {
+				resultado.addEntidadeList(entidade);
+			}
+			resultado.setResultado("Erro ao salvar informação no banco de dados!");
+			
+		}
+		resultado.setResultado(r);
+		return resultado;
 
 	}
 
 	@Override
-	public EntidadeDominio alterar(EntidadeDominio entidade) {
-		return getDaoInstance(entidade).alterar(entidade);
+	public Resultado alterar(EntidadeDominio entidade) {
+		getDaoInstance(entidade).alterar(entidade);
+		return null;
 	}
 
 	@Override
@@ -125,10 +125,26 @@ public class Facade implements IFacade,IStyleQuery{
 	}
 
 	@Override
-	public void apagar(EntidadeDominio entidade) {
+	public Resultado apagar(EntidadeDominio entidade) {
 		getDaoInstance(entidade).apagar(entidade);
+		return null;
 
 	}
+	
+	private String executarRegras(EntidadeDominio entidade, String regra) {
+		Map<String,List<IStrategy>> rn = rns.get(entidade.getClass().getName());
+		List<IStrategy> regras = rn.get(regra);
+		if(regras!=null) {
+			for (IStrategy strategies :regras) {
+				String msg= strategies.processar(entidade);
+				if (msg!=null) {
+					sb.append(msg + "\n");
+				}
+			}
+		}
+		return sb.toString();
+	}
+	
 	@Override
 	public String getParametro() {
 		AbstractDao absDao = (AbstractDao)dao;

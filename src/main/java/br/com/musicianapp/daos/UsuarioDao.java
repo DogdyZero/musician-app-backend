@@ -20,8 +20,8 @@ public class UsuarioDao extends AbstractDao {
 	private UsuarioRepository usuarioRepository;
 	
 	@Override
-	public void salvar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
+	public EntidadeDominio salvar(EntidadeDominio entidade) {
+		return null;
 	}
 
 	@Override

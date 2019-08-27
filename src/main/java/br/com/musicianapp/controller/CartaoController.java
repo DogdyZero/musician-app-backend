@@ -29,11 +29,14 @@ public class CartaoController {
 	@CrossOrigin
 	@PostMapping
 	public Cartao salvarCartao(@RequestBody Cartao cartao){
-		EntidadeDominio e = facade.salvar(cartao);
-		if(e!=null)
-			return (Cartao) e;
-		else 
-			return null;
+//		EntidadeDominio e = facade.salvar(cartao);
+//		
+		
+//		if(e!=null)
+//			return (Cartao) e;
+//		else 
+//			return null;
+		return null;
 	}
 	
 	@PutMapping
