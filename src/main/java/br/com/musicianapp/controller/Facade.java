@@ -72,11 +72,11 @@ public class Facade implements IFacade,IStyleQuery{
 		Map<String, List<IStrategy>> rnsCliente = new HashMap<String,List<IStrategy>>();
 		
 		List<IStrategy> rnSalvar = new ArrayList<IStrategy>();
-		rnSalvar.add(completarDataCadastro);
+//		rnSalvar.add(completarDataCadastro);
 //		rnSalvar.add(validarExistencia);
-		rnSalvar.add(validarCpf);
-		rnSalvar.add(validarSenha);
-		rnSalvar.add(validarTelefone);
+//		rnSalvar.add(validarCpf);
+//		rnSalvar.add(validarSenha);
+//		rnSalvar.add(validarTelefone);
 		rnsCliente.put(SALVAR,rnSalvar);
 		
 		rns.put(Pessoa.class.getName(), rnsCliente);		
@@ -93,24 +93,25 @@ public class Facade implements IFacade,IStyleQuery{
 		return this.dao;
 	}
 	@Override
-	public EntidadeDominio salvar(EntidadeDominio entidade) {
+	public void salvar(EntidadeDominio entidade) {
 		getDaoInstance(entidade);
 		// aplicar regras
-		Map<String,List<IStrategy>> rn = rns.get(entidade.getClass().getName());
-		
-		List<IStrategy> regras = rn.get(SALVAR);
-		if(regras!=null) {
-			for (IStrategy strategies :regras) {
-				String msg= strategies.processar(entidade);
-				if (msg!=null) {
-					sb.append(msg + "\n");
-				}
-			}
-		}
-		if(sb==null)
-			entidade = this.dao.salvar(entidade);
-		
-		return null;
+//		Map<String,List<IStrategy>> rn = rns.get(entidade.getClass().getName());
+//		
+//		List<IStrategy> regras = rn.get(SALVAR);
+//		if(regras!=null) {
+//			for (IStrategy strategies :regras) {
+//				String msg= strategies.processar(entidade);
+//				if (msg!=null) {
+//					sb.append(msg + "\n");
+//					System.out.println(msg);
+//				}
+//			}
+//		}
+//		if(sb.length() < 0 ){
+			this.dao.salvar(entidade);
+//		}
+
 	}
 
 	@Override

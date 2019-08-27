@@ -19,12 +19,19 @@ public class ValidarTelefone implements IStrategy {
 		StringBuilder st = new StringBuilder();
 		
 		for(Telefone tel : telefones){
-		if(tel.getNumero().length() < 8)
+		if(tel.getNumero().length() < 9)
 			st.append("Número de telefone inválido \n");
 		if(tel.getDdd().length() < 2)
 			st.append("DDD inválido \n");
+		
 		}
-		return st.toString();
+		if(st == null){
+			return null;
+		}else{
+			return "erro telefone";
+		}
+		
+		
 	}
 
 }

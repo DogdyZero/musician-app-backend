@@ -14,15 +14,14 @@ import br.com.musicianapp.repository.UsuarioRepository;
 @Service
 public class UsuarioDao extends AbstractDao {
 	private final String CLASSE = Usuario.class.getName();
-	List<EntidadeDominio> entidades;;
+	List<EntidadeDominio> entidades;
 
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
 	@Override
-	public EntidadeDominio salvar(EntidadeDominio entidade) {
+	public void salvar(EntidadeDominio entidade) {
 		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -44,6 +43,9 @@ public class UsuarioDao extends AbstractDao {
 			} else if(parametro.equals("login")) {
 				parametro=null;
 				return validarAcesso(usuario);
+			} else if(parametro.equals("all")){
+				parametro = null;
+				return consultarTodos();
 			}
 		}
 		return null;
@@ -63,11 +65,19 @@ public class UsuarioDao extends AbstractDao {
 		System.out.println("Resultado: " + usuario.getLogin());
 		return entidades;
 	}
+	
+	private List<EntidadeDominio> consultarTodos(){
+		List<Usuario> usuarios = usuarioRepository.findAll();
+		for (Usuario user : usuarios) {
+			entidades.add(user);
+		}
+		return entidades;
+	}
 
 	@Override
 	public void apagar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-
+		Usuario user = (Usuario) entidade;
+		usuarioRepository.deleteById(user.getId());
 	}
 
 }
