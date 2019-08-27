@@ -18,7 +18,7 @@ public abstract class AbstractDao implements IDAO, IStyleQuery {
 	}
 
 	@Override
-	public abstract void salvar(EntidadeDominio entidade) ;
+	public abstract EntidadeDominio salvar(EntidadeDominio entidade) ;
 
 	@Override
 	public abstract EntidadeDominio alterar(EntidadeDominio entidade);

@@ -30,10 +30,10 @@ public class EnderecoController {
 	@CrossOrigin
 	@PostMapping
 	public Endereco salvarEndereco(@RequestBody Endereco endereco){
-		EntidadeDominio e = facade.salvar(endereco);
-		if(e!=null)
-			return (Endereco) e;
-		else 
+//		EntidadeDominio e = facade.salvar(endereco);
+//		if(e!=null)
+//			return (Endereco) e;
+//		else 
 			return null;
 	}
 	

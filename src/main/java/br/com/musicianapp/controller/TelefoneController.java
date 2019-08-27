@@ -28,10 +28,10 @@ public class TelefoneController {
 	
 	@PostMapping
 	public Telefone salvarTelefone(@RequestBody Telefone telefone){
-		EntidadeDominio e = facade.salvar(telefone);
-		if(e!=null)
-			return (Telefone) e;
-		else 
+//		EntidadeDominio e = facade.salvar(telefone);
+//		if(e!=null)
+//			return (Telefone) e;
+//		else 
 			return null;
 	}
 	

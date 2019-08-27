@@ -58,7 +58,7 @@ public class Produto extends EntidadeDominio {
 
 	public Produto(String nome, String modelo, Date ano, String marca,
 			String pathImage, String descricao, int quantidade,
-			Categoria categoriaProduto) {
+			CategoriaInstrumento categoriaProduto) {
 		super();
 		this.nome = nome;
 		this.modelo = modelo;
