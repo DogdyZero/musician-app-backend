@@ -26,6 +26,9 @@ public class Endereco  extends EntidadeDominio{
 	@Column(name="end_tipo")
 	private String tipoLogradouro;
 	
+	@Column(name="end_apelido")
+	private String apelidoEndereco;
+	
 	@Column(name="end_logradouro")
 	private String logradouro;
 	

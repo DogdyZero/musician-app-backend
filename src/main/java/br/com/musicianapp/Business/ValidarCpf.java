@@ -59,7 +59,6 @@ public class ValidarCpf implements IStrategy {
 			resultado = 0;
 			peso = 11;
 			for (i = 0; i < 13; i++, peso--) {
-				System.out.println(vetorCPF[i]);
 				// pular pontos e tra�o
 				// 1 2 3 . 4 5 6 . 7 8 9 - 0 9
 				// 0 1 2 3 4 5 6 7 8 9 10 11 12 13

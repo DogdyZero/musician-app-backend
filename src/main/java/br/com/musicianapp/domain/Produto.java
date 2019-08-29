@@ -9,8 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.springframework.stereotype.Component;
+
+import br.com.musicianapp.Enum.Status;
 
 @Entity @Component
 public class Produto extends EntidadeDominio {
@@ -48,9 +51,14 @@ public class Produto extends EntidadeDominio {
 	@JoinColumn(name="prod_ped_id")
 	private Pedido pedido;
 	
-//	@OneToOne
-//	@JoinColumn(name="prod_categoria_id")
-//	private Categoria categoriaProduto;
+	@OneToOne
+	@JoinColumn(name="prod_categoria_id")
+	private Categoria categoriaProduto;
+	
+	@Column(name="prod_status")
+	private Status status;
+	
+	private String dimensao;
 	
 	public Produto(){
 		
@@ -58,7 +66,7 @@ public class Produto extends EntidadeDominio {
 
 	public Produto(String nome, String modelo, Date ano, String marca,
 			String pathImage, String descricao, int quantidade,
-			CategoriaInstrumento categoriaProduto) {
+			Categoria categoriaProduto) {
 		super();
 		this.nome = nome;
 		this.modelo = modelo;
@@ -134,14 +142,6 @@ public class Produto extends EntidadeDominio {
 		this.quantidade = quantidade;
 	}
 
-//	public Categoria getCategoriaProduto() {
-//		return categoriaProduto;
-//	}
-//
-//	public void setCategoriaProduto(Categoria categoriaProduto) {
-//		this.categoriaProduto = categoriaProduto;
-//	}
-
 	public String getEan() {
 		return ean;
 	}
@@ -149,4 +149,37 @@ public class Produto extends EntidadeDominio {
 	public void setEan(String ean) {
 		this.ean = ean;
 	}	
+	public Pedido getPedido() {
+		return pedido;
+	}
+	
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
+	}
+
+	public Categoria getCategoriaProduto() {
+		return categoriaProduto;
+	}
+
+	public void setCategoriaProduto(Categoria categoriaProduto) {
+		this.categoriaProduto = categoriaProduto;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public String getDimensao() {
+		return dimensao;
+	}
+
+	public void setDimensao(String dimensao) {
+		this.dimensao = dimensao;
+	}
+	
+	
 }

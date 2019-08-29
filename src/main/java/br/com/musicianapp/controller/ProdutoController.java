@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.Produto;
-import br.com.musicianapp.repository.ProdutoRepository;
+import br.com.musicianapp.impl.Resultado;
 
 
 @RestController
@@ -19,11 +20,11 @@ import br.com.musicianapp.repository.ProdutoRepository;
 public class ProdutoController {
 	
 	@Autowired
-	private ProdutoRepository pRepository;
+	private Facade facade;
 	
 	@GetMapping
 	public List<Produto> consultarProdutos(){
-		return pRepository.findAll();
+		return null;
 	}
 	
 	@PostMapping
@@ -31,8 +32,15 @@ public class ProdutoController {
 		
 	}
 	
-	@PutMapping
-	public Produto alterarProduto(){
+	@PutMapping("{id}")
+	public Object alterarProduto(@RequestBody Produto produto, int id){
+		produto.setId(id);
+		Resultado resultado = this.facade.alterar(produto);
+		
+		if(resultado!=null) {
+			return resultado;
+		}
+		
 		return null;
 	}
 	

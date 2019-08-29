@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.musicianapp.domain.CategoriaInstrumento;
+import br.com.musicianapp.domain.Categoria;
 import br.com.musicianapp.repository.CategoriaRepository;
 
 @RestController
@@ -21,7 +21,7 @@ public class CategoriaController {
 	private CategoriaRepository categoriaRepository;
 	
 	@GetMapping
-	public List<CategoriaInstrumento> consultarCategoria(){
+	public List<Categoria> consultarCategoria(){
 		return categoriaRepository.findAll();
 	}
 	
@@ -31,7 +31,7 @@ public class CategoriaController {
 	}
 	
 	@PutMapping
-	public CategoriaInstrumento alterarCategoria(){
+	public Categoria alterarCategoria(){
 		return null;
 	}
 	
