@@ -7,6 +7,8 @@ import javax.persistence.Id;
 
 import org.springframework.stereotype.Component;
 
+import br.com.musicianapp.Enum.OrigemCupom;
+
 @Entity
 @Component
 public class Cupom extends EntidadeDominio{
@@ -17,6 +19,9 @@ public class Cupom extends EntidadeDominio{
 	
 	@Column(name="cupom_codigo")
 	private String codigo;
+	
+	@Column(name="origem_cupom")
+	private OrigemCupom origemCupom;
 	
 	@Column(name="cupom_valor")
 	private double  valor;

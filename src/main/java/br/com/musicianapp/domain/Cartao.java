@@ -33,6 +33,9 @@ public class Cartao extends EntidadeDominio{
 	@Column(name="car_bandeira")
 	private Bandeira bandeira;
 	
+	@Column(name="car_preferencial")
+	private boolean preferencial;
+	
 	public Cartao() {
 	}
 	public Cartao(String nomeCartao, String numeroCartao, String validade, int codSeguranca, Bandeira bandeira) {

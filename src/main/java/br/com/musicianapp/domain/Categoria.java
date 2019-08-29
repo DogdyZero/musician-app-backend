@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-public class CategoriaInstrumento extends EntidadeDominio {
+public class Categoria extends EntidadeDominio {
 	
 	@Id
 	@GeneratedValue
@@ -21,11 +21,11 @@ public class CategoriaInstrumento extends EntidadeDominio {
 	//@OneToMany(mappedBy="categoriaProduto",targetEntity=Produto.class)
 //	private Produto produto;
 	
-	public CategoriaInstrumento(){
+	public Categoria(){
 		
 	}
 	
-	public CategoriaInstrumento(String nome, Produto produto) {
+	public Categoria(String nome, Produto produto) {
 		super();
 		this.nome = nome;
 //		this.produto = produto;
