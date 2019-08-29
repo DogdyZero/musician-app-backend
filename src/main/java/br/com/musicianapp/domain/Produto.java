@@ -60,6 +60,8 @@ public class Produto extends EntidadeDominio {
 	
 	private String dimensao;
 	
+	private String codigoBarras;
+	
 	public Produto(){
 		
 	}

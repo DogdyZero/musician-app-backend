@@ -18,5 +18,6 @@ public class Estoque {
 	
 	private Date dataVenda;
 	
+	private String fonecedor;
 	
 }

@@ -53,6 +53,9 @@ public class Pessoa extends EntidadeDominio{
 	@JoinColumn(name="pes_id")
 	private Set<Endereco> endereco;
 	
+	private String email;
+	
+	
 	public Pessoa() {
 		
 	}
