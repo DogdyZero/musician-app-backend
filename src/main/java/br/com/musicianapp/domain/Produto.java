@@ -10,16 +10,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 import br.com.musicianapp.Enum.Status;
 
 @Entity @Component
+@SequenceGenerator(name="produto_generator", sequenceName = "produto_seq", allocationSize=50,initialValue=1)
 public class Produto extends EntidadeDominio {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_generator")
 	@Column(name="prod_id")
 	private int id;
 	
@@ -58,8 +60,10 @@ public class Produto extends EntidadeDominio {
 	@Column(name="prod_status")
 	private Status status;
 	
+	@Column(name="prod_dimensao")
 	private String dimensao;
 	
+	@Column(name="prod_cod_barras")
 	private String codigoBarras;
 	
 	public Produto(){
@@ -182,6 +186,15 @@ public class Produto extends EntidadeDominio {
 	public void setDimensao(String dimensao) {
 		this.dimensao = dimensao;
 	}
+
+	public String getCodigoBarras() {
+		return codigoBarras;
+	}
+
+	public void setCodigoBarras(String codigoBarras) {
+		this.codigoBarras = codigoBarras;
+	}
+	
 	
 	
 }

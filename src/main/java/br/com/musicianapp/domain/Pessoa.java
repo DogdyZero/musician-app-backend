@@ -53,6 +53,7 @@ public class Pessoa extends EntidadeDominio{
 	@JoinColumn(name="pes_id")
 	private Set<Endereco> endereco;
 	
+	@Column(name="pes_email")
 	private String email;
 	
 	
@@ -122,6 +123,13 @@ public class Pessoa extends EntidadeDominio{
 	public void setEndereco(Set<Endereco> enderecos) {
 		this.endereco = enderecos;
 	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 	
 	
 }

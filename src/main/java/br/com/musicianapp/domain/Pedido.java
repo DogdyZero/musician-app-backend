@@ -7,10 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
@@ -18,18 +20,21 @@ import br.com.musicianapp.Enum.StatusPedido;
 
 @Entity
 @Component
+@SequenceGenerator(name="pedido_generator", sequenceName = "pedido_seq", allocationSize=50,initialValue=1)
 public class Pedido extends EntidadeDominio{
 
 	@Id
-	@GeneratedValue
+	@Column(name="ped_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_generator")
 	private int id;
 	
 	@OneToOne
-	@JoinColumn(name="ped_pes_id")
+	@JoinColumn(name="ped_id")
 	private Pessoa cliente;
 	
-	@OneToMany(mappedBy="pedido",fetch=FetchType.LAZY)
-	private List<Produto> produtos;
+	@OneToMany
+	@JoinColumn(name="ped_id")
+	private List<ItemProduto> itemProduto;
 	
 	@Column(name="ped_frete")
 	private double frete;
@@ -71,14 +76,6 @@ public class Pedido extends EntidadeDominio{
 		this.cliente = cliente;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
-	}
-
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
-	}
-
 	public double getFrete() {
 		return frete;
 	}
@@ -110,6 +107,15 @@ public class Pedido extends EntidadeDominio{
 	public void setStatus(StatusPedido status) {
 		this.status = status;
 	}
+
+	public List<ItemProduto> getItemProduto() {
+		return itemProduto;
+	}
+
+	public void setItemProduto(List<ItemProduto> itemProduto) {
+		this.itemProduto = itemProduto;
+	}
+	
 	
 		
 }
