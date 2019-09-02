@@ -45,7 +45,34 @@ public class Facade implements IFacade,IStyleQuery{
 	@Autowired private ValidarSenha validarSenha;
 	@Autowired private ValidarTelefone validarTelefone;
 	
-	
+	/*
+	 * ELABORAR PRINCIPAIS REGRAS DE NEGOCIO
+	 * 1 - VALIDAR O CPF
+	 * 2 - VALIDAR O CODIGO DO PRODUTO
+	 * 3 - VALIDAR SE O PRODUTO JÁ ESTA CADASTRADO
+	 * 4 - CADASTRAR SENHA FORTE
+	 * 5 - VALIDAR SE O CARTÃO DE CRÉDITO JÁ NÃO FOI CADASTRADO
+	 * 6 - VALIDAR A QUANTIDADE DE DIGITOS DO TELEFONE
+	 * 7 - VALIDAR SE O CEP ESTA CORRETO
+	 * 8 - CADASTRAR O PRIMEIRO CARTÃO COMO PREFERENCIAL
+	 * 9 - NÃO PERMITIR PAGAMETNOS ABAIXO DE 10,00
+	 * 10 - VALIDAR SE O PRODUTO DEVOLVIDO ESTA EM CONDIÇÕES DE VENDA E RETORNA-LO PARA O ESTOQUE
+	 * 11 - VALIDAR SE O USUARIO JÁ NÃO FOI CADASTRADO
+	 * 12 - VALIDAR SE O USUARIO ESTA ATIVO AO FAZER LOGIN
+	 * 13 - VALIDAR SE O PRODUTO ESTA DISPONIVEL PARA VENDA ANTES DE FINALIZAR A COMPRA
+	 * 14 - VALIDAR SE TODO O PAGAMENTO FOI EFETUADO PARA LIBERAR PARA VENDA
+	 * 15 - REGRAS DE GERENCIALMENTO E MUDANÇA DE STATUS DO PRODUTO PELO ADMISTRADOR
+	 * 16 - NÃO PERMITIR VENDAS EFETUADAS ACIMA DA QUANTIDADE DE ESTOQUE
+	 * 17 - CLIENTE PODE USAR UM CUPOM DE TROCA OU UM PROMOCIONAL
+	 * 18 - GERAR CUPONS APÓS TROCA DO PRODUTO
+	 * 19 - UM PRODUTO SÓ PODE TER O SEU VALOR ALTERADO SE TIVER DENTRO DA MARGEM DE LUCRO
+	 * 20 - HISTORICO DE MUDANÇA DO PRODUTO A CADA TRANSACAO (COMPRA, VENDA, TROCA, ATIVAÇÃO, INATIVAÇÃO, ADICIONADA AO CARRINHO)
+	 * 21 - O PRIMEIRO ENDEREÇO DEVE SER O ENDEREÇO DE COBRANÇA
+	 * 22 - CRIAR REGRAS PARA RANKING DO CLIENTE (PONTUAÇÃO
+	 * 23 - SOMENTE UM CUPOM PROMOCIONAL PODE SER USADO POR VEZ
+	 * 24 - NÃO DEVERÁ SER ACEITO VENDAS COM VALOR INFERIOR A 10,00, SOMENTE SERÁ LIBERADO SE O CLIENTE USAR CUPOM
+	 * 
+	 */
 	private IDAO dao;
 	private Map<String,IDAO> daos;
 	private Map<String, Map<String,List<IStrategy>>> rns;
@@ -60,6 +87,7 @@ public class Facade implements IFacade,IStyleQuery{
 		daos = new HashMap<String, IDAO>();
 		rns = new HashMap<String, Map<String,List<IStrategy>>>();
 
+		
 		daos.put(Pessoa.class.getName(), pessoaDao);
 		daos.put(Telefone.class.getName(), telefoneDao);
 		daos.put(Cartao.class.getName(), cartaoDao);
@@ -76,9 +104,9 @@ public class Facade implements IFacade,IStyleQuery{
 		List<IStrategy> rnSalvar = new ArrayList<IStrategy>();
 		rnSalvar.add(completarDataCadastro);
 //		rnSalvar.add(validarExistencia);
-		rnSalvar.add(validarCpf);
-		rnSalvar.add(validarSenha);
-		rnSalvar.add(validarTelefone);
+//		rnSalvar.add(validarCpf);
+//		rnSalvar.add(validarSenha);
+//		rnSalvar.add(validarTelefone);
 		rnsCliente.put(SALVAR,rnSalvar);
 		
 		rns.put(Pessoa.class.getName(), rnsCliente);		
@@ -100,7 +128,7 @@ public class Facade implements IFacade,IStyleQuery{
 		// aplicar regras
 		
 		String r  = executarRegras(entidade,SALVAR);
-		if(r.length() < 0 || r==null){
+		if(r.length() < 1 || r==null){
 			entidade = this.dao.salvar(entidade);
 			if(entidade!=null) {
 				resultado.addEntidadeList(entidade);

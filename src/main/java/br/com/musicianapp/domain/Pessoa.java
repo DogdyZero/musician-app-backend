@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -41,20 +42,17 @@ public class Pessoa extends EntidadeDominio{
 	private String rg;
 //	private Date dataAniversario;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
-	@JoinColumn(name="pes_id")
+	@OneToMany(cascade= { CascadeType.MERGE}, fetch=FetchType.EAGER, orphanRemoval=true)
+	@JoinColumn(name="pes_tel_id")
 	private Set<Telefone> telefone;
 
-	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@OneToMany(cascade= {CascadeType.PERSIST, CascadeType.DETACH}, fetch=FetchType.EAGER)
 	@JoinColumn(name="pes_id")
 	private Set<Cartao> cartao;
 
-	@OneToMany(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
+	@OneToMany(cascade= {CascadeType.PERSIST, CascadeType.DETACH}, fetch=FetchType.EAGER)
 	@JoinColumn(name="pes_id")
 	private Set<Endereco> endereco;
-	
-	@Column(name="pes_genero")
-	private String genero;
 	
 	public Pessoa() {
 		
@@ -123,11 +121,7 @@ public class Pessoa extends EntidadeDominio{
 	public void setEndereco(Set<Endereco> enderecos) {
 		this.endereco = enderecos;
 	}
-	public String getGenero() {
-		return genero;
-	}
-	public void setGenero(String genero) {
-		this.genero = genero;
+
 	}
 	
 	
