@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.EntidadeDominio;
@@ -36,6 +37,30 @@ public class PessoaController {
 		Pessoa pessoa = (Pessoa) entidades.get(0);
 		return pessoa;	
 	}
+	@GetMapping("/buscarNome")
+	public List<Pessoa> buscarPorNome(@RequestParam String nome){
+		facade.setParametro("nome");
+		pessoa.setNome(nome);
+		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		for (EntidadeDominio ent : entidades) {
+			
+			pessoas.add((Pessoa)ent);
+		}
+		return pessoas;	
+	}
+	@GetMapping("/buscarCpf")
+	public List<Pessoa> buscarPorCpf(@RequestParam String cpf){
+		facade.setParametro("cpf");
+		pessoa.setCpf(cpf);
+		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
+		List<Pessoa> pessoas = new ArrayList<Pessoa>();
+		for (EntidadeDominio ent : entidades) {
+			
+			pessoas.add((Pessoa)ent);
+		}
+		return pessoas;	
+	}
 	
 	@GetMapping()
 	public List<Pessoa> consultarPessoa(){
@@ -49,14 +74,17 @@ public class PessoaController {
 		return pessoas;		
 	}
 	@PostMapping
-	public void salvarPessoa(@RequestBody Pessoa pessoa) {
+	public Object salvarPessoa(@RequestBody Pessoa pessoa) {
 		facade.salvar(pessoa);
+		return null; 
 	}
 	
 	@PutMapping("{id}")
-	public EntidadeDominio alterarPessoa(@PathVariable int id, @RequestBody Pessoa pessoa) {
-//		pessoa.setId(id);
-//		return this.facade.alterar(pessoa);
+	public Object alterarPessoa(@PathVariable int id, @RequestBody Pessoa pessoa) {
+		pessoa.setId(id);
+//		this.pessoa.setNome(pessoa.getNome());
+//		this.pessoa.setCpf(pessoa.getCpf());
+		this.facade.alterar(pessoa);
 		return null;
 	}
 	

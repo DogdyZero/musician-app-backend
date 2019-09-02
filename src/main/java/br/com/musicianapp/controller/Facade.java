@@ -104,9 +104,9 @@ public class Facade implements IFacade,IStyleQuery{
 		List<IStrategy> rnSalvar = new ArrayList<IStrategy>();
 		rnSalvar.add(completarDataCadastro);
 //		rnSalvar.add(validarExistencia);
-		rnSalvar.add(validarCpf);
-		rnSalvar.add(validarSenha);
-		rnSalvar.add(validarTelefone);
+//		rnSalvar.add(validarCpf);
+//		rnSalvar.add(validarSenha);
+//		rnSalvar.add(validarTelefone);
 		rnsCliente.put(SALVAR,rnSalvar);
 		
 		rns.put(Pessoa.class.getName(), rnsCliente);		
@@ -128,7 +128,7 @@ public class Facade implements IFacade,IStyleQuery{
 		// aplicar regras
 		
 		String r  = executarRegras(entidade,SALVAR);
-		if(r.length() < 0 || r==null){
+		if(r.length() < 1 || r==null){
 			entidade = this.dao.salvar(entidade);
 			if(entidade!=null) {
 				resultado.addEntidadeList(entidade);
