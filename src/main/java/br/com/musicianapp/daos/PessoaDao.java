@@ -1,8 +1,10 @@
 package br.com.musicianapp.daos;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,21 +13,32 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.musicianapp.Enum.Status;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
+import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.repository.PessoaRepository;
+import br.com.musicianapp.repository.TelefoneRepository;
 
-@Service
+@Service 
+//@Transactional
 public class PessoaDao extends AbstractDao {
 	private final String CLASSE = Pessoa.class.getName();
+	
 	List<EntidadeDominio> entidades;
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	
+	@Autowired
+	private Pessoa copyPessoa;
+	private Optional<Pessoa> optPessoa;
+	@Autowired private TelefoneRepository telefoneRepository;
 	
 	private Pessoa convertClass(EntidadeDominio entidade) {
 		if(entidade.getClass().getName().equals(CLASSE)) {
@@ -36,17 +49,63 @@ public class PessoaDao extends AbstractDao {
 	
 	@Override
 	public EntidadeDominio salvar(EntidadeDominio entidade) {
+		
 		Pessoa pessoa = convertClass(entidade);
-		if(pessoa!=null)
-			return pessoaRepository.save(pessoa);
+		if(pessoa!=null) {
+			optPessoa = pessoaRepository.findById(pessoa.getId());
+			Pessoa pes = optPessoa.get();
+			Set<Telefone> telefones = pes.getTelefone(); // telefone banco
+			
+			Set<Telefone> telCopy = pessoa.getTelefone(); // telefone memória
+			
+			Set<Telefone> novoTel = new HashSet<Telefone>();
+			for (Telefone t : telefones) {
+				for(Telefone tMemory : telCopy) {
+					if(!t.getNumero().equals(tMemory.getNumero())) {
+						t.setNumero(tMemory.getNumero());
+						novoTel.add(t);
+					}
+
+				}
+			}
+			pes.setTelefone(novoTel);
+			em.merge(pes);
+
+//			em.persist(pessoa);
+			
+			pessoa = pessoaRepository.save(pessoa);
+
+		}
+			
 		return null;
 	}
 
 	@Override
 	public EntidadeDominio alterar(EntidadeDominio entidade) {
 		Pessoa pessoa = convertClass(entidade);
-		if(pessoa!=null)
-			return pessoaRepository.saveAndFlush(pessoa);
+		
+		if(pessoa!=null) {
+			optPessoa = pessoaRepository.findById(pessoa.getId());
+			Pessoa pesBD = optPessoa.get();
+			
+			Set<Telefone> saveTel = new HashSet<Telefone>();
+			for(Telefone telBD: pesBD.getTelefone()) {
+				for(Telefone telMem: pessoa.getTelefone()) {
+					if(telMem.getNumero().equals(telBD.getNumero()) &&
+							telMem.getStatus().equals(Status.INATIVO)){
+						telBD.setStatus(Status.INATIVO);
+					} else {
+						telBD.setStatus(Status.ATIVO);
+					}
+					saveTel.add(telBD);
+				}
+			}
+			
+			pesBD.setTelefone(saveTel);
+			pessoaRepository.save(pesBD);
+
+		}
+		
 		return null;	
 		}
 

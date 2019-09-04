@@ -3,6 +3,8 @@ package br.com.musicianapp.domain;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
+
+import br.com.musicianapp.Enum.Status;
 
 @Entity @Component
 @SequenceGenerator(name="telefone_generator", sequenceName = "telefone_seq", allocationSize=50,initialValue=1)
@@ -27,9 +31,12 @@ public class Telefone  extends EntidadeDominio{
 	@Column(name="tel_numero")
 	private String numero;
 	
-	@ManyToOne(cascade=CascadeType.MERGE)
-	@JoinColumn(name="pes_tel_id")
+	@ManyToOne
 	private Pessoa pessoa;
+	
+	@Enumerated(EnumType.STRING)
+	private Status status;
+	
 	
 	public Telefone() {
 		
@@ -67,6 +74,16 @@ public class Telefone  extends EntidadeDominio{
 	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+	
 	
 	
 }

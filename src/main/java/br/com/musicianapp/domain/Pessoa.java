@@ -11,10 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -42,8 +43,10 @@ public class Pessoa extends EntidadeDominio{
 	private String rg;
 //	private Date dataAniversario;
 	
-	@OneToMany(cascade= { CascadeType.MERGE}, fetch=FetchType.EAGER, orphanRemoval=true)
-	@JoinColumn(name="pes_tel_id")
+//	@OneToMany(cascade=CascadeType.MERGE, fetch=FetchType.EAGER, orphanRemoval=true)
+	@JoinColumn(name="pes_id")
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+//	@MapKey(name="pessoa_pes_id")
 	private Set<Telefone> telefone;
 
 	@OneToMany(cascade= {CascadeType.PERSIST, CascadeType.DETACH}, fetch=FetchType.EAGER)
