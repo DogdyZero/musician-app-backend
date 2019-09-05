@@ -25,6 +25,9 @@ public class Produto extends EntidadeDominio {
 	@Column(name="prod_id")
 	private int id;
 	
+	@Column(name="prod_preco")
+	private double preco;
+	
 	@Column(name="prod_ean")
 	private String ean;
 	
@@ -70,11 +73,12 @@ public class Produto extends EntidadeDominio {
 		
 	}
 
-	public Produto(String nome, String modelo, Date ano, String marca,
+	public Produto(String nome,double preco, String modelo, Date ano, String marca,
 			String pathImage, String descricao, int quantidade,
 			Categoria categoriaProduto) {
 		super();
 		this.nome = nome;
+		this.preco = preco;
 		this.modelo = modelo;
 		this.ano = ano;
 		this.marca = marca;
@@ -90,6 +94,14 @@ public class Produto extends EntidadeDominio {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(double preco) {
+		this.preco = preco;
 	}
 
 	public String getNome() {
