@@ -19,12 +19,14 @@ import br.com.musicianapp.daos.CartaoDao;
 import br.com.musicianapp.daos.EnderecoDao;
 import br.com.musicianapp.daos.IDAO;
 import br.com.musicianapp.daos.PessoaDao;
+import br.com.musicianapp.daos.ProdutoDao;
 import br.com.musicianapp.daos.TelefoneDao;
 import br.com.musicianapp.daos.UsuarioDao;
 import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
+import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.domain.Usuario;
 import br.com.musicianapp.impl.IStyleQuery;
@@ -38,6 +40,7 @@ public class Facade implements IFacade,IStyleQuery{
 	@Autowired private CartaoDao cartaoDao;
 	@Autowired private EnderecoDao enderecoDao;
 	@Autowired private UsuarioDao usuarioDao;
+	@Autowired private ProdutoDao produtoDao;
 	
 	@Autowired private CompletarDataCadastro completarDataCadastro;
 	@Autowired private ValidarCpf validarCpf;
@@ -93,6 +96,7 @@ public class Facade implements IFacade,IStyleQuery{
 		daos.put(Cartao.class.getName(), cartaoDao);
 		daos.put(Endereco.class.getName(), enderecoDao);
 		daos.put(Usuario.class.getName(), usuarioDao);
+		daos.put(Produto.class.getName(), produtoDao);
 
 		Map<String,IStrategy> rnSalvarPessoa = new HashMap<String, IStrategy>();
 		
