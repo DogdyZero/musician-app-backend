@@ -86,17 +86,35 @@ public class PessoaDao extends AbstractDao {
 		
 		if(pessoa!=null) {
 			Set<Telefone> telsMem =pessoa.getTelefone();
-			Telefone telMem = null;
-			for(Telefone t : telsMem) {
-				telMem = t;
-			}
-			
+					
 			optPessoa = pessoaRepository.findById(pessoa.getId());
 			Pessoa pesBD = optPessoa.get();
 			Set<Telefone> telBD = pesBD.getTelefone();
 			
+			for(Telefone tels: telsMem) {
+				Telefone t = new Telefone(tels.getDdd(),tels.getNumero(),Status.ATIVO);
+				telBD.add(t);
+			}
+			
+			pesBD.setTelefone(telBD);
+			return pessoaRepository.save(pesBD);
+			
+		}
+		
+		return null;	
+		}
+
+	@Override
+	public EntidadeDominio alterar(EntidadeDominio entidade, int id) {
+		Pessoa pessoa = convertClass(entidade);
+		if(pessoa!=null) {
+			optPessoa = pessoaRepository.findById(pessoa.getId());
+			
+			Pessoa pesBD = optPessoa.get();
+			Set<Telefone> telBD = pesBD.getTelefone();
+			
 			for(Telefone tel: telBD) {
-				if(tel.getId()==(telMem.getId())) {
+				if(tel.getId()==id) {
 					if(tel.getStatus().equals(Status.ATIVO)) {
 						tel.setStatus(Status.INATIVO);
 					} else {
@@ -105,16 +123,13 @@ public class PessoaDao extends AbstractDao {
 				}
 				
 			}
-			
-			
 			pesBD.setTelefone(telBD);
-			pessoaRepository.save(pesBD);
-
+			return pessoaRepository.save(pesBD);
 		}
 		
-		return null;	
-		}
-
+		
+		return null;
+	}
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		entidades = new ArrayList<EntidadeDominio>();
@@ -198,5 +213,6 @@ public class PessoaDao extends AbstractDao {
 		entidades.addAll(results);
 		return entidades;
 	}
+
 
 }

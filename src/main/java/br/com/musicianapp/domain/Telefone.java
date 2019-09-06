@@ -47,6 +47,12 @@ public class Telefone  extends EntidadeDominio{
 		this.ddd = ddd;
 		this.numero = numero;
 	}
+	public Telefone(String ddd, String numero, Status status) {
+		super();
+		this.ddd = ddd;
+		this.numero = numero;
+		this.status=status;
+	}
 	
 	public int getId() {
 		return id;

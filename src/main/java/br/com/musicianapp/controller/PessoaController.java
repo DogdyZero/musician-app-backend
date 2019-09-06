@@ -106,12 +106,7 @@ public class PessoaController {
 		// alterar o telefone para inativo / ativo
 		// criar o metodo
 		pessoa.setId(idPessoa);
-		Set<Telefone> tels = new HashSet<Telefone>() ;
-		telefone.setId(idTelefone);
-		tels.add(telefone);
-		
-		pessoa.setTelefone(tels);
-		this.facade.alterar(pessoa);
+		this.facade.alterar(pessoa,idTelefone);
 
 		return null;
 	}
@@ -119,6 +114,9 @@ public class PessoaController {
 	public Object adicionarNovoTelefone(@PathVariable int idPessoa, @RequestBody Pessoa pessoa) {
 		// adiciona novo numero ao banco relacionado ao cliente
 		// criar o metodo
+		pessoa.setId(idPessoa);
+		this.facade.alterar(pessoa);
+		
 		return null;
 	}
 	
