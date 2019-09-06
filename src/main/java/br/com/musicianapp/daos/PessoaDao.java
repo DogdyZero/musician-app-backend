@@ -85,23 +85,29 @@ public class PessoaDao extends AbstractDao {
 		Pessoa pessoa = convertClass(entidade);
 		
 		if(pessoa!=null) {
-			optPessoa = pessoaRepository.findById(pessoa.getId());
-			Pessoa pesBD = optPessoa.get();
-			
-			Set<Telefone> saveTel = new HashSet<Telefone>();
-			for(Telefone telBD: pesBD.getTelefone()) {
-				for(Telefone telMem: pessoa.getTelefone()) {
-					if(telMem.getNumero().equals(telBD.getNumero()) &&
-							telMem.getStatus().equals(Status.INATIVO)){
-						telBD.setStatus(Status.INATIVO);
-					} else {
-						telBD.setStatus(Status.ATIVO);
-					}
-					saveTel.add(telBD);
-				}
+			Set<Telefone> telsMem =pessoa.getTelefone();
+			Telefone telMem = null;
+			for(Telefone t : telsMem) {
+				telMem = t;
 			}
 			
-			pesBD.setTelefone(saveTel);
+			optPessoa = pessoaRepository.findById(pessoa.getId());
+			Pessoa pesBD = optPessoa.get();
+			Set<Telefone> telBD = pesBD.getTelefone();
+			
+			for(Telefone tel: telBD) {
+				if(tel.getId()==(telMem.getId())) {
+					if(tel.getStatus().equals(Status.ATIVO)) {
+						tel.setStatus(Status.INATIVO);
+					} else {
+						tel.setStatus(Status.ATIVO);
+					}
+				}
+				
+			}
+			
+			
+			pesBD.setTelefone(telBD);
 			pessoaRepository.save(pesBD);
 
 		}
