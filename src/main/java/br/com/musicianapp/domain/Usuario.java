@@ -1,20 +1,22 @@
 package br.com.musicianapp.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
-import javax.print.attribute.IntegerSyntax;
 
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import br.com.musicianapp.Enum.Perfil;
 import br.com.musicianapp.Enum.Status;
-import br.com.musicianapp.impl.IStyleQuery;
 
 @Entity
 @Component
@@ -26,6 +28,7 @@ public class Usuario extends EntidadeDominio {
 	@Column(name="usu_id")
 	private int id;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(name="usu_perfil")
 	private Perfil perfil;
 	
@@ -41,6 +44,10 @@ public class Usuario extends EntidadeDominio {
 	@Column(name="usu_status")
 	private Status status;
 
+	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
+	@JoinColumn(name="pes_id")
+	private Pessoa pessoa;
+	
 	public Usuario() {
 		
 	}
@@ -48,6 +55,13 @@ public class Usuario extends EntidadeDominio {
 	public Usuario(Perfil perfil, String senha) {
 		super();
 		this.perfil = perfil;
+		this.senha = senha;
+	}
+	
+
+	public Usuario(String login, String senha) {
+		super();
+		this.login = login;
 		this.senha = senha;
 	}
 

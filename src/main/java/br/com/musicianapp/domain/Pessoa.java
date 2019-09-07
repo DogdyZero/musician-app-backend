@@ -44,14 +44,14 @@ public class Pessoa extends EntidadeDominio{
 //	private Date dataAniversario;
 	
 	@JoinColumn(name="pes_id")
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private Set<Telefone> telefone;
 
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinColumn(name="pes_id")
 	private Set<Cartao> cartao;
 
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinColumn(name="pes_id")
 	private Set<Endereco> endereco;
 	

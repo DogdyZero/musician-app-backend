@@ -9,8 +9,6 @@ public interface IDAO {
 	
 	public EntidadeDominio alterar(EntidadeDominio entidade);
 	
-	public EntidadeDominio alterar (EntidadeDominio entidade, int id);
-	
 	public List<EntidadeDominio> consultar (EntidadeDominio entidade);
 	
 	public void apagar(EntidadeDominio entidade);

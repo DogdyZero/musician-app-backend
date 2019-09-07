@@ -1,14 +1,12 @@
 package br.com.musicianapp.daos;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -34,6 +32,9 @@ public class PessoaDao extends AbstractDao {
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	
+	@PersistenceContext
+	private EntityManager em;
 	
 	private Optional<Pessoa> optPessoa;
 	
@@ -131,41 +132,7 @@ public class PessoaDao extends AbstractDao {
 		return pesBD;
 	}
 
-
-	@Override
-	public EntidadeDominio alterar(EntidadeDominio entidade, int id) {
-		Pessoa pessoa = convertClass(entidade);
-		if(pessoa!=null) {
-			optPessoa = pessoaRepository.findById(pessoa.getId());
-			
-			Pessoa pesBD = optPessoa.get();
-			
-			if(pessoa.getTelefone()!=null) {
-				
-				Set<Telefone> telBD = pesBD.getTelefone();
-				
-				for(Telefone tel: telBD) {
-					if(tel.getId()==id) {
-						if(tel.getStatus().equals(Status.ATIVO)) {
-							tel.setStatus(Status.INATIVO);
-						} else {
-							tel.setStatus(Status.ATIVO);
-						}
-					}
-					
-				}
-				pesBD.setTelefone(telBD);
-			}
-			if(pessoa.getCartao()!=null) {
-				
-			}
-			
-			return pessoaRepository.save(pesBD);
-		}
-		
-		
-		return null;
-	}
+	
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		entidades = new ArrayList<EntidadeDominio>();
@@ -209,21 +176,26 @@ public class PessoaDao extends AbstractDao {
 		entidades.add(pessoa);
 		return entidades;
 	}
-	@PersistenceContext
-	  private EntityManager em;
+
 	
 	private List<EntidadeDominio> consultaNomeLike(Pessoa pessoa){
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Pessoa> query = builder.createQuery(Pessoa.class);
 		Root<Pessoa> from = query.from(Pessoa.class);
 		
-		TypedQuery<Pessoa> typedQuery = em.createQuery(
-		    query.select(from )
-		    .where(
-		       builder.like(from.get("nome"), "%"+pessoa.getNome()+"%")
-		    )
-		);
-		List<Pessoa> results = typedQuery.getResultList();
+		Predicate predicado
+		  = builder.like(from.get("nome"),  "%"+pessoa.getNome()+"%");
+		query.where(predicado);
+		List<Pessoa> results = em.createQuery(query).getResultList();
+
+//		TypedQuery<Pessoa> typedQuery = em.createQuery(
+//		    query.select(from )
+//		    .where(
+//		       builder.like(from.get("nome"), "%"+pessoa.getNome()+"%")
+//		    )
+//		);
+//		List<Pessoa> results = typedQuery.getResultList();
+		
 		entidades.addAll(results);
 		return entidades;
 	}
@@ -231,7 +203,6 @@ public class PessoaDao extends AbstractDao {
 		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<Pessoa> query = builder.createQuery(Pessoa.class);
 		Root<Pessoa> from = query.from(Pessoa.class);
-		
 		
 		Predicate predicado
 		  = builder.equal(from.get("cpf"), pessoa.getCpf());

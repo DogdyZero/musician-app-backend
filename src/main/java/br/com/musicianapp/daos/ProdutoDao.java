@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.musicianapp.domain.EntidadeDominio;
-import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.repository.ProdutoRepository;
 
@@ -29,10 +28,10 @@ public class ProdutoDao  extends AbstractDao  {
 	
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-		entidades = new ArrayList<EntidadeDominio>();
-		String parametro=super.getParametro().toLowerCase();
-		if(entidade.getClass().getName().equals(CLASSE)) {
-			Produto produto = (Produto)entidade;
+		Produto produto = convertClass(entidade);
+		if(produto!=null) {
+			entidades = new ArrayList<EntidadeDominio>();
+			String parametro=super.getParametro().toLowerCase();
 			if(parametro.equals("all")) {
 				parametro=null;
 				return consultarAll();
@@ -41,6 +40,7 @@ public class ProdutoDao  extends AbstractDao  {
 				return consultaById(produto);
 			}
 		}
+		
 		return null;
 	}
 

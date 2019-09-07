@@ -1,22 +1,22 @@
 package br.com.musicianapp.Enum;
 
 public enum Perfil {
-	CLIENTE("cliente"),
-	ADMINISTRADOR("administrador");
+	CLIENTE,
+	ADMINISTRADOR;
 	
-	private String perfil;
-
-	private Perfil(String perfil) {
-		this.perfil = perfil;
-	}
-
-	public String getPerfil() {
-		return perfil;
-	}
-
-	public void setPerfil(String perfil) {
-		this.perfil = perfil;
-	};
+//	private String perfil;
+//
+//	private Perfil(String perfil) {
+//		this.perfil = perfil;
+//	}
+//
+//	public String getPerfil() {
+//		return perfil;
+//	}
+//
+//	public void setPerfil(String perfil) {
+//		this.perfil = perfil;
+//	};
 	
 	
 

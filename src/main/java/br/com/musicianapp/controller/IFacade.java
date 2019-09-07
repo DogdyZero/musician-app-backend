@@ -10,8 +10,6 @@ public interface IFacade {
 	
 	public Resultado alterar(EntidadeDominio entidade);
 	
-	public Resultado alterar(EntidadeDominio entidade, int id);
-	
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade);
 	
 	public Resultado apagar(EntidadeDominio entidade);
