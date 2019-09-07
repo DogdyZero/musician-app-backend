@@ -98,8 +98,6 @@ public class Facade implements IFacade,IStyleQuery{
 		daos.put(Usuario.class.getName(), usuarioDao);
 		daos.put(Produto.class.getName(), produtoDao);
 
-		Map<String,IStrategy> rnSalvarPessoa = new HashMap<String, IStrategy>();
-		
 		/*
 		 * Regras para Salvar Cliente
 		 */
@@ -110,7 +108,7 @@ public class Facade implements IFacade,IStyleQuery{
 //		rnSalvar.add(validarExistencia);
 //		rnSalvar.add(validarCpf);
 //		rnSalvar.add(validarSenha);
-//		rnSalvar.add(validarTelefone);
+		rnSalvar.add(validarTelefone);
 		rnsCliente.put(SALVAR,rnSalvar);
 		
 		rns.put(Pessoa.class.getName(), rnsCliente);		
@@ -169,7 +167,7 @@ public class Facade implements IFacade,IStyleQuery{
 		if(regras!=null) {
 			for (IStrategy strategies :regras) {
 				String msg= strategies.processar(entidade);
-				if (msg!=null) {
+				if (msg!=null && msg.length()>0) {
 					sb.append(msg + "\n");
 				}
 			}

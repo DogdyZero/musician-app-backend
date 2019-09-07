@@ -11,25 +11,62 @@ import br.com.musicianapp.domain.Telefone;
 @Service
 public class ValidarTelefone implements IStrategy {
 	
+	private final String PESSOA = Pessoa.class.getName();
+	private final String TELEFONE = Telefone.class.getName();
+
+	private Set<Telefone> telefones;
+	private Telefone telefone;
+	private StringBuilder sb;
+	
+	private void convertClass(EntidadeDominio entidade) {
+		if(entidade instanceof Telefone) {
+			this.telefone = Telefone.class.cast(entidade);
+		} else if (entidade instanceof Pessoa) {
+			this.telefones = Pessoa.class.cast(entidade).getTelefone();
+		}
+	}
+	
+	private void checkTelefoneList(Set<Telefone> telefones) {
+		int i = 0;
+		for(Telefone telefone : telefones) {
+			String resultado = processarEstrategia(telefone);
+			i++;
+			if(resultado!=null)
+				sb.append("Telefone " + i + " " +resultado);
+		}
+		
+	}
+	private String processarEstrategia(Telefone telefone) {
+		String resultado = null;
+		if(telefone.getDdd()!=null) {
+			if(telefone.getDdd().length()<2 ||
+					telefone.getDdd().length()>2) {
+				resultado = "\no DDD informado é invalido";
+
+			} else if(telefone.getNumero().length()<8||
+					telefone.getNumero().length()>9) {
+				resultado = "\no numero do telefone é invalido";
+			} 
+		}
+		else {
+			resultado =null;
+		}
+		return resultado;
+	}
+	
 	@Override
 	public String processar(EntidadeDominio entidade) {
-		Pessoa pessoa = (Pessoa) entidade;
-		Set<Telefone> telefones = pessoa.getTelefone();
-		
-		StringBuilder st = new StringBuilder();
-		
-		for(Telefone tel : telefones){
-		if(tel.getNumero().length() < 9)
-			st.append("Número de telefone inválido \n");
-		if(tel.getDdd().length() < 2)
-			st.append("DDD inválido \n");
-		
+		this.sb = new StringBuilder();
+		convertClass(entidade);
+		if(this.telefones!=null){
+			checkTelefoneList(telefones);
+		} else if(this.telefone!=null) {
+			processarEstrategia(telefone);
+		} else {
+			sb.append("Objeto Invalido");
 		}
-		if(st == null){
-			return null;
-		}else{
-			return "erro telefone";
-		}
+		
+		return sb.toString();
 		
 		
 	}
