@@ -110,7 +110,7 @@ public class PessoaController {
 
 		return null;
 	}
-	@PutMapping("{idPessoa}/telefone")
+	@PutMapping("{idPessoa}/novo")
 	public Object adicionarNovoTelefone(@PathVariable int idPessoa, @RequestBody Pessoa pessoa) {
 		// adiciona novo numero ao banco relacionado ao cliente
 		// criar o metodo

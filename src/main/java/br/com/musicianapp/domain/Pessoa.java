@@ -43,17 +43,15 @@ public class Pessoa extends EntidadeDominio{
 	private String rg;
 //	private Date dataAniversario;
 	
-//	@OneToMany(cascade=CascadeType.MERGE, fetch=FetchType.EAGER, orphanRemoval=true)
 	@JoinColumn(name="pes_id")
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
-//	@MapKey(name="pessoa_pes_id")
 	private Set<Telefone> telefone;
 
-	@OneToMany(cascade= {CascadeType.PERSIST, CascadeType.DETACH}, fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
 	@JoinColumn(name="pes_id")
 	private Set<Cartao> cartao;
 
-	@OneToMany(cascade= {CascadeType.PERSIST, CascadeType.DETACH}, fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
 	@JoinColumn(name="pes_id")
 	private Set<Endereco> endereco;
 	

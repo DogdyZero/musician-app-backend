@@ -13,17 +13,17 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.musicianapp.Enum.Status;
+import br.com.musicianapp.domain.Cartao;
+import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.repository.PessoaRepository;
-import br.com.musicianapp.repository.TelefoneRepository;
 
 @Service 
 //@Transactional
@@ -35,10 +35,7 @@ public class PessoaDao extends AbstractDao {
 	@Autowired
 	private PessoaRepository pessoaRepository;
 	
-	@Autowired
-	private Pessoa copyPessoa;
 	private Optional<Pessoa> optPessoa;
-	@Autowired private TelefoneRepository telefoneRepository;
 	
 	private Pessoa convertClass(EntidadeDominio entidade) {
 		if(entidade.getClass().getName().equals(CLASSE)) {
@@ -52,26 +49,6 @@ public class PessoaDao extends AbstractDao {
 		
 		Pessoa pessoa = convertClass(entidade);
 		if(pessoa!=null) {
-			optPessoa = pessoaRepository.findById(pessoa.getId());
-			Pessoa pes = optPessoa.get();
-			Set<Telefone> telefones = pes.getTelefone(); // telefone banco
-			
-			Set<Telefone> telCopy = pessoa.getTelefone(); // telefone memória
-			
-			Set<Telefone> novoTel = new HashSet<Telefone>();
-			for (Telefone t : telefones) {
-				for(Telefone tMemory : telCopy) {
-					if(!t.getNumero().equals(tMemory.getNumero())) {
-						t.setNumero(tMemory.getNumero());
-						novoTel.add(t);
-					}
-
-				}
-			}
-			pes.setTelefone(novoTel);
-			em.merge(pes);
-
-//			em.persist(pessoa);
 			
 			pessoa = pessoaRepository.save(pessoa);
 
@@ -85,24 +62,75 @@ public class PessoaDao extends AbstractDao {
 		Pessoa pessoa = convertClass(entidade);
 		
 		if(pessoa!=null) {
-			Set<Telefone> telsMem =pessoa.getTelefone();
 					
 			optPessoa = pessoaRepository.findById(pessoa.getId());
 			Pessoa pesBD = optPessoa.get();
-			Set<Telefone> telBD = pesBD.getTelefone();
 			
-			for(Telefone tels: telsMem) {
-				Telefone t = new Telefone(tels.getDdd(),tels.getNumero(),Status.ATIVO);
-				telBD.add(t);
+			if(pessoa.getTelefone()!=null) {
+				pesBD = updateTelefone(pesBD, pessoa);
 			}
 			
-			pesBD.setTelefone(telBD);
-			return pessoaRepository.save(pesBD);
+			if(pessoa.getEndereco()!=null) {
+				pesBD = updateEndereco(pesBD, pessoa);
+			}
+			if(pessoa.getCartao()!=null) {
+				pesBD = updateCartao(pesBD, pessoa);
+			}
 			
+			return pessoaRepository.save(pesBD);
 		}
 		
 		return null;	
 		}
+	
+	private Pessoa updateTelefone(Pessoa pesBD,  Pessoa pessoaComNovoTelefone) {
+		Set<Telefone> telsMem =pessoaComNovoTelefone.getTelefone();
+
+		Set<Telefone> telBD = pesBD.getTelefone();
+		
+		for(Telefone tels: telsMem) {
+			Telefone t = new Telefone(tels.getDdd(),tels.getNumero(),Status.ATIVO);
+			telBD.add(t);
+		}
+		
+		pesBD.setTelefone(telBD);
+		
+		return pesBD;
+	}
+	private Pessoa updateEndereco(Pessoa pesBD, Pessoa pessoaComNovoEndereco ) {
+		Set<Endereco> endsMem =pessoaComNovoEndereco.getEndereco();
+
+		Set<Endereco> endBD = pesBD.getEndereco();
+		
+		for(Endereco ends: endsMem) {
+			Endereco e = new Endereco(ends.getTipoLogradouro(),ends.getApelidoEndereco(), ends.getLogradouro(), ends.getNumero(),
+					ends.getComplemento(), ends.getBairro(), ends.getCidade(), ends.getEstado(),ends.getCep(), Status.ATIVO);
+//			Endereco e = new Endereco();
+//			e.setLogradouro(ends.getLogradouro());
+			endBD.add(e);
+		}
+		
+		pesBD.setEndereco(endBD);
+		
+		return pesBD;
+	}
+	
+	private Pessoa updateCartao(Pessoa pesBD, Pessoa pessoaComNovoCartao ) {
+		Set<Cartao> cartoesMem =pessoaComNovoCartao.getCartao();
+
+		Set<Cartao> carBD = pesBD.getCartao();
+		
+		for(Cartao cartao: cartoesMem) {
+			Cartao c = new Cartao(cartao.getNomeCartao(),cartao.getNumeroCartao(),cartao.getValidade(),  cartao.getCodSeguranca(),  
+					cartao.getBandeira(),cartao.isPreferencial(), Status.ATIVO );
+			carBD.add(c);
+		}
+		
+		pesBD.setCartao(carBD);
+		
+		return pesBD;
+	}
+
 
 	@Override
 	public EntidadeDominio alterar(EntidadeDominio entidade, int id) {
@@ -111,19 +139,27 @@ public class PessoaDao extends AbstractDao {
 			optPessoa = pessoaRepository.findById(pessoa.getId());
 			
 			Pessoa pesBD = optPessoa.get();
-			Set<Telefone> telBD = pesBD.getTelefone();
 			
-			for(Telefone tel: telBD) {
-				if(tel.getId()==id) {
-					if(tel.getStatus().equals(Status.ATIVO)) {
-						tel.setStatus(Status.INATIVO);
-					} else {
-						tel.setStatus(Status.ATIVO);
+			if(pessoa.getTelefone()!=null) {
+				
+				Set<Telefone> telBD = pesBD.getTelefone();
+				
+				for(Telefone tel: telBD) {
+					if(tel.getId()==id) {
+						if(tel.getStatus().equals(Status.ATIVO)) {
+							tel.setStatus(Status.INATIVO);
+						} else {
+							tel.setStatus(Status.ATIVO);
+						}
 					}
+					
 				}
+				pesBD.setTelefone(telBD);
+			}
+			if(pessoa.getCartao()!=null) {
 				
 			}
-			pesBD.setTelefone(telBD);
+			
 			return pessoaRepository.save(pesBD);
 		}
 		
