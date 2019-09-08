@@ -7,23 +7,18 @@ import org.springframework.stereotype.Service;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Telefone;
+import br.com.musicianapp.impl.AbstractAdapter;
+import br.com.musicianapp.impl.TelefoneAdapter;
+import br.com.musicianapp.impl.IAdapter;
 
 @Service
 public class ValidarTelefone implements IStrategy {
 	
-	private final String PESSOA = Pessoa.class.getName();
-	private final String TELEFONE = Telefone.class.getName();
-
-	private Set<Telefone> telefones;
-	private Telefone telefone;
 	private StringBuilder sb;
+	private IAdapter<Telefone> adapter;
 	
-	private void convertClass(EntidadeDominio entidade) {
-		if(entidade instanceof Telefone) {
-			this.telefone = Telefone.class.cast(entidade);
-		} else if (entidade instanceof Pessoa) {
-			this.telefones = Pessoa.class.cast(entidade).getTelefone();
-		}
+	public ValidarTelefone() {
+		this.adapter = new TelefoneAdapter<Telefone>();
 	}
 	
 	private void checkTelefoneList(Set<Telefone> telefones) {
@@ -53,15 +48,18 @@ public class ValidarTelefone implements IStrategy {
 		}
 		return resultado;
 	}
+
 	
 	@Override
 	public String processar(EntidadeDominio entidade) {
 		this.sb = new StringBuilder();
-		convertClass(entidade);
-		if(this.telefones!=null){
-			checkTelefoneList(telefones);
-		} else if(this.telefone!=null) {
-			processarEstrategia(telefone);
+		
+		adapter.setAdapter(entidade);
+		
+		if(adapter.getListObject()!=null){
+			checkTelefoneList(adapter.getListObject());
+		} else if(adapter.getObject()!=null) {
+			processarEstrategia(adapter.getObject());
 		} else {
 			sb.append("Objeto Invalido");
 		}

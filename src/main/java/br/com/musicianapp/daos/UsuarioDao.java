@@ -9,13 +9,19 @@ import org.springframework.stereotype.Service;
 
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Usuario;
+import br.com.musicianapp.impl.UsuarioAdapter;
+import br.com.musicianapp.impl.IAdapter;
 import br.com.musicianapp.repository.UsuarioRepository;
 
 @Service
 public class UsuarioDao extends AbstractDao {
-	private final String CLASSE = Usuario.class.getName();
 	List<EntidadeDominio> entidades;
 
+	private IAdapter adapter;
+	
+	public UsuarioDao() {
+		this.adapter = new UsuarioAdapter();
+	}
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
@@ -34,15 +40,17 @@ public class UsuarioDao extends AbstractDao {
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		entidades = new ArrayList<EntidadeDominio>();
 		String parametro=super.getParametro().toLowerCase();
-		if(entidade.getClass().getName().equals(CLASSE)) {
-			Usuario usuario = (Usuario)entidade;
+		
+		adapter.setAdapter(entidade);
+		
+		if(adapter.getObject()!=null) {
 
 			if(parametro.equals("usuarioid")) {
 				parametro=null;
-				return consultarPorID(usuario);
+				return consultarPorID((Usuario) adapter.getObject());
 			} else if(parametro.equals("login")) {
 				parametro=null;
-				return validarAcesso(usuario);
+				return validarAcesso((Usuario) adapter.getObject());
 			} else if(parametro.equals("all")){
 				parametro = null;
 				return consultarTodos();
@@ -76,8 +84,8 @@ public class UsuarioDao extends AbstractDao {
 
 	@Override
 	public void apagar(EntidadeDominio entidade) {
-		Usuario user = (Usuario) entidade;
-		usuarioRepository.deleteById(user.getId());
+		adapter.setAdapter(entidade);
+		usuarioRepository.deleteById(((Usuario) adapter.getObject()).getId());
 	}
 
 }
