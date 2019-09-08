@@ -30,9 +30,9 @@ public class Pessoa extends EntidadeDominio{
 	@Column(name="pes_nome")
 	private String nome;
 	
-	@OneToOne(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
-	@JoinColumn(name="pes_id")
-	private Usuario usuario;
+//	@OneToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE}, fetch=FetchType.EAGER)
+//	@JoinColumn(name="pes_id")
+//	private Usuario usuario;
 	
 	@Column(name="pes_cpf")
 	private String cpf;
@@ -43,7 +43,6 @@ public class Pessoa extends EntidadeDominio{
 	
 	@Column(name="pes_email")
 	private String email;
-	
 	
 	@JoinColumn(name="pes_id")
 	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
@@ -97,12 +96,12 @@ public class Pessoa extends EntidadeDominio{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+//	public Usuario getUsuario() {
+//		return usuario;
+//	}
+//	public void setUsuario(Usuario usuario) {
+//		this.usuario = usuario;
+//	}
 	public String getCpf() {
 		return cpf;
 	}

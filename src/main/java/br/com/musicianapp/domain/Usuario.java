@@ -42,6 +42,7 @@ public class Usuario extends EntidadeDominio {
 	private String senha;
 	
 	@Column(name="usu_status")
+	@Enumerated(EnumType.STRING)
 	private Status status;
 
 	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
@@ -52,13 +53,6 @@ public class Usuario extends EntidadeDominio {
 		
 	}
 	
-	public Usuario(Perfil perfil, String senha) {
-		super();
-		this.perfil = perfil;
-		this.senha = senha;
-	}
-	
-
 	public Usuario(String login, String senha) {
 		super();
 		this.login = login;
@@ -125,10 +119,13 @@ public class Usuario extends EntidadeDominio {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-	
-	
-	
-	
-	
 
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+	
 }

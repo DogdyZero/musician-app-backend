@@ -103,13 +103,22 @@ public class Facade implements IFacade,IStyleQuery{
 		 */
 		Map<String, List<IStrategy>> rnsCliente = new HashMap<String,List<IStrategy>>();
 		
-		List<IStrategy> rnSalvar = new ArrayList<IStrategy>();
-		rnSalvar.add(completarDataCadastro);
-//		rnSalvar.add(validarExistencia);
-//		rnSalvar.add(validarCpf);
-//		rnSalvar.add(validarSenha);
-		rnSalvar.add(validarTelefone);
-		rnsCliente.put(SALVAR,rnSalvar);
+		List<IStrategy> rnPessoa = new ArrayList<IStrategy>();
+		rnPessoa.add(completarDataCadastro);
+//		rnPessoa.add(validarExistencia);
+//		rnPessoa.add(validarCpf);
+//		rnPessoa.add(validarSenha);
+		rnPessoa.add(validarTelefone);
+		rnsCliente.put(SALVAR,rnPessoa);
+		
+		
+		Map<String, List<IStrategy>> rnsUsuario = new HashMap<String,List<IStrategy>>();
+
+		List<IStrategy> rnUsuario = new ArrayList<IStrategy>();
+		
+		rnsUsuario.put(SALVAR,rnUsuario);
+
+		rns.put(Usuario.class.getName(),rnsUsuario);
 		
 		rns.put(Pessoa.class.getName(), rnsCliente);		
 

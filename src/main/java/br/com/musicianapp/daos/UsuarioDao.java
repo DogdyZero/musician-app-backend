@@ -27,7 +27,11 @@ public class UsuarioDao extends AbstractDao {
 	
 	@Override
 	public EntidadeDominio salvar(EntidadeDominio entidade) {
-		return null;
+		IAdapter<Usuario> adapter = new UsuarioAdapter<Usuario>();
+		adapter.setAdapter(entidade);
+		
+		return 	usuarioRepository.save(adapter.getObject());
+
 	}
 
 	@Override

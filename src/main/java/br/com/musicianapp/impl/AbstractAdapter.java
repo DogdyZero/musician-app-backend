@@ -24,9 +24,9 @@ public abstract class AbstractAdapter<E> implements IAdapter<E>{
 		if(entidade instanceof Pessoa) {this.pessoa = Pessoa.class.cast(entidade);}
 		if(entidade instanceof Telefone) {this.telefone = Telefone.class.cast(entidade);}
 		if(entidade instanceof Usuario) {this.usuario = Usuario.class.cast(entidade);}
-
-		if(this.pessoa.getTelefone()!=null) {
-			this.telefones = this.pessoa.getTelefone();
+		
+		if(this.pessoa!=null) {
+			if(this.pessoa.getTelefone()!=null) {this.telefones = this.pessoa.getTelefone();}
 		}
 	}
 	
