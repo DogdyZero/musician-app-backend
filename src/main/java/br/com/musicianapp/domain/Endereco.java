@@ -2,14 +2,16 @@ package br.com.musicianapp.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
+
+import br.com.musicianapp.Enum.Status;
 
 @Entity @Component
 @SequenceGenerator(name="endereco_generator", sequenceName = "endereco_seq", allocationSize=50,initialValue=1)
@@ -47,6 +49,11 @@ public class Endereco  extends EntidadeDominio{
 	@Column(name="end_estado")
 	private String estado;
 	
+	@Column(name="tel_status")
+	@Enumerated(EnumType.STRING)
+	private Status status;
+	
+	
 	public Endereco() {
 		
 	}
@@ -63,6 +70,23 @@ public class Endereco  extends EntidadeDominio{
 		this.cidade = cidade;
 		this.estado = estado;
 	}
+	
+	
+	public Endereco(String tipoLogradouro, String apelidoEndereco, String logradouro, int numero,
+			String complemento, String bairro, String cidade, String estado,String cep, Status status) {
+		super();
+		this.cep = cep;
+		this.tipoLogradouro = tipoLogradouro;
+		this.apelidoEndereco = apelidoEndereco;
+		this.logradouro = logradouro;
+		this.numero = numero;
+		this.complemento = complemento;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.estado = estado;
+		this.status = status;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -116,6 +140,22 @@ public class Endereco  extends EntidadeDominio{
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getApelidoEndereco() {
+		return apelidoEndereco;
+	}
+
+	public void setApelidoEndereco(String apelidoEndereco) {
+		this.apelidoEndereco = apelidoEndereco;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 	
 	

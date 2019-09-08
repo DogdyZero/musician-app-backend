@@ -2,6 +2,8 @@ package br.com.musicianapp.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,13 +11,15 @@ import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
+import br.com.musicianapp.Enum.Status;
+
 @Entity @Component
 @SequenceGenerator(name="cartao_generator", sequenceName = "cartao_seq", allocationSize=50,initialValue=1)
 public class Cartao extends EntidadeDominio{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cartao_generator")
 	@Column(name="car_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cartao_generator")
 	private int id;
 	
 	@Column(name="car_nome_cartao")
@@ -33,8 +37,12 @@ public class Cartao extends EntidadeDominio{
 	@Column(name="car_bandeira")
 	private Bandeira bandeira;
 	
-//	@Column(name="car_preferencial")
-//	private boolean preferencial;
+	@Column(name="car_preferencial")
+	private boolean preferencial;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="car_status")
+	private Status status;
 	
 	public Cartao() {
 	}
@@ -45,6 +53,18 @@ public class Cartao extends EntidadeDominio{
 		this.validade = validade;
 		this.codSeguranca = codSeguranca;
 		this.bandeira = bandeira;
+	}
+	
+	public Cartao(String nomeCartao, String numeroCartao, String validade, int codSeguranca, Bandeira bandeira,
+			boolean preferencial, Status status) {
+		super();
+		this.nomeCartao = nomeCartao;
+		this.numeroCartao = numeroCartao;
+		this.validade = validade;
+		this.codSeguranca = codSeguranca;
+		this.bandeira = bandeira;
+		this.preferencial = preferencial;
+		this.status = status;
 	}
 	public int getId() {
 		return id;
@@ -82,9 +102,17 @@ public class Cartao extends EntidadeDominio{
 	public void setBandeira(Bandeira bandeira) {
 		this.bandeira = bandeira;
 	}
-	
-	
-	
-	
+	public boolean isPreferencial() {
+		return preferencial;
+	}
+	public void setPreferencial(boolean preferencial) {
+		this.preferencial = preferencial;
+	}
+	public Status getStatus() {
+		return status;
+	}
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 	
 }

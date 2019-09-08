@@ -1,9 +1,7 @@
 package br.com.musicianapp.controller;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.musicianapp.Business.ProcessarDadosPessoa;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
-import br.com.musicianapp.domain.Telefone;
 
 @CrossOrigin
 @RestController
@@ -32,9 +29,6 @@ public class PessoaController {
 	
 	@Autowired
 	private Pessoa pessoa;
-	
-	@Autowired
-	private Telefone telefone;
 	
 	@GetMapping("{id}")
 	public Pessoa consultarPessoa(@PathVariable int id){
@@ -86,65 +80,18 @@ public class PessoaController {
 		ProcessarDadosPessoa pr = new ProcessarDadosPessoa();
 		
 		//Pessoa p =(Pessoa) pr.processarDados(pessoa);
-		
-		
+
 		facade.salvar(pessoa);
 		return null; 
 	}
 	
-	@PutMapping("{id}")
-	public Object alterarPessoa(@PathVariable int id, @RequestBody Pessoa pessoa) {
-		pessoa.setId(id);
-//		this.pessoa.setNome(pessoa.getNome());
-//		this.pessoa.setCpf(pessoa.getCpf());
-		this.facade.alterar(pessoa);
-		return null;
-	}
-	
-	@PutMapping("{idPessoa}/telefone/{idTelefone}")
-	public Object alterarTelefone(@PathVariable int idPessoa, @PathVariable int idTelefone) {
-		// alterar o telefone para inativo / ativo
-		// criar o metodo
-		pessoa.setId(idPessoa);
-		Set<Telefone> tels = new HashSet<Telefone>() ;
-		telefone.setId(idTelefone);
-		tels.add(telefone);
-		
-		pessoa.setTelefone(tels);
-		this.facade.alterar(pessoa);
-
-		return null;
-	}
-	@PutMapping("{idPessoa}/telefone")
+	@PutMapping("{idPessoa}/novo")
 	public Object adicionarNovoTelefone(@PathVariable int idPessoa, @RequestBody Pessoa pessoa) {
 		// adiciona novo numero ao banco relacionado ao cliente
 		// criar o metodo
-		return null;
-	}
-	
-	@PutMapping("{idPessoa}/endereco/{idEndereco}")
-	public Object alterarEndereco(@PathVariable int idPessoa, @PathVariable int idEndereco) {
-		// alterar o endereco para inativo / ativo
-		// criar o metodo
-		return null;
-	}
-	@PutMapping("{idPessoa}/endereco")
-	public Object adicionarNovoEndereco(@PathVariable int idPessoa, @RequestBody Pessoa pessoa) {
-		// adiciona novo endereco ao banco relacionado ao cliente
-		// criar o metodo
-		return null;
-	}
-	
-	@PutMapping("{idPessoa}/cartao/{idcartao}")
-	public Object alterarCartao(@PathVariable int idPessoa, @PathVariable int idcartao) {
-		// alterar o endereco para inativo / ativo
-		// criar o metodo
-		return null;
-	}
-	@PutMapping("{idPessoa}/cartao")
-	public Object adicionarNovoCartao(@PathVariable int idPessoa, @RequestBody Pessoa pessoa) {
-		// adiciona novo cartao ao banco relacionado ao cliente
-		// criar o metodo
+		pessoa.setId(idPessoa);
+		this.facade.alterar(pessoa);
+		
 		return null;
 	}
 	

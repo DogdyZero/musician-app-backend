@@ -11,11 +11,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -32,9 +30,9 @@ public class Pessoa extends EntidadeDominio{
 	@Column(name="pes_nome")
 	private String nome;
 	
-	@OneToOne(cascade=CascadeType.PERSIST, fetch=FetchType.EAGER)
-	@JoinColumn(name="pes_id")
-	private Usuario usuario;
+//	@OneToOne(cascade= {CascadeType.PERSIST,CascadeType.MERGE}, fetch=FetchType.EAGER)
+//	@JoinColumn(name="pes_id")
+//	private Usuario usuario;
 	
 	@Column(name="pes_cpf")
 	private String cpf;
@@ -43,23 +41,36 @@ public class Pessoa extends EntidadeDominio{
 	private String rg;
 //	private Date dataAniversario;
 	
-//	@OneToMany(cascade=CascadeType.MERGE, fetch=FetchType.EAGER, orphanRemoval=true)
-	@JoinColumn(name="pes_id")
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
-//	@MapKey(name="pessoa_pes_id")
-	private Set<Telefone> telefone;
-
-	@OneToMany(cascade= {CascadeType.PERSIST, CascadeType.DETACH}, fetch=FetchType.EAGER)
-	@JoinColumn(name="pes_id")
-	private Set<Cartao> cartao;
-
-	@OneToMany(cascade= {CascadeType.PERSIST, CascadeType.DETACH}, fetch=FetchType.EAGER)
-	@JoinColumn(name="pes_id")
-	private Set<Endereco> endereco;
-	
 	@Column(name="pes_email")
 	private String email;
 	
+	@JoinColumn(name="pes_id")
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	private Set<Telefone> telefone;
+
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinColumn(name="pes_id")
+	private Set<Cartao> cartao;
+
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinColumn(name="pes_id")
+	private Set<Endereco> endereco;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinColumn(name="pes_id")
+	private Set<Pedido> pedido;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinColumn(name="pes_id")
+	private Set<Compra> compra;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinColumn(name="pes_id")
+	private Set<Cupom> cupom;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinColumn(name="pes_id")
+	private Set<Troca> troca;
 	
 	public Pessoa() {
 		
@@ -85,12 +96,12 @@ public class Pessoa extends EntidadeDominio{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
+//	public Usuario getUsuario() {
+//		return usuario;
+//	}
+//	public void setUsuario(Usuario usuario) {
+//		this.usuario = usuario;
+//	}
 	public String getCpf() {
 		return cpf;
 	}
@@ -132,6 +143,30 @@ public class Pessoa extends EntidadeDominio{
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public Set<Pedido> getPedido() {
+		return pedido;
+	}
+	public void setPedido(Set<Pedido> pedido) {
+		this.pedido = pedido;
+	}
+	public Set<Compra> getCompra() {
+		return compra;
+	}
+	public void setCompra(Set<Compra> compra) {
+		this.compra = compra;
+	}
+	public Set<Cupom> getCupom() {
+		return cupom;
+	}
+	public void setCupom(Set<Cupom> cupom) {
+		this.cupom = cupom;
+	}
+	public Set<Troca> getTroca() {
+		return troca;
+	}
+	public void setTroca(Set<Troca> troca) {
+		this.troca = troca;
 	}
 	
 	
