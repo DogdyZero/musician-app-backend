@@ -61,17 +61,17 @@ public class Pessoa extends EntidadeDominio{
 	@JoinColumn(name="pes_id")
 	private Set<Pedido> pedido;
 	
-//	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-//	@JoinColumn(name="pes_id")
-//	private Set<Compra> compra;
-//	
-//	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-//	@JoinColumn(name="pes_id")
-//	private Set<Cupom> cupom;
-//	
-//	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
-//	@JoinColumn(name="pes_id")
-//	private Set<Troca> troca;
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinColumn(name="pes_id")
+	private Set<Compra> compra;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinColumn(name="pes_id")
+	private Set<Cupom> cupom;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
+	@JoinColumn(name="pes_id")
+	private Set<Troca> troca;
 	
 	public Pessoa() {
 		
@@ -151,24 +151,24 @@ public class Pessoa extends EntidadeDominio{
 	public void setPedido(Set<Pedido> pedido) {
 		this.pedido = pedido;
 	}
-//	public Set<Compra> getCompra() {
-//		return compra;
-//	}
-//	public void setCompra(Set<Compra> compra) {
-//		this.compra = compra;
-//	}
-//	public Set<Cupom> getCupom() {
-//		return cupom;
-//	}
-//	public void setCupom(Set<Cupom> cupom) {
-//		this.cupom = cupom;
-//	}
-//	public Set<Troca> getTroca() {
-//		return troca;
-//	}
-//	public void setTroca(Set<Troca> troca) {
-//		this.troca = troca;
-//	}
+	public Set<Compra> getCompra() {
+		return compra;
+	}
+	public void setCompra(Set<Compra> compra) {
+		this.compra = compra;
+	}
+	public Set<Cupom> getCupom() {
+		return cupom;
+	}
+	public void setCupom(Set<Cupom> cupom) {
+		this.cupom = cupom;
+	}
+	public Set<Troca> getTroca() {
+		return troca;
+	}
+	public void setTroca(Set<Troca> troca) {
+		this.troca = troca;
+	}
 	
 	
 	

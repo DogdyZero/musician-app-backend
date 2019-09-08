@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import br.com.musicianapp.Enum.StatusPedido;
@@ -42,6 +42,7 @@ public class Pedido extends EntidadeDominio{
 	@Column(name="ped_valor")
 	private double total;
 	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column(name="ped_data")
 	private Date data;
 	

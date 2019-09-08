@@ -18,8 +18,8 @@ import br.com.musicianapp.Enum.Status;
 public class Cartao extends EntidadeDominio{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cartao_generator")
 	@Column(name="car_id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cartao_generator")
 	private int id;
 	
 	@Column(name="car_nome_cartao")

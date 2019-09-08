@@ -11,7 +11,6 @@ public class UsuarioAdapter<E> extends AbstractAdapter<E> {
 
 	@Override
 	public Set<E> getListObject() {
-		// TODO Auto-a method stub
 		return null;
 	}
 
