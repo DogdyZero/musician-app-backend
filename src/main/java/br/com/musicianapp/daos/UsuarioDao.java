@@ -7,10 +7,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.musicianapp.adapter.IAdapter;
+import br.com.musicianapp.adapter.UsuarioAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Usuario;
-import br.com.musicianapp.impl.UsuarioAdapter;
-import br.com.musicianapp.impl.IAdapter;
 import br.com.musicianapp.repository.UsuarioRepository;
 
 @Service

@@ -1,4 +1,4 @@
-package br.com.musicianapp.impl;
+package br.com.musicianapp.adapter;
 
 import java.util.Set;
 
