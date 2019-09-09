@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.musicianapp.controller.viewhelper.CadastroPessoaVH;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Usuario;
 import br.com.musicianapp.impl.IStyleQuery;
 
@@ -27,6 +29,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private Usuario usuario;
+	
+	@Autowired
+	private CadastroPessoaVH cadastroPessoaVH;
 	
 	@GetMapping("{id}")
 	public Usuario consultarUsuario(@PathVariable int id){
@@ -49,6 +54,8 @@ public class UsuarioController {
 	}
 	@PostMapping
 	public Usuario salvar(@RequestBody Usuario usuario) {
+		usuario = (Usuario) cadastroPessoaVH.prepararParaSalvar(usuario);
+
 		facade.salvar(usuario);
 		return null;
 	}

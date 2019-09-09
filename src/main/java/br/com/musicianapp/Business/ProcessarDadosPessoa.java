@@ -1,20 +1,34 @@
 package br.com.musicianapp.Business;
 
+import org.springframework.stereotype.Service;
+
+import br.com.musicianapp.adapter.IAdapter;
+import br.com.musicianapp.adapter.PessoaAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 
+@Service
 public class ProcessarDadosPessoa implements IStrategyPreparToSave {
-
-	private final String CLASSE =Pessoa.class.getName();
+	
+	private IAdapter<Pessoa> adapter;
+	
+	public ProcessarDadosPessoa() {
+		adapter = new PessoaAdapter<Pessoa>();
+	}
 	@Override
 	public EntidadeDominio processarDados(EntidadeDominio entidade) {
-		if(entidade.getClass().getName().equals(CLASSE)) {
-			Pessoa pessoa = Pessoa.class.cast(entidade);
+		adapter.setAdapter(entidade);
+		Pessoa pessoa = adapter.getObject();
+		
+		if(pessoa.getNome()!=null) {
 			pessoa.setNome(pessoa.getNome().toUpperCase());
-			if(pessoa.getCpf()!=null) {
-				String[] email = pessoa.getEmail().split("@");
-				pessoa.setEmail(email[0].toUpperCase()+"@"+email[1].toUpperCase());
-			}
+		}
+
+		if(pessoa.getEmail()!=null) {
+			String[] email = pessoa.getEmail().split("@");
+			pessoa.setEmail(email[0].toUpperCase()+"@"+email[1].toUpperCase());
+		}
+		if(pessoa.getCpf()!=null) {
 			if(pessoa.getCpf().length()>11) {
 				String cpf = pessoa.getCpf();
 				StringBuilder sb = new StringBuilder();
@@ -22,13 +36,14 @@ public class ProcessarDadosPessoa implements IStrategyPreparToSave {
 				sb.append(cpf.substring(4, 7));
 				sb.append(cpf.substring(8,11));
 				sb.append(cpf.substring(12,14));
-
+				
 				pessoa.setCpf(sb.toString());
 			}
-			return (EntidadeDominio)pessoa;
-
 		}
-		return null;
+		
+		return (EntidadeDominio)pessoa;
+
+		
 	}
 
 }

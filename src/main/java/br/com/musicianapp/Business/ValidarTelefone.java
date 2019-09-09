@@ -4,12 +4,12 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import br.com.musicianapp.adapter.AbstractAdapter;
+import br.com.musicianapp.adapter.IAdapter;
+import br.com.musicianapp.adapter.TelefoneAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Telefone;
-import br.com.musicianapp.impl.AbstractAdapter;
-import br.com.musicianapp.impl.TelefoneAdapter;
-import br.com.musicianapp.impl.IAdapter;
 
 @Service
 public class ValidarTelefone implements IStrategy {

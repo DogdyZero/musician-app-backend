@@ -23,8 +23,6 @@ public class TelefoneController {
 	@Autowired
 	private Facade facade;
 	
-	@Autowired 
-	private Telefone telefone;
 	@GetMapping
 	public List<Telefone> buscarTelefone(){
 		

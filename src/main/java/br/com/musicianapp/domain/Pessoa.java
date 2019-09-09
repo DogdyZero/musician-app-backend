@@ -75,6 +75,12 @@ public class Pessoa extends EntidadeDominio{
 	public Pessoa() {
 		
 	}
+	
+	public Pessoa(Set<Endereco> endereco) {
+		super();
+		this.endereco = endereco;
+	}
+
 	public Pessoa(String nome, Usuario usuario, String cpf, String rg, Date dataAniversario) {
 		super();
 		this.nome = nome;
