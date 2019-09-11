@@ -32,11 +32,20 @@ public class UsuarioController {
 	
 	@Autowired
 	private CadastroPessoaVH cadastroPessoaVH;
+//	
+//	@GetMapping("{id}")
+//	public Usuario consultarUsuario(@PathVariable int id){
+//		this.usuario.setId(id);
+//		this.facade.setParametro("usuarioID");
+//		List<EntidadeDominio> entidades = facade.consultar(this.usuario);
+//		Usuario usuario = (Usuario) entidades.get(0);
+//		return usuario;	
+//	}
 	
-	@GetMapping("{id}")
-	public Usuario consultarUsuario(@PathVariable int id){
-		this.usuario.setId(id);
-		this.facade.setParametro("usuarioID");
+	@GetMapping("{hash}")
+	public Usuario consultarUsuario(@PathVariable String hash){
+		this.usuario.setHashCode(hash);
+		this.facade.setParametro("usuarioHash");
 		List<EntidadeDominio> entidades = facade.consultar(this.usuario);
 		Usuario usuario = (Usuario) entidades.get(0);
 		return usuario;	
@@ -60,12 +69,12 @@ public class UsuarioController {
 		return null;
 	}
 	@PostMapping("login")
-	public Usuario fazerLogin(@RequestBody Usuario usuario) {
+	public String fazerLogin(@RequestBody Usuario usuario) {
 		this.facade.setParametro("login");
 		List<EntidadeDominio> entidades = facade.consultar(usuario);
 		usuario = (Usuario) entidades.get(0);
 		
-		return usuario;	
+		return usuario.getHashCode();	
 	}
 	
 	@DeleteMapping("{id}")

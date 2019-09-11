@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -25,17 +24,17 @@ public class Produto extends EntidadeDominio {
 	@Column(name="prod_id")
 	private int id;
 	
+	@Column(name="prod_nome")
+	private String nome;
+
+	@Column(name="prod_modelo")
+	private String modelo;
+	
 	@Column(name="prod_preco")
 	private double preco;
 	
 	@Column(name="prod_ean")
 	private String ean;
-	
-	@Column(name="prod_nome")
-	private String nome;
-	
-	@Column(name="prod_modelo")
-	private String modelo;
 	
 	@Column(name="prod_ano")
 	private Date ano;
@@ -52,10 +51,6 @@ public class Produto extends EntidadeDominio {
 	@Column(name="prod_qtd")
 	private int quantidade;
 
-	@ManyToOne
-	@JoinColumn(name="prod_ped_id")
-	private Pedido pedido;
-	
 	@OneToOne
 	@JoinColumn(name="prod_categoria_id")
 	private Categoria categoriaProduto;
@@ -65,10 +60,7 @@ public class Produto extends EntidadeDominio {
 	
 	@Column(name="prod_dimensao")
 	private String dimensao;
-	
-	@Column(name="prod_cod_barras")
-	private String codigoBarras;
-	
+
 	public Produto(){
 		
 	}
@@ -167,13 +159,6 @@ public class Produto extends EntidadeDominio {
 	public void setEan(String ean) {
 		this.ean = ean;
 	}	
-	public Pedido getPedido() {
-		return pedido;
-	}
-	
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
-	}
 
 	public Categoria getCategoriaProduto() {
 		return categoriaProduto;
@@ -199,14 +184,4 @@ public class Produto extends EntidadeDominio {
 		this.dimensao = dimensao;
 	}
 
-	public String getCodigoBarras() {
-		return codigoBarras;
-	}
-
-	public void setCodigoBarras(String codigoBarras) {
-		this.codigoBarras = codigoBarras;
-	}
-	
-	
-	
 }

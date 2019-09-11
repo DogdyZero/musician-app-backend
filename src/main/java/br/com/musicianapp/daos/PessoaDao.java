@@ -77,6 +77,12 @@ public class PessoaDao extends AbstractDao {
 			if(pessoa.getCartao()!=null) {
 				pesBD = updateCartao(pesBD, pessoa);
 			}
+			if(pessoa.getCompra()!=null) {
+				
+			}
+			if(pessoa.getPedido()!=null) {
+				
+			}
 			
 			return pessoaRepository.save(pesBD);
 		}

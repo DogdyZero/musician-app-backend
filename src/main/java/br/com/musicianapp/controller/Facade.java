@@ -101,7 +101,7 @@ public class Facade implements IFacade,IStyleQuery{
 		/*
 		 * Regras para Salvar Cliente
 		 */
-		Map<String, List<IStrategy>> rnsCliente = new HashMap<String,List<IStrategy>>();
+		Map<String, List<IStrategy>> rnsPessoa = new HashMap<String,List<IStrategy>>();
 		
 		List<IStrategy> rnPessoa = new ArrayList<IStrategy>();
 		rnPessoa.add(completarDataCadastro);
@@ -109,18 +109,21 @@ public class Facade implements IFacade,IStyleQuery{
 //		rnPessoa.add(validarCpf);
 //		rnPessoa.add(validarSenha);
 		rnPessoa.add(validarTelefone);
-		rnsCliente.put(SALVAR,rnPessoa);
+		rnsPessoa.put(SALVAR,rnPessoa);
 		
 		
 		Map<String, List<IStrategy>> rnsUsuario = new HashMap<String,List<IStrategy>>();
-
 		List<IStrategy> rnUsuario = new ArrayList<IStrategy>();
-		
 		rnsUsuario.put(SALVAR,rnUsuario);
 
-		rns.put(Usuario.class.getName(),rnsUsuario);
 		
-		rns.put(Pessoa.class.getName(), rnsCliente);		
+		Map<String, List<IStrategy>> rnsProduto = new HashMap<String,List<IStrategy>>();
+		List<IStrategy> rnProduto = new ArrayList<IStrategy>();
+		rnsProduto.put(SALVAR,rnProduto);
+
+		rns.put(Pessoa.class.getName(),rnsPessoa);
+		rns.put(Usuario.class.getName(), rnsUsuario);		
+		rns.put(Produto.class.getName(),rnsProduto);
 
 	}
 	private IDAO getDaoInstance(EntidadeDominio entidade) {

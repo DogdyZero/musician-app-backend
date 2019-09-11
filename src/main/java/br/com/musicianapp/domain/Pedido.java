@@ -30,7 +30,7 @@ public class Pedido extends EntidadeDominio{
 	
 	@OneToOne
 	@JoinColumn(name="ped_id")
-	private Pessoa cliente;
+	private Pessoa pessoa;
 	
 	@OneToMany
 	@JoinColumn(name="ped_id")
@@ -48,13 +48,13 @@ public class Pedido extends EntidadeDominio{
 	
 	@Column(name="ped_status")
 	private StatusPedido status;
-
+	
 	public Pedido() {}
 	
 	public Pedido(Pessoa cliente, double frete, double total,
 			Date data, StatusPedido status) {
 		super();
-		this.cliente = cliente;
+		this.pessoa = pessoa;
 		this.frete = frete;
 		this.total = total;
 		this.data = data;
@@ -69,12 +69,12 @@ public class Pedido extends EntidadeDominio{
 		this.id = id;
 	}
 
-	public Pessoa getCliente() {
-		return cliente;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
-	public void setCliente(Pessoa cliente) {
-		this.cliente = cliente;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
 
 	public double getFrete() {

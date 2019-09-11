@@ -8,6 +8,7 @@ import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
+import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.domain.Usuario;
 
@@ -20,6 +21,7 @@ public abstract class AbstractAdapter<E> implements IAdapter<E>{
 	protected Usuario usuario;
 	protected Endereco endereco;
 	protected Cartao cartao;
+	protected Produto produto;
 	
 	protected Set<Telefone> telefones;
 	protected Set<Endereco> enderecos;
@@ -33,7 +35,8 @@ public abstract class AbstractAdapter<E> implements IAdapter<E>{
 		if(entidade instanceof Telefone) {this.telefone = Telefone.class.cast(entidade);}
 		if(entidade instanceof Endereco) {this.endereco = Endereco.class.cast(entidade);}
 		if(entidade instanceof Cartao) {this.cartao = Cartao.class.cast(entidade);}
-
+		if(entidade instanceof Produto) {this.produto = Produto.class.cast(entidade);}
+		
 		if(this.usuario!=null) {
 			if(this.usuario.getPessoa()!=null) {this.pessoa = this.usuario.getPessoa();}
 		}

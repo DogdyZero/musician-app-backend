@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.musicianapp.adapter.IAdapter;
+import br.com.musicianapp.adapter.ProdutoAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.repository.ProdutoRepository;
@@ -15,6 +17,12 @@ import br.com.musicianapp.repository.ProdutoRepository;
 public class ProdutoDao  extends AbstractDao  {	
 	private final String CLASSE = Produto.class.getName();
 	List<EntidadeDominio> entidades;
+	
+	private IAdapter<Produto> adapter;
+	
+	public ProdutoDao() {
+		adapter = new ProdutoAdapter<Produto>();
+	}
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
@@ -46,8 +54,8 @@ public class ProdutoDao  extends AbstractDao  {
 
 	@Override
 	public EntidadeDominio salvar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		adapter.setAdapter(entidade);
+		return produtoRepository.save(adapter.getObject());
 	}
 
 	@Override

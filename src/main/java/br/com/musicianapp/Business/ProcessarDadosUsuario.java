@@ -29,8 +29,8 @@ public class ProcessarDadosUsuario implements IStrategyPreparToSave{
 			usuario.setPerfil(Perfil.CLIENTE);
 		if(usuario.getStatus()==null)
 			usuario.setStatus(Status.ATIVO);
-		if(usuario.getHashCore()==null)
-			usuario.setHashCore(gerarHashCode());
+		if(usuario.getHashCode()==null)
+			usuario.setHashCode(gerarHashCode());
 		
 		return usuario;
 	}

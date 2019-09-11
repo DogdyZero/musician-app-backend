@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.musicianapp.controller.viewhelper.CadastroProdutoVH;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Produto;
@@ -32,7 +33,7 @@ public class ProdutoController {
 	private Produto produto;
 	
 	@Autowired
-	private ProdutoRepository produtoRepository;
+	private CadastroProdutoVH cadastroProduto;
 	
 	@GetMapping("{id}")
 	public Produto consultarProduto(@PathVariable int id){
@@ -49,15 +50,16 @@ public class ProdutoController {
 		List<EntidadeDominio> entidades = facade.consultar(this.produto);
 		List<Produto> produtos = new ArrayList<Produto>();
 		for (EntidadeDominio ent : entidades) {
-			
 			produtos.add((Produto)ent);
 		}
 		return produtos;
 	}
 	
 	@PostMapping
-	public void salvarProduto(){
-		
+	public Produto salvarProduto(@RequestBody Produto produto){
+		produto = (Produto) cadastroProduto.prepararParaSalvar(produto);
+		facade.salvar(produto);
+		return null;
 	}
 	
 	@PutMapping("{id}")
