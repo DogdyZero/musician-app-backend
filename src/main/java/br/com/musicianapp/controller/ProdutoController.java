@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.controller.viewhelper.CadastroProdutoVH;
 import br.com.musicianapp.domain.EntidadeDominio;
-import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.impl.Resultado;
-import br.com.musicianapp.repository.ProdutoRepository;
 
 @CrossOrigin
 @RestController
@@ -63,8 +61,10 @@ public class ProdutoController {
 	}
 	
 	@PutMapping("{id}")
-	public Object alterarProduto(@RequestBody Produto produto, int id){
+	public Object alterarProduto(@RequestBody Produto produto, @PathVariable int id){
 		produto.setId(id);
+		produto = (Produto) cadastroProduto.prepararParaSalvar(produto);
+
 		Resultado resultado = this.facade.alterar(produto);
 		
 		if(resultado!=null) {

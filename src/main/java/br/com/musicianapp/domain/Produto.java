@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,6 +58,7 @@ public class Produto extends EntidadeDominio {
 	private Categoria categoriaProduto;
 	
 	@Column(name="prod_status")
+	@Enumerated(EnumType.STRING)
 	private Status status;
 	
 	@Column(name="prod_dimensao")
