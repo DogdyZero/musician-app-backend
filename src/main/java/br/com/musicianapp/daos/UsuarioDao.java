@@ -17,10 +17,10 @@ import br.com.musicianapp.repository.UsuarioRepository;
 public class UsuarioDao extends AbstractDao {
 	List<EntidadeDominio> entidades;
 
-	private IAdapter adapter;
+	private IAdapter<Usuario> adapter;
 	
 	public UsuarioDao() {
-		this.adapter = new UsuarioAdapter();
+		this.adapter = new UsuarioAdapter<Usuario>();
 	}
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -51,13 +51,16 @@ public class UsuarioDao extends AbstractDao {
 
 			if(parametro.equals("usuarioid")) {
 				parametro=null;
-				return consultarPorID((Usuario) adapter.getObject());
+				return consultarPorID(adapter.getObject());
 			} else if(parametro.equals("login")) {
 				parametro=null;
-				return validarAcesso((Usuario) adapter.getObject());
+				return validarAcesso(adapter.getObject());
 			} else if(parametro.equals("all")){
 				parametro = null;
 				return consultarTodos();
+			} else if(parametro.equals("usuarioHash".toLowerCase())) {
+				parametro = null;
+				return consultarHash(adapter.getObject());
 			}
 		}
 		return null;
@@ -83,6 +86,12 @@ public class UsuarioDao extends AbstractDao {
 		for (Usuario user : usuarios) {
 			entidades.add(user);
 		}
+		return entidades;
+	}
+	private List<EntidadeDominio> consultarHash(Usuario usuario){
+		usuario = usuarioRepository.findByHashCode(usuario.getHashCode());
+		entidades.add(usuario);
+		System.out.println("Resultado: " + usuario.getLogin());
 		return entidades;
 	}
 

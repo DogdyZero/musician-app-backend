@@ -20,16 +20,28 @@ public class ItemProduto {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_produto_generator")
 	private int id;
 	
+	@Column(name="prod_cod_barras")
+	private String codigoBarras;
+	
 	@OneToOne
-	@JoinColumn(name="ipr_id")
+	@JoinColumn(name="prod_id")
 	private Produto produto;
-
+	
+	
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getCodigoBarras() {
+		return codigoBarras;
+	}
+
+	public void setCodigoBarras(String codigoBarras) {
+		this.codigoBarras = codigoBarras;
 	}
 
 	public Produto getProduto() {
@@ -39,6 +51,7 @@ public class ItemProduto {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
+	
 	
 	
 	

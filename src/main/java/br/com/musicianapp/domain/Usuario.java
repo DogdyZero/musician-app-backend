@@ -36,7 +36,7 @@ public class Usuario extends EntidadeDominio {
 	private String login;
 	
 	@Column(name="usu_hashcode")
-	private String hashCore;
+	private String hashCode;
 	
 	@Column(name="usu_senha")
 	private String senha;
@@ -59,9 +59,9 @@ public class Usuario extends EntidadeDominio {
 		this.senha = senha;
 	}
 
-	public Usuario(String hashCore) {
+	public Usuario(String hashCode) {
 		super();
-		this.hashCore = hashCore;
+		this.hashCode = hashCode;
 	}
 
 	public Usuario(Perfil perfil, String login, String senha, Status status) {
@@ -104,12 +104,12 @@ public class Usuario extends EntidadeDominio {
 		this.login = login;
 	}
 
-	public String getHashCore() {
-		return hashCore;
+	public String getHashCode() {
+		return hashCode;
 	}
 
-	public void setHashCore(String hashCore) {
-		this.hashCore = hashCore;
+	public void setHashCode(String hashCode) {
+		this.hashCode = hashCode;
 	}
 
 	public Status getStatus() {
