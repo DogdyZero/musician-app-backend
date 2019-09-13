@@ -66,6 +66,9 @@ public class PessoaDao extends AbstractDao {
 					
 			optPessoa = pessoaRepository.findById(pessoa.getId());
 			Pessoa pesBD = optPessoa.get();
+			pesBD.setNome(pessoa.getNome());
+			//pesBD.setGenero(pessoa.getNome());
+			//pesBD.setData(pessoa.getNome());
 			
 			if(pessoa.getTelefone()!=null) {
 				pesBD = updateTelefone(pesBD, pessoa);
@@ -84,7 +87,8 @@ public class PessoaDao extends AbstractDao {
 				
 			}
 			
-			return pessoaRepository.save(pesBD);
+			
+			return pessoaRepository.saveAndFlush(pesBD);
 		}
 		
 		return null;	

@@ -28,8 +28,8 @@ public class ProdutoDao  extends AbstractDao  {
 	
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-		Produto produto = adapter.getObject();
-		if(produto!=null) {
+		adapter.setAdapter(entidade);
+		if(adapter.getObject()!=null) {
 			entidades = new ArrayList<EntidadeDominio>();
 			String parametro=super.getParametro().toLowerCase();
 			if(parametro.equals("all")) {
@@ -37,7 +37,7 @@ public class ProdutoDao  extends AbstractDao  {
 				return consultarAll();
 			}else if(parametro.equals("prodid")) {
 				parametro = null;
-				return consultaById(produto);
+				return consultaById(adapter.getObject());
 			}
 		}
 		

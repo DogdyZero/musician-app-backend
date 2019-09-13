@@ -61,20 +61,22 @@ public class UsuarioController {
 		}
 		return usuarios;	
 	}
+//	@PostMapping
+//	public Usuario salvar(@RequestBody Usuario usuario) {
+//		usuario = (Usuario) cadastroPessoaVH.prepararParaSalvar(usuario);
+//
+//		facade.salvar(usuario);
+//		return null;
+//	}
+	
 	@PostMapping
-	public Usuario salvar(@RequestBody Usuario usuario) {
-		usuario = (Usuario) cadastroPessoaVH.prepararParaSalvar(usuario);
-
-		facade.salvar(usuario);
-		return null;
-	}
-	@PostMapping("login")
-	public String fazerLogin(@RequestBody Usuario usuario) {
+	public Usuario fazerLogin(@RequestBody Usuario usuario) {
 		this.facade.setParametro("login");
 		List<EntidadeDominio> entidades = facade.consultar(usuario);
 		usuario = (Usuario) entidades.get(0);
+		System.out.println(usuario.getPerfil());
 		
-		return usuario.getHashCode();	
+		return usuario;
 	}
 	
 	@DeleteMapping("{id}")

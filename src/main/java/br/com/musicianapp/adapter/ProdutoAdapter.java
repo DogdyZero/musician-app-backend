@@ -12,7 +12,7 @@ public class ProdutoAdapter<E> extends AbstractAdapter<E> {
 	@Override
 	public Set<E> getListObject() {
 		// TODO Auto-generated method stub
-		return null;
+		return (Set<E>) super.produto;
 	}
 
 }

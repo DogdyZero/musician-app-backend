@@ -3,6 +3,7 @@ package br.com.musicianapp.domain;
 import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -58,7 +59,8 @@ public class Produto extends EntidadeDominio {
 	private Categoria categoriaProduto;
 	
 	@Column(name="prod_status")
-	@Enumerated(EnumType.STRING)
+	//@Enumerated(EnumType.STRING)
+	@Convert(converter = Status.Mapeador.class)
 	private Status status;
 	
 	@Column(name="prod_dimensao")

@@ -2,6 +2,7 @@ package br.com.musicianapp.domain;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,7 +29,7 @@ public class Usuario extends EntidadeDominio {
 	@Column(name="usu_id")
 	private int id;
 	
-	@Enumerated(EnumType.STRING)
+	@Convert(converter = Perfil.Mapeador.class)
 	@Column(name="usu_perfil")
 	private Perfil perfil;
 	
@@ -42,7 +43,7 @@ public class Usuario extends EntidadeDominio {
 	private String senha;
 	
 	@Column(name="usu_status")
-	@Enumerated(EnumType.STRING)
+	@Convert(converter = Status.Mapeador.class)
 	private Status status;
 
 	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
