@@ -81,15 +81,16 @@ public class PessoaController {
 		return null; 
 	}
 	
-	@PutMapping("{idPessoa}/novo")
-	public Object adicionarNovoTelefone(@PathVariable int idPessoa, @RequestBody Pessoa pessoa) {
+	@PutMapping("{idPessoa}")
+	public Object alterarPessoa(@PathVariable int idPessoa, @RequestBody Pessoa pessoa) {
 		// adiciona novo numero ao banco relacionado ao cliente
 		// criar o metodo
 		pessoa.setId(idPessoa);
 		this.facade.alterar(pessoa);
-		
+		System.out.println(pessoa.getNome());
 		return null;
 	}
+	
 	
 	@DeleteMapping("{id}")
 	public void deletarPessoa(@PathVariable int id) {
