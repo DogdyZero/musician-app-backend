@@ -27,6 +27,12 @@ public class ItemProduto {
 	@JoinColumn(name="prod_id")
 	private Produto produto;
 	
+	@Column(name="ipd_quantidade")
+	private int quantidade;
+	
+	@Column(name="ipd_valor_produto")
+	private double valorProduto;
+	
 	
 	public int getId() {
 		return id;
@@ -51,8 +57,21 @@ public class ItemProduto {
 	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
-	
-	
-	
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public double getValorProduto() {
+		return valorProduto;
+	}
+
+	public void setValorProduto(double valorProduto) {
+		this.valorProduto = valorProduto;
+	}
 	
 }

@@ -1,7 +1,5 @@
 package br.com.musicianapp.domain;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -24,13 +23,9 @@ public class FormaPagamento {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "form_pagamento_generator")
 	private int id;
 	
-	@OneToMany
+	@OneToOne
 	@JoinColumn(name="fmp_id")
-	private List<Cartao> cartao;
-	
-	@OneToMany
-	@JoinColumn(name="fmp_id")
-	private List<Cupom> cupom;
+	private TipoPagamento tipoPagamento;
 	
 	@Column(name="fmp_saldo")
 	private double saldo;
@@ -47,24 +42,16 @@ public class FormaPagamento {
 		this.id = id;
 	}
 
-	public List<Cartao> getCartao() {
-		return cartao;
-	}
-
-	public void setCartao(List<Cartao> cartao) {
-		this.cartao = cartao;
-	}
-
-	public List<Cupom> getCupom() {
-		return cupom;
-	}
-
-	public void setCupom(List<Cupom> cupom) {
-		this.cupom = cupom;
-	}
-
 	public double getSaldo() {
 		return saldo;
+	}
+
+	public TipoPagamento getTipoPagamento() {
+		return tipoPagamento;
+	}
+
+	public void setTipoPagamento(TipoPagamento tipoPagamento) {
+		this.tipoPagamento = tipoPagamento;
 	}
 
 	public void setSaldo(double saldo) {
@@ -78,7 +65,7 @@ public class FormaPagamento {
 	public void setPagoTudo(boolean pagoTudo) {
 		this.pagoTudo = pagoTudo;
 	}
-	
+
 	
 	
 }

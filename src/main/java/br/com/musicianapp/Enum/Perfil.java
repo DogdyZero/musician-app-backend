@@ -21,22 +21,22 @@ public enum Perfil {
 		this.perfil = perfil;
 	};
 	
-	@Converter(autoApply = true)
-    public static class Mapeador implements AttributeConverter<Perfil, String> {
-
-        @Override
-        public String convertToDatabaseColumn(Perfil x) {
-            return String.valueOf(x.getPerfil());
-        }
-
-        @Override
-        public Perfil convertToEntityAttribute(String y) {
-            if (y == null) return null;
-            if ("0".equals(y)) return CLIENTE;
-            if ("1".equals(y)) return ADMINISTRADOR;
-            throw new IllegalStateException("Valor inválido: " + y);
-        }
-    }
+//	@Converter(autoApply = true)
+//    public static class Mapeador implements AttributeConverter<Perfil, String> {
+//
+//        @Override
+//        public String convertToDatabaseColumn(Perfil x) {
+//            return String.valueOf(x.getPerfil());
+//        }
+//
+//        @Override
+//        public Perfil convertToEntityAttribute(String y) {
+//            if (y == null) return null;
+//            if ("0".equals(y)) return CLIENTE;
+//            if ("1".equals(y)) return ADMINISTRADOR;
+//            throw new IllegalStateException("Valor inválido: " + y);
+//        }
+//    }
 	
 	
 

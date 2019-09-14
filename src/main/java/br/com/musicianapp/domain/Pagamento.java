@@ -30,6 +30,9 @@ public class Pagamento {
 	
 	@Column(name="pag_total")
 	private double totalPago;
+	
+	@Column(name="pag_pagamento_efetivado")
+	private boolean statusPagamento;
 
 	public int getId() {
 		return id;
@@ -54,5 +57,14 @@ public class Pagamento {
 	public void setTotalPago(double totalPago) {
 		this.totalPago = totalPago;
 	}
+
+	public boolean isStatusPagamento() {
+		return statusPagamento;
+	}
+
+	public void setStatusPagamento(boolean statusPagamento) {
+		this.statusPagamento = statusPagamento;
+	}
+	
 	
 }

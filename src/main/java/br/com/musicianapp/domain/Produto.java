@@ -59,8 +59,8 @@ public class Produto extends EntidadeDominio {
 	private Categoria categoriaProduto;
 	
 	@Column(name="prod_status")
-	//@Enumerated(EnumType.STRING)
-	@Convert(converter = Status.Mapeador.class)
+	@Enumerated(EnumType.STRING)
+//	@Convert(converter = Status.Mapeador.class)
 	private Status status;
 	
 	@Column(name="prod_dimensao")

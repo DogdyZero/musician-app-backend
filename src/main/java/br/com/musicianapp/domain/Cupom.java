@@ -14,7 +14,7 @@ import br.com.musicianapp.Enum.OrigemCupom;
 @Entity
 @Component
 @SequenceGenerator(name="cupom_generator", sequenceName = "cupom_seq", allocationSize=50,initialValue=1)
-public class Cupom extends EntidadeDominio{
+public class Cupom extends TipoPagamento{
 	
 	@Id
 	@Column(name="cpm_id")

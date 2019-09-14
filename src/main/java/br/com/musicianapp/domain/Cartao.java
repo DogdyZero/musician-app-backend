@@ -15,7 +15,7 @@ import br.com.musicianapp.Enum.Status;
 
 @Entity @Component
 @SequenceGenerator(name="cartao_generator", sequenceName = "cartao_seq", allocationSize=50,initialValue=1)
-public class Cartao extends EntidadeDominio{
+public class Cartao extends TipoPagamento{
 	
 	@Id
 	@Column(name="car_id")
