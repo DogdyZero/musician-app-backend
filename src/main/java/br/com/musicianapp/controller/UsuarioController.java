@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -78,6 +79,16 @@ public class UsuarioController {
 		
 		return usuario;
 	}
+	
+	@PutMapping("{idUsuario}")
+	public Object alterarPessoa(@PathVariable int idUsuario, @RequestBody Usuario usuario) {
+		// adiciona novo numero ao banco relacionado ao cliente
+		// criar o metodo
+		usuario.setId(idUsuario);
+		this.facade.alterar(usuario);
+		return null;
+	}
+	
 	
 	@DeleteMapping("{id}")
 	public void deletarUsuario(@PathVariable int id){

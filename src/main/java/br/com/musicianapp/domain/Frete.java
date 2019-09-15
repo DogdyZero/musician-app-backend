@@ -23,7 +23,7 @@ public class Frete {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "frete_generator")
 	private int id;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="end_id")
 	private Endereco endereco;
 	

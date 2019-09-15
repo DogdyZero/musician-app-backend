@@ -56,11 +56,10 @@ public class Produto extends EntidadeDominio {
 
 	@OneToOne
 	@JoinColumn(name="prod_categoria_id")
-	private Categoria categoriaProduto;
+	private Categoria categoria;
 	
 	@Column(name="prod_status")
 	@Enumerated(EnumType.STRING)
-//	@Convert(converter = Status.Mapeador.class)
 	private Status status;
 	
 	@Column(name="prod_dimensao")
@@ -164,14 +163,6 @@ public class Produto extends EntidadeDominio {
 	public void setEan(String ean) {
 		this.ean = ean;
 	}	
-
-	public Categoria getCategoriaProduto() {
-		return categoriaProduto;
-	}
-
-	public void setCategoriaProduto(Categoria categoriaProduto) {
-		this.categoriaProduto = categoriaProduto;
-	}
 
 	public Status getStatus() {
 		return status;

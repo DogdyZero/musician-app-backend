@@ -1,5 +1,6 @@
 package br.com.musicianapp.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class FormaPagamento {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "form_pagamento_generator")
 	private int id;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="fmp_id")
 	private TipoPagamento tipoPagamento;
 	

@@ -2,6 +2,7 @@ package br.com.musicianapp.domain;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,13 +26,13 @@ public class Pedido extends EntidadeDominio{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_generator")
 	private int id;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.MERGE)
 	private CarrinhoCompra carrinhoCompra;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.MERGE)
 	private Frete frete;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.MERGE)
 	private Pagamento pagamento;
 	
 	@Column(name="ped_valor")

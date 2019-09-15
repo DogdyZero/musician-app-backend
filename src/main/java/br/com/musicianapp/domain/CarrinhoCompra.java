@@ -27,7 +27,7 @@ public class CarrinhoCompra extends EntidadeDominio {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "carrinho_generator")
 	private int id;
 	
-	@JoinColumn(name="ipr_id")
+	@JoinColumn(name="crc_id")
 	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	private List<ItemProduto> itemProduto;
 	

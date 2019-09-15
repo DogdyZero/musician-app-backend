@@ -1,5 +1,6 @@
 package br.com.musicianapp.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class ItemProduto {
 	@Column(name="prod_cod_barras")
 	private String codigoBarras;
 	
-	@OneToOne
+	@OneToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="prod_id")
 	private Produto produto;
 	

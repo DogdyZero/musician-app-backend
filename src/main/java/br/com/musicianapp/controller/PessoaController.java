@@ -104,7 +104,6 @@ public class PessoaController {
 		// criar o metodo
 		pessoa.setId(idPessoa);
 		this.facade.alterar(pessoa);
-		System.out.println(pessoa.getNome());
 		return null;
 	}
 	
