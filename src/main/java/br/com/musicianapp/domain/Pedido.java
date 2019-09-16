@@ -1,15 +1,15 @@
 package br.com.musicianapp.domain;
 
 import java.sql.Date;
-import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -28,16 +28,14 @@ public class Pedido extends EntidadeDominio{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_generator")
 	private int id;
 	
-	@OneToOne
-	@JoinColumn(name="ped_id")
-	private Pessoa pessoa;
+	@OneToOne(cascade=CascadeType.MERGE)
+	private CarrinhoCompra carrinhoCompra;
 	
-	@OneToMany
-	@JoinColumn(name="ped_id")
-	private List<ItemProduto> itemProduto;
+	@OneToOne(cascade=CascadeType.MERGE)
+	private Frete frete;
 	
-	@Column(name="ped_frete")
-	private double frete;
+	@OneToOne(cascade=CascadeType.MERGE)
+	private Pagamento pagamento;
 	
 	@Column(name="ped_valor")
 	private double total;
@@ -47,19 +45,11 @@ public class Pedido extends EntidadeDominio{
 	private Date data;
 	
 	@Column(name="ped_status")
-	private StatusPedido status;
+	@Enumerated(EnumType.STRING)
+	private StatusPedido statusPedido;
 	
 	public Pedido() {}
 	
-	public Pedido(Pessoa cliente, double frete, double total,
-			Date data, StatusPedido status) {
-		super();
-		this.pessoa = pessoa;
-		this.frete = frete;
-		this.total = total;
-		this.data = data;
-		this.status = status;
-	}
 
 	public int getId() {
 		return id;
@@ -67,22 +57,6 @@ public class Pedido extends EntidadeDominio{
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Pessoa getPessoa() {
-		return pessoa;
-	}
-
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-	public double getFrete() {
-		return frete;
-	}
-
-	public void setFrete(double frete) {
-		this.frete = frete;
 	}
 
 	public double getTotal() {
@@ -101,22 +75,46 @@ public class Pedido extends EntidadeDominio{
 		this.data = data;
 	}
 
-	public StatusPedido getStatus() {
-		return status;
+
+	public CarrinhoCompra getCarrinhoCompra() {
+		return carrinhoCompra;
 	}
 
-	public void setStatus(StatusPedido status) {
-		this.status = status;
+
+	public void setCarrinhoCompra(CarrinhoCompra carrinhoCompra) {
+		this.carrinhoCompra = carrinhoCompra;
 	}
 
-	public List<ItemProduto> getItemProduto() {
-		return itemProduto;
+
+	public Frete getFrete() {
+		return frete;
 	}
 
-	public void setItemProduto(List<ItemProduto> itemProduto) {
-		this.itemProduto = itemProduto;
+
+	public void setFrete(Frete frete) {
+		this.frete = frete;
 	}
-	
+
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
+
+
+	public StatusPedido getStatusPedido() {
+		return statusPedido;
+	}
+
+
+	public void setStatusPedido(StatusPedido statusPedido) {
+		this.statusPedido = statusPedido;
+	}
+
 	
 		
 }

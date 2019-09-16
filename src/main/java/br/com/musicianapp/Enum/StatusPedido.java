@@ -1,10 +1,10 @@
 package br.com.musicianapp.Enum;
 
 public enum StatusPedido {
-	AGUARDANDO_APROVACAO("Aguardando aprovação"),
-	EM_SEPARACAO("Em separação"),
-	EM_TRANSPORTE("Em transporte"),
-	ENTREGUE("Entregue");
+	AGUARDANDO_APROVACAO("Aguardando Aprovação"),
+	EM_SEPARACAO ("Em Separação"),
+	EM_TRANSPORTE ("Em Transporte"),
+	ENTREGUE("Em Entrega");
 	
 	private String status;
 

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.ItemProduto;
+import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.domain.Telefone;
@@ -22,10 +24,13 @@ public abstract class AbstractAdapter<E> implements IAdapter<E>{
 	protected Endereco endereco;
 	protected Cartao cartao;
 	protected Produto produto;
+	protected Pedido pedido;
+	protected ItemProduto itemProduto;
 	
 	protected Set<Telefone> telefones;
 	protected Set<Endereco> enderecos;
 	protected Set<Cartao> cartoes;
+	protected Set<Pedido> pedidos;
 
 	
 	public void setAdapter(EntidadeDominio entidade) {
@@ -36,6 +41,9 @@ public abstract class AbstractAdapter<E> implements IAdapter<E>{
 		if(entidade instanceof Endereco) {this.endereco = Endereco.class.cast(entidade);}
 		if(entidade instanceof Cartao) {this.cartao = Cartao.class.cast(entidade);}
 		if(entidade instanceof Produto) {this.produto = Produto.class.cast(entidade);}
+		if(entidade instanceof Pedido) {this.pedido = Pedido.class.cast(entidade);}
+		if(entidade instanceof ItemProduto) {this.itemProduto = ItemProduto.class.cast(entidade);}
+
 		
 		if(this.usuario!=null) {
 			if(this.usuario.getPessoa()!=null) {this.pessoa = this.usuario.getPessoa();}

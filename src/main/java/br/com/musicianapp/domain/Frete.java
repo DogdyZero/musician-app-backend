@@ -2,8 +2,10 @@ package br.com.musicianapp.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,12 +23,8 @@ public class Frete {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "frete_generator")
 	private int id;
 	
-	@OneToOne
-	@JoinColumn(name="fre_id")
-	private Pedido pedido;
-	
-	@OneToOne
-	@JoinColumn(name="fre_id")
+	@OneToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name="end_id")
 	private Endereco endereco;
 	
 	@Column(name="fre_calculo_frete")
@@ -41,14 +39,6 @@ public class Frete {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
 	}
 
 	public Endereco getEndereco() {

@@ -21,3 +21,8 @@ INSERT INTO usuario(usu_id,usu_hashcode,usu_login,usu_perfil,usu_senha,usu_statu
 INSERT INTO usuario(usu_id,usu_hashcode,usu_login,usu_perfil,usu_senha,usu_status) values (3,'3124433','gabriela',0,'gabriela',0);
 INSERT INTO usuario(usu_id,usu_hashcode,usu_login,usu_perfil,usu_senha,usu_status) values (4,'1234324','manuzita',0,'manuzita',0);
 INSERT INTO usuario(usu_id,usu_hashcode,usu_login,usu_perfil,usu_senha,usu_status) values (5,'4343345','mariazinha',0,'mariazinha',0);
+
+insert into categoria (cat_id,cat_nome) values (1,'corda');
+insert into categoria (cat_id,cat_nome) values (2,'teclado');
+insert into categoria (cat_id,cat_nome) values (3,'sopro');
+insert into categoria (cat_id,cat_nome) values (4,'eletronico');

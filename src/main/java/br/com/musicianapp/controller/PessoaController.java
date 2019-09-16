@@ -15,9 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.musicianapp.controller.viewhelper.CadastroPessoaVH;
+import br.com.musicianapp.domain.Bandeira;
+import br.com.musicianapp.domain.Cartao;
+import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.FormaPagamento;
 import br.com.musicianapp.domain.Pessoa;
+import br.com.musicianapp.domain.TipoPagamento;
 
 @CrossOrigin
 @RestController
@@ -74,12 +78,25 @@ public class PessoaController {
 		}
 		return pessoas;		
 	}
-	@PostMapping
-	public Object salvarPessoa(@RequestBody Pessoa pessoa) {
-		
-		facade.salvar(pessoa);
-		return null; 
-	}
+//	@PostMapping
+//	public Object salvarPessoa(@RequestBody FormaPagamento fp) {
+//		
+//		FormaPagamento fp2 = new FormaPagamento();
+//		Cupom cupom = new Cupom();
+//		Cartao cartao = new Cartao();
+//
+//		List<TipoPagamento> lista = new ArrayList<TipoPagamento>();
+//		cartao.setBandeira(Bandeira.HYPERCARD);
+//		cupom.setCodigo("1231231");
+//		lista.add(cupom);
+//		lista.add(cartao);
+//
+//		fp2.setTipo(lista);
+//		System.out.println(fp);
+//		
+//		facade.salvar(pessoa);
+//		return fp2; 
+//	}
 	
 	@PutMapping("{idPessoa}")
 	public Object alterarPessoa(@PathVariable int idPessoa, @RequestBody Pessoa pessoa) {
@@ -87,7 +104,6 @@ public class PessoaController {
 		// criar o metodo
 		pessoa.setId(idPessoa);
 		this.facade.alterar(pessoa);
-		System.out.println(pessoa.getNome());
 		return null;
 	}
 	

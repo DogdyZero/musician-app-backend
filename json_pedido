@@ -1,0 +1,55 @@
+insert into produto (prod_id, prod_ano, prod_desc, prod_dimensao, prod_ean,prod_marca ,prod_modelo,prod_nome,prod_imagem,prod_preco, prod_qtd ,prod_status ,prod_categoria_id 
+) 
+values(1,null,'primeiro modelo do guitarrista Slash','','','GIBSON','LES PAUL','GUITARRA','',1000,0,'ATIVO',1);
+
+
+insert into categoria (cat_id,cat_nome) values (1,'corda');
+insert into categoria (cat_id,cat_nome) values (2,'teclado');
+insert into categoria (cat_id,cat_nome) values (3,'sopro');
+insert into categoria (cat_id,cat_nome) values (4,'eletronico');
+{
+	"pessoa":{
+		"pedido":[
+			{
+				"carrinhoCompra":{
+					"totalCarrinho":300.00,
+					"itemProduto":[
+						{
+							"produto":{
+								"nome":"guitarra"
+							},
+							"quantidade":2,
+							"valorProduto":200.00
+						},
+						{
+							"produto":{
+								"nome":"sanfona"
+							},
+							"quantidade":1,
+							"valorProduto":100.00
+						}]
+				},
+				"frete":{
+					"endereco":{
+						"logradouro":"Rua Escorpiao"
+					},
+					"calculoFrete":10
+				},
+				"pagamento":{
+					"formaPagamento":[{
+						"tipoPagamento":{
+							"type":"cartao",
+							"numeroCartao":"1231231"
+						},
+						"saldo":100
+						
+					}]	
+				},
+				"total":100,
+				"statusPedido":"AGUARDANDO_APROVACAO"
+		}
+		]
+		
+		
+	}
+}

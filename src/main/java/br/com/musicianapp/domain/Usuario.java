@@ -29,7 +29,7 @@ public class Usuario extends EntidadeDominio {
 	@Column(name="usu_id")
 	private int id;
 	
-	@Convert(converter = Perfil.Mapeador.class)
+	@Enumerated(EnumType.STRING)
 	@Column(name="usu_perfil")
 	private Perfil perfil;
 	
@@ -43,7 +43,7 @@ public class Usuario extends EntidadeDominio {
 	private String senha;
 	
 	@Column(name="usu_status")
-	@Convert(converter = Status.Mapeador.class)
+	@Enumerated(EnumType.STRING)
 	private Status status;
 
 	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)

@@ -19,6 +19,7 @@ import br.com.musicianapp.Enum.Status;
 import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.repository.PessoaRepository;
@@ -80,12 +81,12 @@ public class PessoaDao extends AbstractDao {
 			if(pessoa.getCartao()!=null) {
 				pesBD = updateCartao(pesBD, pessoa);
 			}
-			if(pessoa.getCompra()!=null) {
-				
-			}
-			if(pessoa.getPedido()!=null) {
-				
-			}
+//			if(pessoa.getCompra()!=null) {
+//				
+//			}
+//			if(pessoa.getPedido()!=null) {
+//				pesBD = updatePedido(pesBD, pessoa);
+//			}
 			
 			
 			return pessoaRepository.saveAndFlush(pesBD);
@@ -138,6 +139,24 @@ public class PessoaDao extends AbstractDao {
 		}
 		
 		pesBD.setCartao(carBD);
+		
+		return pesBD;
+	}
+	private Pessoa updatePedido(Pessoa pesBD, Pessoa pessoaComNovoPedido ) {
+		Set<Pedido> pedidosMem =pessoaComNovoPedido.getPedido();
+
+		Set<Pedido> pedBD = pesBD.getPedido();
+		
+		for(Pedido pedido: pedidosMem) {
+			Pedido p = new Pedido();
+			
+			
+			
+			
+			pedBD.add(p);
+		}
+		
+		pesBD.setPedido(pedBD);
 		
 		return pesBD;
 	}
