@@ -37,7 +37,7 @@ INSERT INTO public.carrinho_compra(
 
 INSERT INTO public.item_produto(
 	ipr_id, prod_cod_barras, ipd_quantidade, ipd_status_troca, ipd_valor_produto, prod_id, crc_id, prod_crc_id)
-	VALUES (1, '11111111', 3, null, 1000, 1, 1, 1);
+	VALUES (1, '11111111', 1, null, 1000, 1, 1, 1);
 
 INSERT INTO public.endereco(
 	end_id, end_apelido, end_bairro, end_cep, end_cidade, end_complemento, end_estado, end_logradouro, end_numero, tel_status, end_tipo, pes_id)
