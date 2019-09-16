@@ -18,6 +18,8 @@ import br.com.musicianapp.daos.AbstractDao;
 import br.com.musicianapp.daos.CartaoDao;
 import br.com.musicianapp.daos.EnderecoDao;
 import br.com.musicianapp.daos.IDAO;
+import br.com.musicianapp.daos.ItemProdutoDao;
+import br.com.musicianapp.daos.PedidoDao;
 import br.com.musicianapp.daos.PessoaDao;
 import br.com.musicianapp.daos.ProdutoDao;
 import br.com.musicianapp.daos.TelefoneDao;
@@ -25,6 +27,8 @@ import br.com.musicianapp.daos.UsuarioDao;
 import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.ItemProduto;
+import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.domain.Telefone;
@@ -41,6 +45,10 @@ public class Facade implements IFacade,IStyleQuery{
 	@Autowired private EnderecoDao enderecoDao;
 	@Autowired private UsuarioDao usuarioDao;
 	@Autowired private ProdutoDao produtoDao;
+	@Autowired private PedidoDao pedidoDao;
+	@Autowired private ItemProdutoDao itemProdutoDao;
+
+
 	
 	@Autowired private CompletarDataCadastro completarDataCadastro;
 	@Autowired private ValidarCpf validarCpf;
@@ -97,6 +105,9 @@ public class Facade implements IFacade,IStyleQuery{
 		daos.put(Endereco.class.getName(), enderecoDao);
 		daos.put(Usuario.class.getName(), usuarioDao);
 		daos.put(Produto.class.getName(), produtoDao);
+		daos.put(Pedido.class.getName(), pedidoDao);
+		daos.put(ItemProduto.class.getName(), itemProdutoDao);
+
 
 		/*
 		 * Regras para Salvar Cliente

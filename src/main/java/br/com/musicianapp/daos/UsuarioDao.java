@@ -60,7 +60,8 @@ public class UsuarioDao extends AbstractDao {
 	}
 	
 	private Usuario updatePedido(Usuario usuBD, Usuario usuarioComNovoPedido ) {
-		
+		// precisa pegar o id do produto e endereco para não criar novos itens
+
 		List<ItemProduto> item = new ArrayList<ItemProduto>();
 
 		
