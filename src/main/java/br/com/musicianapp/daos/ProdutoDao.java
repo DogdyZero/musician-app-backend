@@ -86,8 +86,8 @@ public class ProdutoDao  extends AbstractDao  {
 
 	@Override
 	public void apagar(EntidadeDominio entidade) {
-		Produto produto = (Produto) entidade;
-		produtoRepository.deleteById(produto.getId());
+		adapter.setAdapter(entidade);
+		produtoRepository.deleteById(adapter.getObject().getId());
 	}
 	
 	private List<EntidadeDominio> consultarAll(){
