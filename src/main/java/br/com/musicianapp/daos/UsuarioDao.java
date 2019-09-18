@@ -126,9 +126,11 @@ public class UsuarioDao extends AbstractDao {
 	
 	private List<EntidadeDominio> validarAcesso(Usuario usuario){
 		usuario = usuarioRepository.findByLoginAndSenha(usuario.getLogin(), usuario.getSenha());
-		entidades.add(usuario);
-		System.out.println("Resultado: " + usuario.getLogin());
-		return entidades;
+		if(usuario!=null) {
+			entidades.add(usuario);
+			return entidades;
+		}
+		return null;
 	}
 	
 	private List<EntidadeDominio> consultarTodos(){
