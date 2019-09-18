@@ -74,10 +74,11 @@ public class UsuarioController {
 	public Usuario fazerLogin(@RequestBody Usuario usuario) {
 		this.facade.setParametro("login");
 		List<EntidadeDominio> entidades = facade.consultar(usuario);
-		usuario = (Usuario) entidades.get(0);
-		System.out.println(usuario.getPerfil());
-		
-		return usuario;
+		if(entidades!=null) {
+			usuario = (Usuario) entidades.get(0);
+			return usuario;
+		}
+		return null;
 	}
 	
 	@PutMapping("{idUsuario}")
