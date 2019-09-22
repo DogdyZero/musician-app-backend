@@ -74,8 +74,9 @@ public class ProdutoController {
 		return null;
 	}
 	
-	@DeleteMapping
-	public void deletarProduto(){
-		
+	@DeleteMapping("{id}")
+	public void deletarProduto(@PathVariable int id){
+		produto.setId(id);
+		facade.apagar(produto);
 	}
 }

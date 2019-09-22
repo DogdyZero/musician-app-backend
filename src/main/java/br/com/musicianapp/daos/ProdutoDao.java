@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.adapter.ProdutoAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.repository.ProdutoRepository;
 
@@ -68,7 +69,11 @@ public class ProdutoDao  extends AbstractDao  {
 		if(!prodMem.getEan().equals(prodBD.getEan())) {
 			prodCopy.setEan(prodBD.getEan());
 		} 
-		prodCopy.setId(prodBD.getId());
+		prodCopy.setPreco(prodMem.getPreco());
+		prodCopy.setQuantidade(prodMem.getQuantidade());
+		prodCopy.setDescricao(prodMem.getDescricao());
+		prodCopy.setAno(prodMem.getAno());
+		prodCopy.setId(prodMem.getId());
 		prodCopy.setNome(prodMem.getNome());
 		prodCopy.setMarca(prodMem.getMarca());
 		prodCopy.setModelo(prodMem.getModelo());
@@ -81,7 +86,8 @@ public class ProdutoDao  extends AbstractDao  {
 
 	@Override
 	public void apagar(EntidadeDominio entidade) {
-		
+		adapter.setAdapter(entidade);
+		produtoRepository.deleteById(adapter.getObject().getId());
 	}
 	
 	private List<EntidadeDominio> consultarAll(){
