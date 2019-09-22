@@ -1,5 +1,6 @@
 package br.com.musicianapp.daos;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,12 +12,13 @@ import br.com.musicianapp.adapter.EnderecoAdapter;
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.repository.EnderecoRepository;
 
 @Service
-public class EnderecoDao implements IDAO {
+public class EnderecoDao extends AbstractDao {
 	private IAdapter<Endereco> adapter;
-	
+	private List<EntidadeDominio> entidades;
 	public EnderecoDao() {
 		adapter = new EnderecoAdapter<Endereco>();
 	}
@@ -55,10 +57,33 @@ public class EnderecoDao implements IDAO {
 
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		entidades = new ArrayList<EntidadeDominio>();
+		String parametro=super.getParametro().toLowerCase();
+		adapter.setAdapter(entidade);
+		Endereco endereco = adapter.getObject();
+			if(parametro.equals("all")) {
+				parametro=null;
+				return consultarAll();
+			} else if(parametro.equals("consid")){
+				parametro = null;
+				return consultaId(endereco);
+			}
+		return null;	
+		}
+	private List<EntidadeDominio> consultarAll(){
+		List<Endereco> enderecos = enderecoRepository.findAll();
+		for (Endereco end : enderecos) {
+			entidades.add(end);
+		}
+		return entidades;
 	}
-
+	private List<EntidadeDominio> consultaId(Endereco endereco){
+		optTEndereco = enderecoRepository.findById(endereco.getId());
+		endereco = optTEndereco.get();
+		entidades.add(endereco);
+		return entidades;
+	}
+	
 	@Override
 	public void apagar(EntidadeDominio entidade) {
 		// TODO Auto-generated method stub
