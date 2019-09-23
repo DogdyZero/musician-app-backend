@@ -22,8 +22,8 @@ public class Estoque {
 	private int id;
 	
 	@OneToOne
-	@JoinColumn(name="est_item_produto")
-	private ItemProduto item;
+	@JoinColumn(name="est_produto")
+	private Produto produto;
 
 	@Column(name="est_qtd_produto")
 	private int quantidadeProduto;
@@ -45,12 +45,12 @@ public class Estoque {
 		this.id = id;
 	}
 
-	public ItemProduto getItem() {
-		return item;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setItem(ItemProduto item) {
-		this.item = item;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public int getQuantidadeProduto() {
