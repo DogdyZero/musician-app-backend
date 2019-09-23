@@ -10,11 +10,12 @@ import org.springframework.stereotype.Service;
 
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.adapter.UsuarioAdapter;
-import br.com.musicianapp.domain.CarrinhoCompra;
+import br.com.musicianapp.domain.Cartao;
+import br.com.musicianapp.domain.Cupom;
+import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
-import br.com.musicianapp.domain.Frete;
+import br.com.musicianapp.domain.FormaPagamento;
 import br.com.musicianapp.domain.ItemProduto;
-import br.com.musicianapp.domain.Pagamento;
 import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Usuario;
 import br.com.musicianapp.repository.UsuarioRepository;
@@ -28,6 +29,13 @@ public class UsuarioDao extends AbstractDao {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private EnderecoDao endDao;
+	@Autowired
+	private CartaoDao cartaoDao;
+	@Autowired
+	private CupomDao cupomDao;
 	
 	public UsuarioDao() {
 		this.adapter = new UsuarioAdapter<Usuario>();
@@ -52,34 +60,47 @@ public class UsuarioDao extends AbstractDao {
 		if(usuario.getPessoa().getPedido()!=null) {
 			usuBD = updatePedido(usuBD, usuario);
 		}
-		
-		
-		
-		
 		return usuarioRepository.saveAndFlush(usuBD);
 	}
 	
 	private Usuario updatePedido(Usuario usuBD, Usuario usuarioComNovoPedido ) {
-		// precisa pegar o id do produto e endereco para não criar novos itens
-
-		List<ItemProduto> item = new ArrayList<ItemProduto>();
-
-		
-		
 		Set<Pedido> pedidosMem =usuarioComNovoPedido.getPessoa().getPedido();
 
 		Set<Pedido> pedBD = usuBD.getPessoa().getPedido();
 		
 		for(Pedido pedido: pedidosMem) {
-//			CarrinhoCompra carrinho = new CarrinhoCompra();
-//			Frete frete = new Frete();
-//			Pagamento pagamento = new Pagamento();	
-//			
-//			frete.setEndereco(pedido.getFrete().getEndereco());
+			Endereco endereco = pedido.getFrete().getEndereco();
+			endDao.setParametro("consid");
+			List<EntidadeDominio> updateEndereco =  endDao.consultar(endereco);
+			
+			endereco = (Endereco) updateEndereco.get(0);
+			
+			
+			List<FormaPagamento> formas = pedido.getPagamento().getFormaPagamento();
+			
+			for (FormaPagamento forma : formas) {
+				if(forma.getTipoPagamento() instanceof Cartao) {
+					Cartao cartao = (Cartao)forma.getTipoPagamento();
+					cartaoDao.setParametro("consid");
+					List<EntidadeDominio> updateCartao =  cartaoDao.consultar(cartao);
+					
+					cartao = (Cartao) updateCartao.get(0);
+					forma.setTipoPagamento(cartao);
+					
+				} else if(forma.getTipoPagamento() instanceof Cupom) {
+					Cupom cupom = (Cupom)forma.getTipoPagamento();
+					cupomDao.setParametro("consid");
+					List<EntidadeDominio> updateCartao =  cupomDao.consultar(cupom);
+					
+					cupom = (Cupom) updateCartao.get(0);
+					forma.setTipoPagamento(cupom);
+				}
+			}
 			
 			Pedido p = new Pedido();
 			p.setCarrinhoCompra(pedido.getCarrinhoCompra());
 			p.setFrete(pedido.getFrete());
+			p.getFrete().setEndereco(endereco);
 			p.setPagamento(pedido.getPagamento());
 			p.setTotal(pedido.getTotal());
 			pedBD.add(p);
