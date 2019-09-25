@@ -1,7 +1,16 @@
 package br.com.musicianapp.controller;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,6 +27,7 @@ import br.com.musicianapp.controller.viewhelper.CadastroProdutoVH;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.impl.Resultado;
+import br.com.musicianapp.repository.ProdutoRepository;
 
 @CrossOrigin
 @RestController
@@ -51,6 +61,39 @@ public class ProdutoController {
 			produtos.add((Produto)ent);
 		}
 		return produtos;
+	}
+	
+	@PostMapping("teste2")
+	public Produto getImage() throws IOException{
+        Optional<Produto> optProduto= repository.findById(252);
+        Produto p = optProduto.get();
+        byte[] imageByte = p.getImagem();
+        ByteArrayInputStream bis = new ByteArrayInputStream(imageByte);
+        BufferedImage image = ImageIO.read(bis);
+        
+        ImageIO.write(image, "JPG", new File("//home//douglas//Imagens//resultado.jpeg") );
+		return null;
+	}
+	@Autowired
+	private ProdutoRepository repository;
+	@PostMapping("teste")
+	public Produto teste(@RequestBody Produto produto) throws IOException{
+		File img = new File(produto.getPathImage());
+		BufferedImage image = ImageIO.read(img); 
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+ 
+        try {
+            ImageIO.write(image, "JPG", bos);
+            byte[] imageBytes = bos.toByteArray();
+ 
+//            Produto produto = new Produto();
+            produto.setImagem(imageBytes);
+//            repository.save(produto);
+            bos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		return null;
 	}
 	
 	@PostMapping

@@ -1,9 +1,8 @@
 package br.com.musicianapp.domain;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -13,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
@@ -26,6 +27,10 @@ public class Produto extends EntidadeDominio {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_generator")
 	@Column(name="prod_id")
 	private int id;
+	
+	@Column(name="prod_data_cadastro")
+	@Temporal(TemporalType.DATE)
+	private Date dataCadastro;
 	
 	@Column(name="prod_nome")
 	private String nome;
@@ -47,6 +52,9 @@ public class Produto extends EntidadeDominio {
 	
 	@Column(name="prod_imagem")
 	private String pathImage;
+	
+	@Column(name="prod_foto_imagem")
+	private byte[] imagem;
 	
 	@Column(name="prod_desc")
 	private String descricao;
@@ -179,5 +187,22 @@ public class Produto extends EntidadeDominio {
 	public void setDimensao(String dimensao) {
 		this.dimensao = dimensao;
 	}
+
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public byte[] getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
+	}
+	
 
 }

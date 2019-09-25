@@ -12,8 +12,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
@@ -35,7 +36,13 @@ public class Pessoa extends EntidadeDominio{
 
 	@Column(name="pes_rg")
 	private String rg;
-//	private Date dataAniversario;
+	
+	@Column(name="pes_genero")
+	private String genero;
+	
+	@Column(name="pes_data_aniversario")
+	@Temporal(TemporalType.DATE)
+	private Date dataAniversario;
 	
 	@Column(name="pes_email")
 	private String email;
@@ -106,12 +113,12 @@ public class Pessoa extends EntidadeDominio{
 	public void setRg(String rg) {
 		this.rg = rg;
 	}
-//	public Date getDataAniversario() {
-//		return dataAniversario;
-//	}
-//	public void setDataAniversario(Date dataAniversario) {
-//		this.dataAniversario = dataAniversario;
-//	}
+	public Date getDataAniversario() {
+		return dataAniversario;
+	}
+	public void setDataAniversario(Date dataAniversario) {
+		this.dataAniversario = dataAniversario;
+	}
 	public Set<Telefone> getTelefone() {
 		return telefone;
 	}
@@ -154,5 +161,14 @@ public class Pessoa extends EntidadeDominio{
 	public void setTroca(Set<Troca> troca) {
 		this.troca = troca;
 	}
+
+	public String getGenero() {
+		return genero;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+	
 	
 }
