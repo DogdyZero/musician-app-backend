@@ -35,6 +35,7 @@ public class Cartao extends TipoPagamento{
 	private int codSeguranca;
 
 	@Column(name="car_bandeira")
+	@Enumerated(EnumType.STRING)
 	private Bandeira bandeira;
 	
 	@Column(name="car_preferencial")
