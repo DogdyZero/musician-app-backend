@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.adapter.ProdutoAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
-import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Produto;
+import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.repository.ProdutoRepository;
 
 @Service
@@ -32,11 +32,11 @@ public class ProdutoDao  extends AbstractDao  {
 		adapter.setAdapter(entidade);
 		if(adapter.getObject()!=null) {
 			entidades = new ArrayList<EntidadeDominio>();
-			String parametro=super.getParametro().toLowerCase();
-			if(parametro.equals("all")) {
+			ConsultasPadrao parametro=super.getParametro();
+			if(parametro.equals(ConsultasPadrao.PRODUTO_TUDO)) {
 				parametro=null;
 				return consultarAll();
-			}else if(parametro.equals("prodid")) {
+			}else if(parametro.equals(ConsultasPadrao.PRODUTO_ID)) {
 				parametro = null;
 				return consultaById(adapter.getObject());
 			}

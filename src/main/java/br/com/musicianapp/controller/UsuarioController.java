@@ -18,6 +18,7 @@ import br.com.musicianapp.controller.viewhelper.CadastroPessoaVH;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Usuario;
+import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.impl.IStyleQuery;
 
 @CrossOrigin
@@ -46,7 +47,7 @@ public class UsuarioController {
 	@GetMapping("{hash}")
 	public Usuario consultarUsuario(@PathVariable String hash){
 		this.usuario.setHashCode(hash);
-		this.facade.setParametro("usuarioHash");
+		this.facade.setParametro(ConsultasPadrao.USUARIO_HASH);
 		List<EntidadeDominio> entidades = facade.consultar(this.usuario);
 		Usuario usuario = (Usuario) entidades.get(0);
 		return usuario;	
@@ -54,7 +55,7 @@ public class UsuarioController {
 	
 	@GetMapping()
 	public List<Usuario> consultarTodos(){
-		this.facade.setParametro("all");
+		this.facade.setParametro(ConsultasPadrao.USUARIO_TUDO);
 		List<EntidadeDominio> entidades = facade.consultar(this.usuario);
 		List<Usuario> usuarios = new ArrayList<Usuario>();
 		for (EntidadeDominio ent : entidades) {
@@ -72,7 +73,7 @@ public class UsuarioController {
 	
 	@PostMapping("/login")
 	public Usuario fazerLogin(@RequestBody Usuario usuario) {
-		this.facade.setParametro("login");
+		this.facade.setParametro(ConsultasPadrao.USUARIO_LOGIN);
 		List<EntidadeDominio> entidades = facade.consultar(usuario);
 		if(entidades!=null) {
 			usuario = (Usuario) entidades.get(0);

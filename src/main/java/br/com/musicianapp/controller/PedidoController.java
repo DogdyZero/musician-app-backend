@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pedido;
+import br.com.musicianapp.impl.ConsultasPadrao;
 
 @CrossOrigin
 @RestController
@@ -30,7 +31,7 @@ public class PedidoController {
 	
 	@GetMapping
 	public List<Pedido> consultarPedido(){
-		this.facade.setParametro("all");
+		this.facade.setParametro(ConsultasPadrao.PEDIDO_TUDO);
 		List<EntidadeDominio> entidades = facade.consultar(this.pedido);
 		List<Pedido> pedidos = new ArrayList<Pedido>();
 		for (EntidadeDominio ent : entidades) {
@@ -42,7 +43,7 @@ public class PedidoController {
 	
 	@GetMapping("/pedido/{idusuario}")
 	public Pedido consultarPedidoPorUsuario(@PathVariable int id){
-		this.facade.setParametro("porUsuario");
+		this.facade.setParametro(ConsultasPadrao.PEDIDO_POR_USUARIO);
 		List<EntidadeDominio> entidades = facade.consultar(this.pedido);
 		return (Pedido) entidades.get(0);	
 	}

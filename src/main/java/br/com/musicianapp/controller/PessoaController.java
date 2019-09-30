@@ -22,6 +22,7 @@ import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.FormaPagamento;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.TipoPagamento;
+import br.com.musicianapp.impl.ConsultasPadrao;
 
 @CrossOrigin
 @RestController
@@ -37,14 +38,14 @@ public class PessoaController {
 	@GetMapping("{id}")
 	public Pessoa consultarPessoa(@PathVariable int id){
 		this.pessoa.setId(id);
-		this.facade.setParametro("consId");
+		this.facade.setParametro(ConsultasPadrao.PESSOA_ID);
 		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
 		Pessoa pessoa = (Pessoa) entidades.get(0);
 		return pessoa;	
 	}
 	@GetMapping("/buscarNome")
 	public List<Pessoa> buscarPorNome(@RequestParam String nome){
-		facade.setParametro("nome");
+		facade.setParametro(ConsultasPadrao.PESSOA_NOME);
 		pessoa.setNome(nome);
 		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
@@ -56,7 +57,7 @@ public class PessoaController {
 	}
 	@GetMapping("/buscarCpf")
 	public List<Pessoa> buscarPorCpf(@RequestParam String cpf){
-		facade.setParametro("cpf");
+		facade.setParametro(ConsultasPadrao.PESSOA_CPF);
 		pessoa.setCpf(cpf);
 		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
@@ -69,7 +70,7 @@ public class PessoaController {
 	
 	@GetMapping()
 	public List<Pessoa> consultarPessoa(){
-		this.facade.setParametro("all");
+		this.facade.setParametro(ConsultasPadrao.PEDIDO_TUDO);
 		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
 		for (EntidadeDominio ent : entidades) {

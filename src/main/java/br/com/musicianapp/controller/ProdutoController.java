@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.musicianapp.controller.viewhelper.CadastroProdutoVH;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Produto;
+import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.impl.Resultado;
 import br.com.musicianapp.repository.ProdutoRepository;
 
@@ -47,15 +48,20 @@ public class ProdutoController {
 	@GetMapping("{id}")
 	public Produto consultarProduto(@PathVariable int id){
 		this.produto.setId(id);
-		this.facade.setParametro("prodId");
+		this.facade.setParametro(ConsultasPadrao.PRODUTO_ID);
 		List<EntidadeDominio> entidades = facade.consultar(this.produto);
 		Produto produto = (Produto) entidades.get(0);
+		byte[] imageByte = produto.getImagem();
+		if(imageByte!=null) {
+			String encodedFile = Base64.getEncoder().encodeToString(imageByte);
+			produto.setImagemString("data:image/jpeg;base64,"+encodedFile);
+		}
 		return produto;	
 	}
 	
 	@GetMapping()
 	public List<Produto> consultarProduto() throws IOException{
-		this.facade.setParametro("all");
+		this.facade.setParametro(ConsultasPadrao.PRODUTO_TUDO);
 		List<EntidadeDominio> entidades = facade.consultar(this.produto);
 		List<Produto> produtos = new ArrayList<Produto>();
 		for (EntidadeDominio ent : entidades) {

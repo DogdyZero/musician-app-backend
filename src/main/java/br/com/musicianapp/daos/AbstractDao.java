@@ -3,17 +3,18 @@ package br.com.musicianapp.daos;
 import java.util.List;
 
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.impl.IStyleQuery;
 
 public abstract class AbstractDao implements IDAO, IStyleQuery {
-	private String parametro;
+	private ConsultasPadrao parametro;
 	
 	@Override
-	public String getParametro() {
+	public ConsultasPadrao getParametro() {
 		return parametro;
 	}
 	@Override
-	public void setParametro(String parametro) {
+	public void setParametro(ConsultasPadrao parametro) {
 		this.parametro = parametro;
 	}
 

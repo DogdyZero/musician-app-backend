@@ -12,7 +12,7 @@ import br.com.musicianapp.adapter.EnderecoAdapter;
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
-import br.com.musicianapp.domain.Pessoa;
+import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.repository.EnderecoRepository;
 
 @Service
@@ -58,13 +58,13 @@ public class EnderecoDao extends AbstractDao {
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		entidades = new ArrayList<EntidadeDominio>();
-		String parametro=super.getParametro().toLowerCase();
+		ConsultasPadrao parametro=super.getParametro();
 		adapter.setAdapter(entidade);
 		Endereco endereco = adapter.getObject();
-			if(parametro.equals("all")) {
+			if(parametro.equals(ConsultasPadrao.ENDERECO_TUDO)) {
 				parametro=null;
 				return consultarAll();
-			} else if(parametro.equals("consid")){
+			} else if(parametro.equals(ConsultasPadrao.ENDERECO_ID)){
 				parametro = null;
 				return consultaId(endereco);
 			}

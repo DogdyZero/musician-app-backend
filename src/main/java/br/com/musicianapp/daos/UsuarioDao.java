@@ -15,9 +15,9 @@ import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.FormaPagamento;
-import br.com.musicianapp.domain.ItemProduto;
 import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Usuario;
+import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.repository.UsuarioRepository;
 
 @Service
@@ -70,7 +70,7 @@ public class UsuarioDao extends AbstractDao {
 		
 		for(Pedido pedido: pedidosMem) {
 			Endereco endereco = pedido.getFrete().getEndereco();
-			endDao.setParametro("consid");
+			endDao.setParametro(ConsultasPadrao.ENDERECO_ID);
 			List<EntidadeDominio> updateEndereco =  endDao.consultar(endereco);
 			
 			endereco = (Endereco) updateEndereco.get(0);
@@ -81,7 +81,7 @@ public class UsuarioDao extends AbstractDao {
 			for (FormaPagamento forma : formas) {
 				if(forma.getTipoPagamento() instanceof Cartao) {
 					Cartao cartao = (Cartao)forma.getTipoPagamento();
-					cartaoDao.setParametro("consid");
+					cartaoDao.setParametro(ConsultasPadrao.CARTAO_ID);
 					List<EntidadeDominio> updateCartao =  cartaoDao.consultar(cartao);
 					
 					cartao = (Cartao) updateCartao.get(0);
@@ -89,7 +89,7 @@ public class UsuarioDao extends AbstractDao {
 					
 				} else if(forma.getTipoPagamento() instanceof Cupom) {
 					Cupom cupom = (Cupom)forma.getTipoPagamento();
-					cupomDao.setParametro("consid");
+					cupomDao.setParametro(ConsultasPadrao.CUPOM_ID);
 					List<EntidadeDominio> updateCartao =  cupomDao.consultar(cupom);
 					
 					cupom = (Cupom) updateCartao.get(0);
@@ -114,22 +114,22 @@ public class UsuarioDao extends AbstractDao {
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		entidades = new ArrayList<EntidadeDominio>();
-		String parametro=super.getParametro().toLowerCase();
+		ConsultasPadrao parametro=super.getParametro();
 		
 		adapter.setAdapter(entidade);
 		
 		if(adapter.getObject()!=null) {
 
-			if(parametro.equals("usuarioid")) {
+			if(parametro.equals(ConsultasPadrao.USUARIO_ID)) {
 				parametro=null;
 				return consultarPorID(adapter.getObject());
-			} else if(parametro.equals("login")) {
+			} else if(parametro.equals(ConsultasPadrao.USUARIO_LOGIN)) {
 				parametro=null;
 				return validarAcesso(adapter.getObject());
-			} else if(parametro.equals("all")){
+			} else if(parametro.equals(ConsultasPadrao.USUARIO_TUDO)){
 				parametro = null;
 				return consultarTodos();
-			} else if(parametro.equals("usuarioHash".toLowerCase())) {
+			} else if(parametro.equals(ConsultasPadrao.USUARIO_HASH)) {
 				parametro = null;
 				return consultarHash(adapter.getObject());
 			}

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.ItemProduto;
 import br.com.musicianapp.domain.Pedido;
+import br.com.musicianapp.impl.ConsultasPadrao;
 
 @RestController
 @CrossOrigin
@@ -33,7 +34,7 @@ public class ItemProdutoController {
 	}
 	@GetMapping
 	public List<ItemProduto> consultarPedido(){
-		this.facade.setParametro("trade");
+		this.facade.setParametro(ConsultasPadrao.ITEM_PRODUTO_TRADE);
 		List<EntidadeDominio> entidades = facade.consultar(this.item);
 		List<ItemProduto> itens = new ArrayList<ItemProduto>();
 		for (EntidadeDominio ent : entidades) {
