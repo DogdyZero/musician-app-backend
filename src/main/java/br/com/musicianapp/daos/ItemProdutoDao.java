@@ -18,7 +18,7 @@ import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.adapter.ItemProdutoAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.ItemProduto;
-import br.com.musicianapp.domain.Pessoa;
+import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.repository.ItemProdutoRepository;
 
 @Service
@@ -63,9 +63,9 @@ public class ItemProdutoDao extends AbstractDao {
 		entidades = new ArrayList<EntidadeDominio>();
 		adapter.setAdapter(entidade);
 
-		String parametro=super.getParametro().toLowerCase();
+		ConsultasPadrao parametro=super.getParametro();
 			
-		if(parametro.equals("trade")) {
+		if(parametro.equals(ConsultasPadrao.ITEM_PRODUTO_TRADE)) {
 				parametro=null;
 				return consultarTrocas(adapter.getObject());
 		}

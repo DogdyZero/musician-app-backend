@@ -7,12 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.musicianapp.Enum.Status;
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.adapter.PedidoAdapter;
-import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pedido;
+import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.repository.PedidosRepository;
 
 @Service
@@ -51,7 +50,7 @@ public class PedidoDao extends AbstractDao {
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		entidades = new ArrayList<EntidadeDominio>();
-		String parametro=super.getParametro().toLowerCase();
+		ConsultasPadrao parametro=super.getParametro();
 		
 		adapter.setAdapter(entidade);
 		
@@ -59,7 +58,7 @@ public class PedidoDao extends AbstractDao {
 		
 		if(pedido!=null) {
 
-			if(parametro.equals("all")){
+			if(parametro.equals(ConsultasPadrao.PEDIDO_TUDO)){
 				parametro = null;
 				return consultarTodos();
 			}

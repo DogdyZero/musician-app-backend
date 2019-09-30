@@ -9,14 +9,18 @@ import org.springframework.stereotype.Service;
 import br.com.musicianapp.Enum.Status;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Telefone;
+import br.com.musicianapp.impl.FactoryConsulta;
 import br.com.musicianapp.repository.TelefoneRepository;
 
 @Service
-public class TelefoneDao implements IDAO {
+public class TelefoneDao extends AbstractDao {
 	private final String CLASSE = Telefone.class.getName();
 
 	@Autowired
 	private TelefoneRepository telefoneRepository;
+	
+	@Autowired
+	private FactoryConsulta fabrica;
 	
 	private Optional<Telefone> optTelefone;
 
@@ -52,11 +56,10 @@ public class TelefoneDao implements IDAO {
 		}
 		return null;
 	}
-
+	
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
-		return null;
+		return fabrica.fabricarConsulta(Telefone.class.cast(entidade), super.getParametro());
 	}
 
 	@Override

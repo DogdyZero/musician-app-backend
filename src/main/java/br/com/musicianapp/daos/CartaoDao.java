@@ -1,6 +1,5 @@
 package br.com.musicianapp.daos;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +11,7 @@ import br.com.musicianapp.adapter.CartaoAdapter;
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.impl.FactoryConsulta;
 import br.com.musicianapp.repository.CartaoRepository;
 
 @Service
@@ -20,6 +20,9 @@ public class CartaoDao extends AbstractDao {
 
 	@Autowired
 	private CartaoRepository cartaoRepository;
+	@Autowired
+	private FactoryConsulta fabrica;
+	
 	private List<EntidadeDominio> entidades;
 	private Optional<Cartao> optTCartao;
 	private IAdapter<Cartao> adapter;
@@ -63,31 +66,7 @@ public class CartaoDao extends AbstractDao {
 
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-		entidades = new ArrayList<EntidadeDominio>();
-		String parametro=super.getParametro().toLowerCase();
-		adapter.setAdapter(entidade);
-		Cartao cartao = adapter.getObject();
-			if(parametro.equals("all")) {
-				parametro=null;
-				return consultarAll();
-			} else if(parametro.equals("consid")){
-				parametro = null;
-				return consultaId(cartao);
-			}
-		return null;	
-		}
-	private List<EntidadeDominio> consultarAll(){
-		List<Cartao> cartoes = cartaoRepository.findAll();
-		for (Cartao cartao : cartoes) {
-			entidades.add(cartao);
-		}
-		return entidades;
-	}
-	private List<EntidadeDominio> consultaId(Cartao cartao){
-		optTCartao = cartaoRepository.findById(cartao.getId());
-		cartao = optTCartao.get();
-		entidades.add(cartao);
-		return entidades;
+		return fabrica.fabricarConsulta(Cartao.class.cast(entidade), super.getParametro());
 	}
 
 	@Override

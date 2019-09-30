@@ -4,16 +4,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TipoConsulta implements IStyleQuery{
-	private String parametro;
+	private ConsultasPadrao consultaPadrao;
 
 	@Override
-	public String getParametro() {
-		return this.parametro;
+	public ConsultasPadrao getParametro() {
+		return consultaPadrao;
 	}
 
 	@Override
-	public void setParametro(String parametro) {
-		this.parametro=parametro;
+	public void setParametro(ConsultasPadrao parametro) {
+		this.consultaPadrao = parametro;
+		
 	}
 
 

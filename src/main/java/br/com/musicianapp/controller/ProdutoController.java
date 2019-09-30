@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.musicianapp.controller.viewhelper.CadastroProdutoVH;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Produto;
+import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.impl.Resultado;
 import br.com.musicianapp.repository.ProdutoRepository;
 
@@ -46,19 +48,30 @@ public class ProdutoController {
 	@GetMapping("{id}")
 	public Produto consultarProduto(@PathVariable int id){
 		this.produto.setId(id);
-		this.facade.setParametro("prodId");
+		this.facade.setParametro(ConsultasPadrao.PRODUTO_ID);
 		List<EntidadeDominio> entidades = facade.consultar(this.produto);
 		Produto produto = (Produto) entidades.get(0);
+		byte[] imageByte = produto.getImagem();
+		if(imageByte!=null) {
+			String encodedFile = Base64.getEncoder().encodeToString(imageByte);
+			produto.setImagemString("data:image/jpeg;base64,"+encodedFile);
+		}
 		return produto;	
 	}
 	
 	@GetMapping()
-	public List<Produto> consultarProduto(){
-		this.facade.setParametro("all");
+	public List<Produto> consultarProduto() throws IOException{
+		this.facade.setParametro(ConsultasPadrao.PRODUTO_TUDO);
 		List<EntidadeDominio> entidades = facade.consultar(this.produto);
 		List<Produto> produtos = new ArrayList<Produto>();
 		for (EntidadeDominio ent : entidades) {
-			produtos.add((Produto)ent);
+			Produto p = (Produto)ent;
+			byte[] imageByte = p.getImagem();
+			if(imageByte!=null) {
+				String encodedFile = Base64.getEncoder().encodeToString(imageByte);
+				p.setImagemString("data:image/jpeg;base64,"+encodedFile);
+			}
+			produtos.add(p);
 		}
 		return produtos;
 	}
@@ -97,8 +110,17 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	public Produto salvarProduto(@RequestBody Produto produto){
+	public Produto salvarProduto(@RequestBody Produto produto) throws IOException{
 		produto = (Produto) cadastroProduto.prepararParaSalvar(produto);
+
+		String atributos = "data:image/jpeg;base64,";
+		int totalCaracteres = atributos.length();
+		if(produto.getImagemString().contains(atributos)) {
+			produto.setImagemString(produto.getImagemString().substring(totalCaracteres));
+			byte[]bytes = Base64.getDecoder().decode(produto.getImagemString().getBytes());
+			produto.setImagem(bytes);
+			System.out.println(produto.getImagem());
+		}
 		facade.salvar(produto);
 		return null;
 	}

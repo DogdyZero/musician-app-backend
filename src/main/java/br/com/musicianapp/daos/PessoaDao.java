@@ -22,6 +22,8 @@ import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Telefone;
+import br.com.musicianapp.impl.ConsultasPadrao;
+import br.com.musicianapp.impl.FactoryConsulta;
 import br.com.musicianapp.repository.PessoaRepository;
 
 @Service 
@@ -33,6 +35,10 @@ public class PessoaDao extends AbstractDao {
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	
+	@Autowired
+	private FactoryConsulta fabrica;
+
 	
 	@PersistenceContext
 	private EntityManager em;
@@ -101,8 +107,10 @@ public class PessoaDao extends AbstractDao {
 		Set<Telefone> telBD = pesBD.getTelefone();
 		
 		for(Telefone tels: telsMem) {
-			Telefone t = new Telefone(tels.getDdd(),tels.getNumero(),Status.ATIVO);
-			telBD.add(t);
+			if(tels.getId()==0) {
+				Telefone t = new Telefone(tels.getDdd(),tels.getNumero(),Status.ATIVO);
+				telBD.add(t);
+			}
 		}
 		
 		pesBD.setTelefone(telBD);
@@ -115,11 +123,11 @@ public class PessoaDao extends AbstractDao {
 		Set<Endereco> endBD = pesBD.getEndereco();
 		
 		for(Endereco ends: endsMem) {
-			Endereco e = new Endereco(ends.getTipoLogradouro(),ends.getApelidoEndereco(), ends.getLogradouro(), ends.getNumero(),
-					ends.getComplemento(), ends.getBairro(), ends.getCidade(), ends.getEstado(),ends.getCep(), Status.ATIVO);
-//			Endereco e = new Endereco();
-//			e.setLogradouro(ends.getLogradouro());
-			endBD.add(e);
+			if(ends.getId()==0) {
+				Endereco e = new Endereco(ends.getTipoLogradouro(),ends.getApelidoEndereco(), ends.getLogradouro(), ends.getNumero(),
+						ends.getComplemento(), ends.getBairro(), ends.getCidade(), ends.getEstado(),ends.getCep(), Status.ATIVO);
+				endBD.add(e);
+			}
 		}
 		
 		pesBD.setEndereco(endBD);
@@ -133,9 +141,12 @@ public class PessoaDao extends AbstractDao {
 		Set<Cartao> carBD = pesBD.getCartao();
 		
 		for(Cartao cartao: cartoesMem) {
-			Cartao c = new Cartao(cartao.getNomeCartao(),cartao.getNumeroCartao(),cartao.getValidade(),  cartao.getCodSeguranca(),  
-					cartao.getBandeira(),cartao.isPreferencial(), Status.ATIVO );
-			carBD.add(c);
+			if(cartao.getId()==0) {
+				Cartao c = new Cartao(cartao.getNomeCartao(),cartao.getNumeroCartao(),cartao.getValidade(),  cartao.getCodSeguranca(),  
+						cartao.getBandeira(),cartao.isPreferencial(), Status.ATIVO );
+				carBD.add(c);
+			}
+			
 		}
 		
 		pesBD.setCartao(carBD);
@@ -165,20 +176,20 @@ public class PessoaDao extends AbstractDao {
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		entidades = new ArrayList<EntidadeDominio>();
-		String parametro=super.getParametro().toLowerCase();
+		ConsultasPadrao parametro=super.getParametro();
 		if(entidade.getClass().getName().equals(CLASSE)) {
 			Pessoa pessoa = (Pessoa)entidade;
 			
-			if(parametro.equals("all")) {
+			if(parametro.equals(ConsultasPadrao.PESSOA_TUDO)) {
 				parametro=null;
 				return consultarAll();
-			}else if(parametro.equals("nome")) {
+			}else if(parametro.equals(ConsultasPadrao.PESSOA_NOME)) {
 				parametro = null;
 				return consultaNomeLike(pessoa);
-			} else if(parametro.equals("cpf")) {
+			} else if(parametro.equals(ConsultasPadrao.PESSOA_CPF)) {
 				parametro = null;
 				return consultaCpf(pessoa);
-			} else if(parametro.equals("consid")){
+			} else if(parametro.equals(ConsultasPadrao.PESSOA_ID)){
 				parametro = null;
 				return consultaId(pessoa);
 			}

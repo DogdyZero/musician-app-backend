@@ -1,5 +1,6 @@
 package br.com.musicianapp.domain;
 
+import java.io.File;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.springframework.stereotype.Component;
 
@@ -55,6 +57,13 @@ public class Produto extends EntidadeDominio {
 	
 	@Column(name="prod_foto_imagem")
 	private byte[] imagem;
+	
+	@Transient
+	@Column(name="prod_foto_imagem_")
+	private String imagemString;
+	
+	@Transient
+	private File arquivo;
 	
 	@Column(name="prod_desc")
 	private String descricao;
@@ -203,6 +212,25 @@ public class Produto extends EntidadeDominio {
 	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
+
+	public String getImagemString() {
+		return imagemString;
+	}
+
+	public void setImagemString(String imagemString) {
+		this.imagemString = imagemString;
+	}
+
+	public File getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(File arquivo) {
+		this.arquivo = arquivo;
+	}
+	
+	
+	
 	
 
 }

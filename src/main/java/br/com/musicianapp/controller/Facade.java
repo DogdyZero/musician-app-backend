@@ -33,6 +33,7 @@ import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.domain.Usuario;
+import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.impl.IStyleQuery;
 import br.com.musicianapp.impl.Resultado;
 
@@ -87,7 +88,7 @@ public class Facade implements IFacade,IStyleQuery{
 	private IDAO dao;
 	private Map<String,IDAO> daos;
 	private Map<String, Map<String,List<IStrategy>>> rns;
-	private String parametro;
+	private ConsultasPadrao parametro;
 	private StringBuilder sb;
 	private Resultado resultado;
 	private final String SALVAR= "SALVAR";
@@ -199,12 +200,12 @@ public class Facade implements IFacade,IStyleQuery{
 	}
 	
 	@Override
-	public String getParametro() {
+	public ConsultasPadrao getParametro() {
 		AbstractDao absDao = (AbstractDao)dao;
 		return absDao.getParametro();
 	}
 	@Override
-	public void setParametro(String parametro) {
+	public void setParametro(ConsultasPadrao parametro) {
 		this.parametro = parametro;
 	}
 	
