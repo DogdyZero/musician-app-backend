@@ -11,10 +11,12 @@ import org.springframework.stereotype.Service;
 
 import br.com.musicianapp.daos.consultas.CartaoConsultaImpl;
 import br.com.musicianapp.daos.consultas.CupomConsultaImpl;
+import br.com.musicianapp.daos.consultas.PedidoConsultaImpl;
 import br.com.musicianapp.daos.consultas.TelefoneConsultaImpl;
 import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Telefone;
 
 @Service
@@ -28,6 +30,7 @@ public class FactoryConsulta {
 	@Autowired private TelefoneConsultaImpl telImpl;
 	@Autowired private CartaoConsultaImpl cartaoImpl;
 	@Autowired private CupomConsultaImpl cupomImpl;
+	@Autowired private PedidoConsultaImpl pedidoImpl;
 
 	
 	public FactoryConsulta() {
@@ -56,6 +59,14 @@ public class FactoryConsulta {
 		
 		metodosCupom.put(ConsultasPadrao.CUPOM_TUDO, "pesquisarTodos");
 		metodosCupom.put(ConsultasPadrao.CUPOM_ID, "pesquisarPorId");
+		
+		/*
+		 * Mapa de Metodos Pedido
+		 */
+		Map<ConsultasPadrao,String>metodosPedidos = new HashMap<ConsultasPadrao, String>();
+		
+		metodosPedidos.put(ConsultasPadrao.PEDIDO_TUDO, "pesquisarTodos");
+		metodosPedidos.put(ConsultasPadrao.PEDIDO_ID, "pesquisarPorId");
 
 		/*
 		 * Mapa de metodos principais
@@ -63,6 +74,7 @@ public class FactoryConsulta {
 		mapaMetodos.put(Telefone.class.getName(), metodosTelefone);
 		mapaMetodos.put(Cartao.class.getName(), metodosCartao);
 		mapaMetodos.put(Cupom.class.getName(), metodosCupom);
+		mapaMetodos.put(Pedido.class.getName(), metodosPedidos);
 
 	}
 
@@ -74,6 +86,7 @@ public class FactoryConsulta {
 		objConsultaImpl.put(Telefone.class.getName(), telImpl);
 		objConsultaImpl.put(Cartao.class.getName(), cartaoImpl);
 		objConsultaImpl.put(Cupom.class.getName(), cupomImpl);
+		objConsultaImpl.put(Pedido.class.getName(), pedidoImpl);
 
 	}
 	

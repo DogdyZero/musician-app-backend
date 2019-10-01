@@ -53,11 +53,8 @@ public class CartaoDao extends AbstractDao {
 			Cartao cartaoBD = optTCartao.get();
 			
 			if(cartaoBD.getId()==cartao.getId()) {
-				if(cartaoBD.getStatus().equals(Status.ATIVO)) {
-					cartaoBD.setStatus(Status.INATIVO);
-				} else {
-					cartaoBD.setStatus(Status.ATIVO);
-				}
+				cartaoBD = cartao;
+				cartaoBD.setStatus(Status.ATIVO);
 				return cartaoRepository.save(cartaoBD);
 			}
 		}

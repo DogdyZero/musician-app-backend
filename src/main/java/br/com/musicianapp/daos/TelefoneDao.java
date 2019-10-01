@@ -46,11 +46,8 @@ public class TelefoneDao extends AbstractDao {
 			Telefone telBD = optTelefone.get();
 			
 			if(telBD.getId()==telefone.getId()) {
-				if(telBD.getStatus().equals(Status.ATIVO)) {
-					telBD.setStatus(Status.INATIVO);
-				} else {
-					telBD.setStatus(Status.ATIVO);
-				}
+				telBD = telefone;
+				telBD.setStatus(Status.ATIVO);
 				return telefoneRepository.save(telBD);
 			}
 		}
