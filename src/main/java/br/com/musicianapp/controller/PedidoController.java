@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.musicianapp.controller.viewhelper.CadastroPedidoVH;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.impl.ConsultasPadrao;
@@ -28,6 +29,9 @@ public class PedidoController {
 	
 	@Autowired
 	private Pedido pedido;
+	
+	@Autowired
+	private CadastroPedidoVH cadastroPedidoVH;
 	
 	@GetMapping
 	public List<Pedido> consultarPedido(){
@@ -50,7 +54,8 @@ public class PedidoController {
 		
 	@PostMapping
 	public Pedido salvarPedido(@RequestBody Pedido pedido){
-		
+		pedido = (Pedido) cadastroPedidoVH.prepararSalvar(pedido);
+		facade.salvar(pedido);
 		System.out.println(pedido);
 		return pedido;
 	}

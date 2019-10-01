@@ -4,6 +4,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
+import br.com.musicianapp.domain.CarrinhoCompra;
 import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.Endereco;
@@ -28,6 +29,7 @@ public abstract class AbstractAdapter<E> implements IAdapter<E>{
 	protected Pedido pedido;
 	protected ItemProduto itemProduto;
 	protected Cupom cupom;
+	protected CarrinhoCompra carrinhoCompra;
 	
 	protected Set<Telefone> telefones;
 	protected Set<Endereco> enderecos;
@@ -56,6 +58,10 @@ public abstract class AbstractAdapter<E> implements IAdapter<E>{
 			if(this.pessoa.getTelefone()!=null) {this.telefones = this.pessoa.getTelefone();}
 			if(this.pessoa.getEndereco()!=null) {this.enderecos = this.pessoa.getEndereco();}
 			if(this.pessoa.getCartao()!=null) {this.cartoes = this.pessoa.getCartao();}
+		}
+		
+		if(this.pedido != null){
+			if(this.pedido.getCarrinhoCompra() != null){this.carrinhoCompra = this.pedido.getCarrinhoCompra();}
 		}
 	}
 	
