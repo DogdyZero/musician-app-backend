@@ -44,11 +44,8 @@ public class EnderecoDao extends AbstractDao {
 			Endereco endBD = optTEndereco.get();
 			
 			if(endBD.getId()==adapter.getObject().getId()) {
-				if(endBD.getStatus().equals(Status.ATIVO)) {
-					endBD.setStatus(Status.INATIVO);
-				} else {
-					endBD.setStatus(Status.ATIVO);
-				}
+				endBD = adapter.getObject();
+				endBD.setStatus(Status.ATIVO);
 				return enderecoRepository.save(endBD);
 			}
 		}

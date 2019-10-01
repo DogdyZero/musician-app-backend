@@ -1,6 +1,5 @@
 package br.com.musicianapp.daos;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,13 +10,15 @@ import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.adapter.PedidoAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pedido;
-import br.com.musicianapp.impl.ConsultasPadrao;
+import br.com.musicianapp.impl.FactoryConsulta;
 import br.com.musicianapp.repository.PedidosRepository;
 
 @Service
 public class PedidoDao extends AbstractDao {
 	@Autowired 
 	private PedidosRepository repository;
+	@Autowired
+	private FactoryConsulta fabrica;
 	
 	private IAdapter<Pedido> adapter;
 	private List<EntidadeDominio> entidades;
@@ -49,36 +50,8 @@ public class PedidoDao extends AbstractDao {
 
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-		entidades = new ArrayList<EntidadeDominio>();
-		ConsultasPadrao parametro=super.getParametro();
-		
-		adapter.setAdapter(entidade);
-		
-		Pedido pedido = adapter.getObject();
-		
-		if(pedido!=null) {
-
-			if(parametro.equals(ConsultasPadrao.PEDIDO_TUDO)){
-				parametro = null;
-				return consultarTodos();
-			}
-		}
-		return null;
+		return fabrica.fabricarConsulta(Pedido.class.cast(entidade), super.getParametro());
 	}
-	private List<EntidadeDominio> consultarTodos(){
-		List<Pedido> pedidos = repository.findAll();
-		for (Pedido pedido : pedidos) {
-			entidades.add(pedido);
-		}
-		return entidades;
-	}
-//	private List<EntidadeDominio> consultarIdUsuario(int id){
-//		List<Pedido> pedidos = repository.findAll();
-//		for (Pedido pedido : pedidos) {
-//			entidades.add(pedido);
-//		}
-//		return entidades;
-//	}
 
 	@Override
 	public void apagar(EntidadeDominio entidade) {

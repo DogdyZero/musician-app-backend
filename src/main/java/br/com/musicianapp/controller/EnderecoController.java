@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.Endereco;
-import br.com.musicianapp.domain.EntidadeDominio;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/enderecos")
 public class EnderecoController {
