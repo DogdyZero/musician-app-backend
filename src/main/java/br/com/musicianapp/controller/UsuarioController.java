@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.controller.viewhelper.CadastroPessoaVH;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Usuario;
 import br.com.musicianapp.impl.ConsultasPadrao;
@@ -86,6 +87,7 @@ public class UsuarioController {
 	public Object alterarPessoa(@PathVariable int idUsuario, @RequestBody Usuario usuario) {
 		// adiciona novo numero ao banco relacionado ao cliente
 		// criar o metodo
+		usuario = (Usuario) cadastroPessoaVH.prepararParaSalvar(usuario);
 		usuario.setId(idUsuario);
 		this.facade.alterar(usuario);
 		return null;

@@ -9,6 +9,7 @@ import br.com.musicianapp.Business.ProcessarDadosPessoa;
 import br.com.musicianapp.Business.ProcessarDadosTelefone;
 import br.com.musicianapp.Business.ProcessarDadosUsuario;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Usuario;
 
@@ -23,17 +24,18 @@ public class CadastroPessoaVH {
 	
 	public EntidadeDominio prepararParaSalvar(Usuario usuario) {
 		
-		usuario.setPessoa((Pessoa) processarDadosPessoa.processarDados(usuario));
-
-		usuario=(Usuario) processarDadosEndereco.processarDados(usuario);
-	
-		usuario=(Usuario) processarDadosCartao.processarDados(usuario);
-
-		usuario=(Usuario) processarDadosTelefone.processarDados(usuario);
+		if(usuario.getPessoa() != null)
+			usuario.setPessoa((Pessoa) processarDadosPessoa.processarDados(usuario));
+		
+		if(usuario.getPessoa().getEndereco() != null)
+			usuario=(Usuario) processarDadosEndereco.processarDados(usuario);
+		if(usuario.getPessoa().getCartao() != null)
+			usuario=(Usuario) processarDadosCartao.processarDados(usuario);
+		if(usuario.getPessoa().getTelefone() != null)
+			usuario=(Usuario) processarDadosTelefone.processarDados(usuario);
 		
 		usuario = (Usuario) processarDadosUsuario.processarDados(usuario);
 
 		return usuario;
 	}
-	
 }
