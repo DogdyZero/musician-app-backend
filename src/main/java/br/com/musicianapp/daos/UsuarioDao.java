@@ -58,13 +58,12 @@ public class UsuarioDao extends AbstractDao {
 		Usuario usuario = adapter.getObject();
 		optUsuario = usuarioRepository.findById(usuario.getId());
 		Usuario usuBD = optUsuario.get();
-
+		usuBD.setSenha(usuario.getSenha());
 		if(usuario.getPessoa()!=null) {
 			if(usuario.getPessoa().getPedido()!=null) {
 				usuBD = updatePedido(usuBD, usuario);
 			}
 		}
-		usuBD = usuario;
 		return usuarioRepository.saveAndFlush(usuBD);
 	}
 	
@@ -74,7 +73,7 @@ public class UsuarioDao extends AbstractDao {
 		Set<Pedido> pedBD = usuBD.getPessoa().getPedido();
 		
 		for(Pedido pedido: pedidosMem) {
-			if(pedido.getId()==0) {
+//			if(pedido.getId()==0) {
 				Endereco endereco = pedido.getFrete().getEndereco();
 				endDao.setParametro(ConsultasPadrao.ENDERECO_ID);
 				List<EntidadeDominio> updateEndereco =  endDao.consultar(endereco);
@@ -101,7 +100,7 @@ public class UsuarioDao extends AbstractDao {
 						cupom = (Cupom) updateCartao.get(0);
 						forma.setTipoPagamento(cupom);
 					}
-				}
+//				}
 				
 				Pedido p = new Pedido();
 				p.setCarrinhoCompra(pedido.getCarrinhoCompra());
