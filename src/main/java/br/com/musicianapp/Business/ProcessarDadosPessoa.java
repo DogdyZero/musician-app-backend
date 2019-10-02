@@ -19,9 +19,6 @@ public class ProcessarDadosPessoa implements IStrategyPreparToSave {
 	@Autowired
 	private ProcessarDadosPedido processarDadosPedido;
 	
-	@Autowired
-	Set<Pedido> peds;
-	
 
 	public ProcessarDadosPessoa() {
 		adapter = new PessoaAdapter<Pessoa>();
@@ -53,13 +50,10 @@ public class ProcessarDadosPessoa implements IStrategyPreparToSave {
 			}
 		}
 		if(pessoa.getPedido() != null){
-			for (Pedido ped  : pessoa.getPedido()) {	
-				peds.add((Pedido) processarDadosPedido.processarDados(ped));
-			}
-			pessoa.setPedido(peds);
+			
 		}
 		
-		return (EntidadeDominio)pessoa;
+		return pessoa;
 
 		
 	}

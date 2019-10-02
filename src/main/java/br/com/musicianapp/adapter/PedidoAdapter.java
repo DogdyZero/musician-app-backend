@@ -14,7 +14,7 @@ public class PedidoAdapter<E> extends AbstractAdapter<E> {
 
 	@Override
 	public Set<E> getListObject() {
-		return null;
+		return (Set<E>)super.pedidos;
 	}
 
 }

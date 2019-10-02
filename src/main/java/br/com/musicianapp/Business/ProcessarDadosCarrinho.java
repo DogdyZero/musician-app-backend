@@ -30,7 +30,7 @@ public class ProcessarDadosCarrinho implements IStrategyPreparToSave {
 
 		if (carrinho.getItemProduto() != null) {
 			for (ItemProduto prod : carrinho.getItemProduto()) {
-				if (prod.getQuantidade() > 1){
+				if (prod.getQuantidade() > 1) {
 					for (int i = 0; i < prod.getQuantidade(); i++) {
 						listProd.add(prod);
 					}
@@ -39,13 +39,13 @@ public class ProcessarDadosCarrinho implements IStrategyPreparToSave {
 				}
 			}
 		}
-		
+
 		for (ItemProduto ip : listProd) {
 			ip.setQuantidade(1);
 		}
 		carrinho.setItemProduto(listProd);
-		
-		return (EntidadeDominio) carrinho;
+
+		return carrinho;
 	}
 
 }
