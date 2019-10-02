@@ -28,6 +28,7 @@ public class UsuarioDao extends AbstractDao {
 	private Usuario usuario;
 	private Optional<Usuario> optUsuario;
 	
+	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
@@ -59,13 +60,14 @@ public class UsuarioDao extends AbstractDao {
 		Usuario usuario = adapter.getObject();
 		optUsuario = usuarioRepository.findById(usuario.getId());
 		Usuario usuBD = optUsuario.get();
+		usuBD.setSenha(usuario.getSenha());
 
 		if(usuario.getPessoa()!=null) {
 			if(usuario.getPessoa().getPedido()!=null) {
 				usuBD = updatePedido(usuBD, usuario);
 			}
 		}
-		usuBD = usuario;
+		
 		return usuarioRepository.saveAndFlush(usuBD);
 	}
 	
@@ -76,43 +78,43 @@ public class UsuarioDao extends AbstractDao {
 		
 		for(Pedido pedido: pedidosMem) {
 //			if(pedido.getId()==0) {
-//				Endereco endereco = pedido.getFrete().getEndereco();
-//				endDao.setParametro(ConsultasPadrao.ENDERECO_ID);
-//				List<EntidadeDominio> updateEndereco =  endDao.consultar(endereco);
-//				
-//				endereco = (Endereco) updateEndereco.get(0);
-//				
-//				
-//				List<FormaPagamento> formas = pedido.getPagamento().getFormaPagamento();
-//				
-//				for (FormaPagamento forma : formas) {
-//					if(forma.getTipoPagamento() instanceof Cartao) {
-//						Cartao cartao = (Cartao)forma.getTipoPagamento();
-//						cartaoDao.setParametro(ConsultasPadrao.CARTAO_ID);
-//						List<EntidadeDominio> updateCartao =  cartaoDao.consultar(cartao);
-//						
-//						cartao = (Cartao) updateCartao.get(0);
-//						forma.setTipoPagamento(cartao);
-//						
-//					} else if(forma.getTipoPagamento() instanceof Cupom) {
-//						Cupom cupom = (Cupom)forma.getTipoPagamento();
-//						cupomDao.setParametro(ConsultasPadrao.CUPOM_ID);
-//						List<EntidadeDominio> updateCartao =  cupomDao.consultar(cupom);
-//						
-//						cupom = (Cupom) updateCartao.get(0);
-//						forma.setTipoPagamento(cupom);
-//					}
+			Endereco endereco = pedido.getFrete().getEndereco();
+				endDao.setParametro(ConsultasPadrao.ENDERECO_ID);
+				List<EntidadeDominio> updateEndereco =  endDao.consultar(endereco);
+				
+				endereco = (Endereco) updateEndereco.get(0);
+				
+				
+				List<FormaPagamento> formas = pedido.getPagamento().getFormaPagamento();
+				
+				for (FormaPagamento forma : formas) {
+					if(forma.getTipoPagamento() instanceof Cartao) {
+						Cartao cartao = (Cartao)forma.getTipoPagamento();
+						cartaoDao.setParametro(ConsultasPadrao.CARTAO_ID);
+						List<EntidadeDominio> updateCartao =  cartaoDao.consultar(cartao);
+						
+						cartao = (Cartao) updateCartao.get(0);
+					forma.setTipoPagamento(cartao);
+					
+					} else if(forma.getTipoPagamento() instanceof Cupom) {
+						Cupom cupom = (Cupom)forma.getTipoPagamento();
+						cupomDao.setParametro(ConsultasPadrao.CUPOM_ID);
+						List<EntidadeDominio> updateCartao =  cupomDao.consultar(cupom);
+						
+						cupom = (Cupom) updateCartao.get(0);
+						forma.setTipoPagamento(cupom);
+					}
 //				}
 				
 				Pedido p = new Pedido();
 				p.setCarrinhoCompra(pedido.getCarrinhoCompra());
-//				p.setFrete(pedido.getFrete());
-//				p.getFrete().setEndereco(endereco);
-//				p.setPagamento(pedido.getPagamento());
-//				p.setTotal(pedido.getTotal());
+				p.setFrete(pedido.getFrete());
+				p.getFrete().setEndereco(endereco);
+				p.setPagamento(pedido.getPagamento());
+				p.setTotal(pedido.getTotal());
 				pedBD.add(p);
 			}
-//		}
+		}
 		
 		
 		usuBD.getPessoa().setPedido(pedBD);
