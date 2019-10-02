@@ -1,6 +1,8 @@
 package br.com.musicianapp.Business;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,8 @@ public class ProcessarDadosPedido implements IStrategyPreparToSave {
 		adapter = new PedidoAdapter<Pedido>();
 	}
 	
-	private Set<Pedido> checkPedidoList(Set<Pedido> pedidos) {
-		Set<Pedido> lista = new HashSet<Pedido>();
+	private List<Pedido> checkPedidoList(Set<Pedido> pedidos) {
+		List<Pedido> lista = new ArrayList<>();
 		for(Pedido pedido : pedidos) {
 			pedido = processarDados(pedido);
 			lista.add(pedido);

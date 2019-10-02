@@ -3,7 +3,6 @@ package br.com.musicianapp.daos;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,8 +70,17 @@ public class UsuarioDao extends AbstractDao {
 	}
 
 	private Usuario updatePedido(Usuario usuBD, Usuario usuarioComNovoPedido) {
-		Set<Pedido> pedidosMem = usuarioComNovoPedido.getPessoa().getPedido();
-		Set<Pedido> pedBD = usuBD.getPessoa().getPedido();
+		List<Pedido> pedidosMem = new ArrayList<Pedido>();
+		List<Pedido> pedBD = new ArrayList<Pedido>();
+		for (Pedido ped : usuarioComNovoPedido.getPessoa().getPedido()) {
+			pedidosMem.add(ped);
+		}
+		for (Pedido pedido : usuBD.getPessoa().getPedido()) {
+			pedidosMem.add(pedido);
+		}
+		// Set<Pedido> pedidosMem =
+		// usuarioComNovoPedido.getPessoa().getPedido();
+		// Set<Pedido> pedBD = usuBD.getPessoa().getPedido();
 
 		for (Pedido pedido : pedidosMem) {
 			if (pedido.getId() == 0) {

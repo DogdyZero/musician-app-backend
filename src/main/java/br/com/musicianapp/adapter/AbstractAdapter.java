@@ -1,5 +1,6 @@
 package br.com.musicianapp.adapter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
@@ -19,6 +20,8 @@ import br.com.musicianapp.domain.Usuario;
 @Service
 public abstract class AbstractAdapter<E> implements IAdapter<E> {
 
+	protected Set<Pedido> pesPed = new HashSet<>();
+	
 	protected Telefone telefone;
 	protected Pessoa pessoa;
 
@@ -83,7 +86,10 @@ public abstract class AbstractAdapter<E> implements IAdapter<E> {
 				this.cartoes = this.pessoa.getCartao();
 			}
 			if (this.pessoa.getPedido() != null) {
-				this.pedidos = this.pessoa.getPedido();
+				for (Pedido ped : this.pessoa.getPedido()) {
+					pesPed.add(ped);
+				}
+				this.pedidos = pesPed;
 			}
 		}
 

@@ -1,6 +1,7 @@
 package br.com.musicianapp.domain;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -61,7 +62,7 @@ public class Pessoa extends EntidadeDominio{
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinColumn(name="pes_id")
-	private Set<Pedido> pedido;
+	private List<Pedido> pedido;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade= {CascadeType.PERSIST,CascadeType.MERGE})
 	@JoinColumn(name="pes_id")
@@ -143,10 +144,10 @@ public class Pessoa extends EntidadeDominio{
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Set<Pedido> getPedido() {
+	public List<Pedido> getPedido() {
 		return pedido;
 	}
-	public void setPedido(Set<Pedido> pedido) {
+	public void setPedido(List<Pedido> pedido) {
 		this.pedido = pedido;
 	}
 	public Set<Cupom> getCupom() {
