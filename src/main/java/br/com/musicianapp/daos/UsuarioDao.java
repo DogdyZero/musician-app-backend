@@ -16,6 +16,7 @@ import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.FormaPagamento;
 import br.com.musicianapp.domain.ItemProduto;
 import br.com.musicianapp.domain.Pedido;
+import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.domain.Usuario;
 import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.repository.UsuarioRepository;
@@ -38,6 +39,8 @@ public class UsuarioDao extends AbstractDao {
 	private CupomDao cupomDao;
 	@Autowired
 	private PedidoDao pedidoDao;
+	@Autowired
+	private ProdutoDao produtoDao;
 
 	public UsuarioDao() {
 		this.adapter = new UsuarioAdapter<Usuario>();
@@ -76,7 +79,7 @@ public class UsuarioDao extends AbstractDao {
 			pedidosMem.add(ped);
 		}
 		for (Pedido pedido : usuBD.getPessoa().getPedido()) {
-			pedidosMem.add(pedido);
+			pedBD.add(pedido);
 		}
 		// Set<Pedido> pedidosMem =
 		// usuarioComNovoPedido.getPessoa().getPedido();
@@ -120,6 +123,18 @@ public class UsuarioDao extends AbstractDao {
 						forma.setTipoPagamento(cupom);
 					}
 
+				}
+				
+				List<ItemProduto> itens = pedido.getCarrinhoCompra().getItemProduto();
+				for (ItemProduto ip : itens) {
+					if(ip.getId() == 0){
+						ItemProduto itemProduto = new ItemProduto();
+						itemProduto.setQuantidade(ip.getQuantidade());
+//						itemProduto.setCodigoBarras(ip.getCodigoBarras());
+//						itemProduto.setValorProduto(ip.getValorProduto());
+						
+						
+					}
 				}
 
 				// }
