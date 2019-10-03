@@ -86,58 +86,56 @@ public class UsuarioDao extends AbstractDao {
 		// Set<Pedido> pedBD = usuBD.getPessoa().getPedido();
 
 		for (Pedido pedido : pedidosMem) {
-			if (pedido.getId() == 0) {
-				// if(pedido.getId()==0) {
+				if (pedido.getId() == 0) {
 
-				Endereco endereco = pedido.getFrete().getEndereco();
+					Endereco endereco = pedido.getFrete().getEndereco();
 
-				endDao.setParametro(ConsultasPadrao.ENDERECO_ID);
-				List<EntidadeDominio> updateEndereco = endDao
-						.consultar(endereco);
+					endDao.setParametro(ConsultasPadrao.ENDERECO_ID);
+					List<EntidadeDominio> updateEndereco = endDao
+							.consultar(endereco);
 
-				endereco = (Endereco) updateEndereco.get(0);
+					endereco = (Endereco) updateEndereco.get(0);
 
-				List<FormaPagamento> formas = pedido.getPagamento()
-						.getFormaPagamento();
+					List<FormaPagamento> formas = pedido.getPagamento()
+							.getFormaPagamento();
 
-				for (FormaPagamento forma : formas) {
-					if (forma.getTipoPagamento() instanceof Cartao) {
-						Cartao cartao = (Cartao) forma.getTipoPagamento();
-						cartaoDao.setParametro(ConsultasPadrao.CARTAO_ID);
-						List<EntidadeDominio> updateCartao = cartaoDao
-								.consultar(cartao);
+					for (FormaPagamento forma : formas) {
+						if (forma.getTipoPagamento() instanceof Cartao) {
+							Cartao cartao = (Cartao) forma.getTipoPagamento();
+							cartaoDao.setParametro(ConsultasPadrao.CARTAO_ID);
+							List<EntidadeDominio> updateCartao = cartaoDao
+									.consultar(cartao);
 
-						cartao = (Cartao) updateCartao.get(0);
+							cartao = (Cartao) updateCartao.get(0);
 
-						forma.setTipoPagamento(cartao);
+							forma.setTipoPagamento(cartao);
 
-						forma.setTipoPagamento(cartao);
+							forma.setTipoPagamento(cartao);
 
-					} else if (forma.getTipoPagamento() instanceof Cupom) {
-						Cupom cupom = (Cupom) forma.getTipoPagamento();
-						cupomDao.setParametro(ConsultasPadrao.CUPOM_ID);
-						List<EntidadeDominio> updateCartao = cupomDao
-								.consultar(cupom);
+						} else if (forma.getTipoPagamento() instanceof Cupom) {
+							Cupom cupom = (Cupom) forma.getTipoPagamento();
+							cupomDao.setParametro(ConsultasPadrao.CUPOM_ID);
+							List<EntidadeDominio> updateCartao = cupomDao
+									.consultar(cupom);
 
-						cupom = (Cupom) updateCartao.get(0);
-						forma.setTipoPagamento(cupom);
+							cupom = (Cupom) updateCartao.get(0);
+							forma.setTipoPagamento(cupom);
+						}
+
 					}
 
-				}
-				
-				List<ItemProduto> itens = pedido.getCarrinhoCompra().getItemProduto();
-				for (ItemProduto ip : itens) {
-					if(ip.getId() == 0){
-						ItemProduto itemProduto = new ItemProduto();
-						itemProduto.setQuantidade(ip.getQuantidade());
-//						itemProduto.setCodigoBarras(ip.getCodigoBarras());
-//						itemProduto.setValorProduto(ip.getValorProduto());
-						
-						
-					}
-				}
+					List<ItemProduto> itens = pedido.getCarrinhoCompra()
+							.getItemProduto();
+					for (ItemProduto ip : itens) {
+						if (ip.getId() == 0) {
+							ItemProduto itemProduto = new ItemProduto();
+							itemProduto.setQuantidade(ip.getQuantidade());
+							// itemProduto.setCodigoBarras(ip.getCodigoBarras());
+							// itemProduto.setValorProduto(ip.getValorProduto());
 
-				// }
+						}
+					}
+
 
 				Pedido p = new Pedido();
 				p.setCarrinhoCompra(pedido.getCarrinhoCompra());
