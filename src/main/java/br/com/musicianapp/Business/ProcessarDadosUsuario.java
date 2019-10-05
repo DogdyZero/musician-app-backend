@@ -15,6 +15,7 @@ import br.com.musicianapp.domain.Usuario;
 public class ProcessarDadosUsuario implements IStrategyPreparToSave{
 	
 	private IAdapter<Usuario> adapter;
+
 	public ProcessarDadosUsuario() {
 		adapter = new UsuarioAdapter<Usuario>();
 	}

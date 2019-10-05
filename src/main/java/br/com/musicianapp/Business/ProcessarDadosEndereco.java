@@ -46,10 +46,12 @@ public class ProcessarDadosEndereco implements IStrategyPreparToSave {
 		if(endereco.getCidade()!=null)
 			endereco.setCidade(endereco.getCidade().toUpperCase());
 
-		if(endereco.getCep()!=null) {
-			String cep[]=endereco.getCep().split("-");
-			endereco.setCep(cep[0]+cep[1]);
-		}
+//		if(endereco.getCep()!=null) {
+//			String cep[]=endereco.getCep().split("-");
+//			if(cep.length>=0){
+//			endereco.setCep(cep[0]+cep[1]);
+//			}
+//		}
 		if(endereco.getStatus()==null)
 			endereco.setStatus(Status.ATIVO);
 		

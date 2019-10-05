@@ -1,20 +1,29 @@
 package br.com.musicianapp.Business;
 
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.adapter.PessoaAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Pessoa;
 
 @Service
 public class ProcessarDadosPessoa implements IStrategyPreparToSave {
-	
+
 	private IAdapter<Pessoa> adapter;
+
+	@Autowired
+	private ProcessarDadosPedido processarDadosPedido;
 	
+
 	public ProcessarDadosPessoa() {
 		adapter = new PessoaAdapter<Pessoa>();
 	}
+
 	@Override
 	public EntidadeDominio processarDados(EntidadeDominio entidade) {
 		adapter.setAdapter(entidade);
@@ -40,10 +49,12 @@ public class ProcessarDadosPessoa implements IStrategyPreparToSave {
 				pessoa.setCpf(sb.toString());
 			}
 		}
+		if(pessoa.getPedido() != null){
+			
+		}
 		
-		return (EntidadeDominio)pessoa;
+		return pessoa;
 
 		
 	}
-
 }
