@@ -51,7 +51,7 @@ public class ItemProdutoDao extends AbstractDao {
 			ItemProduto itemBD = optItem.get();
 			
 			if(itemBD.getId()==adapter.getObject().getId()) {
-				itemBD.setStatusItem(adapter.getObject().getStatusItem());
+				itemBD.setTroca(adapter.getObject().getTroca());
 				return repository.save(itemBD);
 			}
 		}

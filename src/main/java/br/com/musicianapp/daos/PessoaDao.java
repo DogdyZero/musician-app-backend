@@ -154,9 +154,9 @@ public class PessoaDao extends AbstractDao {
 		return pesBD;
 	}
 	private Pessoa updatePedido(Pessoa pesBD, Pessoa pessoaComNovoPedido ) {
-		Set<Pedido> pedidosMem =pessoaComNovoPedido.getPedido();
+		List<Pedido> pedidosMem =pessoaComNovoPedido.getPedido();
 
-		Set<Pedido> pedBD = pesBD.getPedido();
+		List<Pedido> pedBD = pesBD.getPedido();
 		
 		for(Pedido pedido: pedidosMem) {
 			Pedido p = new Pedido();
