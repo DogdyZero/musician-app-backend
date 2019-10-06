@@ -74,18 +74,9 @@ public class UsuarioDao extends AbstractDao {
 	}
 
 	private Usuario updatePedido(Usuario usuBD, Usuario usuarioComNovoPedido) {
-		List<Pedido> pedidosMem = new ArrayList<Pedido>();
-		List<Pedido> pedBD = new ArrayList<Pedido>();
-		for (Pedido ped : usuarioComNovoPedido.getPessoa().getPedido()) {
-			pedidosMem.add(ped);
-		}
-//		for (Pedido pedido : usuBD.getPessoa().getPedido()) {
-//			pedBD.add(pedido);
-//		}
-		// Set<Pedido> pedidosMem =
-		// usuarioComNovoPedido.getPessoa().getPedido();
-		// Set<Pedido> pedBD = usuBD.getPessoa().getPedido();
-
+		List<Pedido> pedidosMem = usuarioComNovoPedido.getPessoa().getPedido();
+		List<Pedido> pedBD = usuBD.getPessoa().getPedido();
+		
 		for (Pedido pedido : pedidosMem) {
 			if (pedido.getId() == 0) {
 
@@ -129,6 +120,7 @@ public class UsuarioDao extends AbstractDao {
 						.getItemProduto();
 				List<ItemProduto> listIP = new ArrayList<ItemProduto>();
 				CarrinhoCompra car = new CarrinhoCompra();
+				double valorCompra=0;
 				for (ItemProduto ip : itens) {
 					if (ip.getId() == 0) {
 						ItemProduto itemProduto = new ItemProduto();
@@ -136,6 +128,7 @@ public class UsuarioDao extends AbstractDao {
 						// itemProduto.setValorProduto(ip.getValorProduto());
 						// itemProduto.setDtCadastro(ip.getDtCadastro());
 						// itemProduto.setStatusItem(ip.getStatusItem());
+						valorCompra += ip.getValorProduto()*ip.getQuantidade();
 						itemProduto.setValorProduto(ip.getValorProduto());
 						itemProduto.setQuantidade(ip.getQuantidade());
 						Produto prod = ip.getProduto();
@@ -150,12 +143,15 @@ public class UsuarioDao extends AbstractDao {
 				car.setItemProduto(listIP);
 
 				Pedido p = new Pedido();
+				p.setData(pedido.getData());
+				p.setStatusPedido(pedido.getStatusPedido());
 				p.setCarrinhoCompra(car);
 				// p.getCarrinhoCompra().setItemProduto(listIP);
+				p.getCarrinhoCompra().setTotalCarrinho(valorCompra);
 				p.setFrete(pedido.getFrete());
 				p.getFrete().setEndereco(endereco);
 				p.setPagamento(pedido.getPagamento());
-				p.setTotal(pedido.getTotal());
+				p.setTotal(valorCompra + p.getFrete().getCalculoFrete());
 				pedBD.add(p);
 
 			}

@@ -1,21 +1,19 @@
 package br.com.musicianapp.Business;
 
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.musicianapp.Enum.Status;
+import br.com.musicianapp.Enum.StatusPedido;
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.adapter.PedidoAdapter;
 import br.com.musicianapp.domain.CarrinhoCompra;
 import br.com.musicianapp.domain.EntidadeDominio;
-import br.com.musicianapp.domain.ItemProduto;
 import br.com.musicianapp.domain.Pedido;
-import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.domain.Usuario;
 
 @Service
@@ -39,7 +37,8 @@ public class ProcessarDadosPedido implements IStrategyPreparToSave {
 		return lista;
 	}
 	private Pedido processarDados(Pedido pedido) {
-
+		pedido.setData(new Date());
+		pedido.setStatusPedido(StatusPedido.AGUARDANDO_APROVACAO);
 		pedido.setCarrinhoCompra((CarrinhoCompra)processarDadosCarrinho.processarDados(pedido));
 		
 		return pedido;

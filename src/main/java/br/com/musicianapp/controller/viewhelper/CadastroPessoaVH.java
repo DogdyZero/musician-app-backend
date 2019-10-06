@@ -48,10 +48,11 @@ public class CadastroPessoaVH {
 		if(usuario.getPessoa().getPedido() != null){			
 			usuario=(Usuario) processarDadosPedido.processarDados(usuario);
 		}
-		
-		for (Pedido pedido : usuario.getPessoa().getPedido()) {
-			for (ItemProduto ip : pedido.getCarrinhoCompra().getItemProduto()) {
-				System.out.println("\n\n" + ip.getQuantidade() + " " + ip.getProduto().getNome());
+		if(usuario.getPessoa().getPedido()!=null) {
+			for (Pedido pedido : usuario.getPessoa().getPedido()) {
+				for (ItemProduto ip : pedido.getCarrinhoCompra().getItemProduto()) {
+					System.out.println("\n\n" + ip.getQuantidade() + " " + ip.getProduto().getNome());
+				}
 			}
 		}
 		

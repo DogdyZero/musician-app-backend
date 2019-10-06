@@ -3,8 +3,6 @@ package br.com.musicianapp.domain;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,9 +36,9 @@ public class ItemProduto extends EntidadeDominio{
 	@Column(name="ipd_valor_produto")
 	private double valorProduto;
 	
-	@Column(name="ipd_status_troca")
-	@Enumerated(EnumType.STRING)
-	private StatusItem statusItem;
+	@OneToOne(cascade=CascadeType.MERGE)
+	@JoinColumn(name="tro_id")
+	private Troca troca;
 	
 	
 	public int getId() {
@@ -83,12 +81,12 @@ public class ItemProduto extends EntidadeDominio{
 		this.valorProduto = valorProduto;
 	}
 
-	public StatusItem getStatusItem() {
-		return statusItem;
+	public Troca getTroca() {
+		return troca;
 	}
 
-	public void setStatusItem(StatusItem statusItem) {
-		this.statusItem = statusItem;
+	public void setTroca(Troca troca) {
+		this.troca = troca;
 	}
 	
 	

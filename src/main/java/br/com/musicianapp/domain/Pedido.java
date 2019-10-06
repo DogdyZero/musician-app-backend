@@ -1,6 +1,7 @@
 package br.com.musicianapp.domain;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,10 +11,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import br.com.musicianapp.Enum.StatusPedido;
@@ -28,19 +31,22 @@ public class Pedido extends EntidadeDominio{
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_generator")
 	private int id;
 	
+	@JoinColumn(name="crc_id")
 	@OneToOne(cascade=CascadeType.MERGE)
 	private CarrinhoCompra carrinhoCompra;
 	
+	@JoinColumn(name="fre_id")
 	@OneToOne(cascade=CascadeType.MERGE)
 	private Frete frete;
 	
+	@JoinColumn(name="pag_id")
 	@OneToOne(cascade=CascadeType.MERGE)
 	private Pagamento pagamento;
 	
 	@Column(name="ped_valor")
 	private double total;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
 	@Column(name="ped_data")
 	private Date data;
 	
