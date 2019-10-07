@@ -2,6 +2,8 @@ package br.com.musicianapp.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -10,6 +12,7 @@ import javax.persistence.SequenceGenerator;
 import org.springframework.stereotype.Component;
 
 import br.com.musicianapp.Enum.OrigemCupom;
+import br.com.musicianapp.Enum.Status;
 
 @Entity
 @Component
@@ -29,15 +32,21 @@ public class Cupom extends TipoPagamento{
 	
 	@Column(name="cpm_valor")
 	private double  valor;
+	
+	@Enumerated(EnumType.STRING)
+	@Column(name="cpm_status")
+	private Status status;
 
 	public Cupom() {
 		
 	}
 	
-	public Cupom(String codigo, double valor) {
+	public Cupom(String codigo, OrigemCupom origemCupom, double valor, Status status) {
 		super();
 		this.codigo = codigo;
+		this.origemCupom = origemCupom;
 		this.valor = valor;
+		this.status = status;
 	}
 
 	public int getId() {
@@ -63,6 +72,23 @@ public class Cupom extends TipoPagamento{
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
+
+	public OrigemCupom getOrigemCupom() {
+		return origemCupom;
+	}
+
+	public void setOrigemCupom(OrigemCupom origemCupom) {
+		this.origemCupom = origemCupom;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
 	
 	
 }

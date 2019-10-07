@@ -13,11 +13,13 @@ import br.com.musicianapp.daos.consultas.CartaoConsultaImpl;
 import br.com.musicianapp.daos.consultas.CupomConsultaImpl;
 import br.com.musicianapp.daos.consultas.PedidoConsultaImpl;
 import br.com.musicianapp.daos.consultas.TelefoneConsultaImpl;
+import br.com.musicianapp.daos.consultas.TrocaConsultaImpl;
 import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Telefone;
+import br.com.musicianapp.domain.Troca;
 
 @Service
 public class FactoryConsulta {
@@ -31,6 +33,8 @@ public class FactoryConsulta {
 	@Autowired private CartaoConsultaImpl cartaoImpl;
 	@Autowired private CupomConsultaImpl cupomImpl;
 	@Autowired private PedidoConsultaImpl pedidoImpl;
+	@Autowired private TrocaConsultaImpl trocaImpl;
+
 
 	
 	public FactoryConsulta() {
@@ -69,12 +73,23 @@ public class FactoryConsulta {
 		metodosPedidos.put(ConsultasPadrao.PEDIDO_ID, "pesquisarPorId");
 
 		/*
+		 * Mapa de Metodos Pedido
+		 */
+		Map<ConsultasPadrao,String>metodosTroca = new HashMap<ConsultasPadrao, String>();
+		
+		metodosTroca.put(ConsultasPadrao.TROCA_TUDO, "pesquisarTodos");
+		metodosTroca.put(ConsultasPadrao.TROCA_ID, "pesquisarPorId");
+		metodosTroca.put(ConsultasPadrao.TROCA_USUARIO, "pesquisarUsuarioTroca");
+
+		/*
 		 * Mapa de metodos principais
 		 */
 		mapaMetodos.put(Telefone.class.getName(), metodosTelefone);
 		mapaMetodos.put(Cartao.class.getName(), metodosCartao);
 		mapaMetodos.put(Cupom.class.getName(), metodosCupom);
 		mapaMetodos.put(Pedido.class.getName(), metodosPedidos);
+		mapaMetodos.put(Troca.class.getName(), metodosTroca);
+
 
 	}
 
@@ -87,6 +102,7 @@ public class FactoryConsulta {
 		objConsultaImpl.put(Cartao.class.getName(), cartaoImpl);
 		objConsultaImpl.put(Cupom.class.getName(), cupomImpl);
 		objConsultaImpl.put(Pedido.class.getName(), pedidoImpl);
+		objConsultaImpl.put(Troca.class.getName(), trocaImpl);
 
 	}
 	

@@ -1,49 +1,38 @@
 package br.com.musicianapp.daos;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.musicianapp.adapter.CupomAdapter;
-import br.com.musicianapp.adapter.IAdapter;
-import br.com.musicianapp.domain.Cartao;
-import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Troca;
 import br.com.musicianapp.impl.FactoryConsulta;
-import br.com.musicianapp.repository.CupomRepository;
 
 @Service
-public class CupomDao extends AbstractDao {
-	@Autowired
-	private CupomRepository cupomRepository;
+public class TrocaDao extends AbstractDao {
 	@Autowired
 	private FactoryConsulta fabrica;
-	private List<EntidadeDominio> entidades;
-	private Optional<Cupom> optCupom;
-	private IAdapter<Cupom> adapter;
-	
-	public CupomDao() {
-		adapter = new CupomAdapter<Cupom>();
-	}
-	
 	@Override
 	public EntidadeDominio salvar(EntidadeDominio entidade) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public EntidadeDominio alterar(EntidadeDominio entidade) {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-		return fabrica.fabricarConsulta(Cupom.class.cast(entidade), super.getParametro());
+		return fabrica.fabricarConsulta(Troca.class.cast(entidade), super.getParametro());
 	}
+
 	@Override
 	public void apagar(EntidadeDominio entidade) {
+		// TODO Auto-generated method stub
 
 	}
 
