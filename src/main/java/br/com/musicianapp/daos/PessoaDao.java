@@ -15,8 +15,10 @@ import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.musicianapp.Enum.OrigemCupom;
 import br.com.musicianapp.Enum.Status;
 import br.com.musicianapp.domain.Cartao;
+import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pedido;
@@ -87,6 +89,9 @@ public class PessoaDao extends AbstractDao {
 			if(pessoa.getCartao()!=null) {
 				pesBD = updateCartao(pesBD, pessoa);
 			}
+			if(pessoa.getCupom()!=null) {
+				pesBD = updateCupom(pesBD, pessoa);
+			}
 //			if(pessoa.getCompra()!=null) {
 //				
 //			}
@@ -150,6 +155,24 @@ public class PessoaDao extends AbstractDao {
 		}
 		
 		pesBD.setCartao(carBD);
+		
+		return pesBD;
+	}
+	
+	private Pessoa updateCupom(Pessoa pesBD, Pessoa pessoaComNovoCupom ) {
+		Set<Cupom> cupomMem =pessoaComNovoCupom.getCupom();
+
+		Set<Cupom> cupomBD = pesBD.getCupom();
+		for(Cupom cupom: cupomMem) {
+			if(cupom.getId()==0) {
+				String codCupom = "testeCupom123";
+				Cupom c = new Cupom(codCupom, OrigemCupom.TROCA, cupom.getValor(), Status.ATIVO);
+				cupomBD.add(c);
+			}
+			
+		}
+		
+		pesBD.setCupom(cupomBD);
 		
 		return pesBD;
 	}

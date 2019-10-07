@@ -23,7 +23,7 @@ import br.com.musicianapp.Enum.StatusItem;
 @Entity
 @Component
 @SequenceGenerator(name="troca_generator", sequenceName = "troca_seq", allocationSize=50,initialValue=1)
-public class Troca {
+public class Troca extends EntidadeDominio {
 	@Id
 	@Column(name="tro_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "troca_generator")

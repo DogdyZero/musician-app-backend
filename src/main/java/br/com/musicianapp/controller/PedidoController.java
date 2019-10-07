@@ -51,6 +51,14 @@ public class PedidoController {
 		List<EntidadeDominio> entidades = facade.consultar(this.pedido);
 		return (Pedido) entidades.get(0);	
 	}
+	
+	@GetMapping("{id}")
+	public Pedido consultarPedidoPorId(@PathVariable int id){
+		this.facade.setParametro(ConsultasPadrao.PEDIDO_ID);
+		this.pedido.setId(id);
+		List<EntidadeDominio> entidades = facade.consultar(this.pedido);
+		return (Pedido) entidades.get(0);	
+	}
 		
 	@PostMapping
 	public Pedido salvarPedido(@RequestBody Pedido pedido){

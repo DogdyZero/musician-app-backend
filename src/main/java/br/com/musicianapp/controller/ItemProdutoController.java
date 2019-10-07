@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.ItemProduto;
 import br.com.musicianapp.domain.Pedido;
+import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.impl.ConsultasPadrao;
 
 @RestController
@@ -27,7 +28,7 @@ public class ItemProdutoController {
 	@Autowired
 	private ItemProduto item;
 	@PutMapping("{id}")
-	public Pedido alterarPedido(@RequestBody ItemProduto item, @PathVariable int id){
+	public ItemProduto alterarPedido(@RequestBody ItemProduto item, @PathVariable int id){
 		item.setId(id);
 		this.facade.alterar(item);
 		return null;
@@ -44,4 +45,16 @@ public class ItemProdutoController {
 		return itens;	
 	}
 	
+	@GetMapping("{id}")
+	public List<Pessoa> consultarUsuarioTroca(){
+		this.facade.setParametro(ConsultasPadrao.CARTAO_ID);
+		List<EntidadeDominio> entidades = facade.consultar(this.item);
+		List<Pessoa> itens = new ArrayList<Pessoa>();
+		for (EntidadeDominio ent : entidades) {
+			
+			itens.add((Pessoa)ent);
+		}
+		return itens;	
+	}
+		
 }
