@@ -166,8 +166,10 @@ public class PessoaDao extends AbstractDao {
 		for(Cupom cupom: cupomMem) {
 			if(cupom.getId()==0) {
 				String codCupom = "testeCupom123";
-				Cupom c = new Cupom(codCupom, OrigemCupom.TROCA, cupom.getValor(), Status.ATIVO);
-				cupomBD.add(c);
+//				Cupom c = new Cupom(codCupom, OrigemCupom.TROCA, cupom.getValor(), Status.ATIVO);
+				cupom.setCodigo(codCupom);
+				cupom.setStatus(Status.ATIVO);
+				cupomBD.add(cupom);
 			}
 			
 		}

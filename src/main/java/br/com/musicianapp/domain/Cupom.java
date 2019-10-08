@@ -28,6 +28,7 @@ public class Cupom extends TipoPagamento{
 	private String codigo;
 	
 	@Column(name="cpm_origem_cupom")
+	@Enumerated(EnumType.STRING)
 	private OrigemCupom origemCupom;
 	
 	@Column(name="cpm_valor")
