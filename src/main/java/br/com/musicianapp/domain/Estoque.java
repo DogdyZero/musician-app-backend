@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
@@ -22,15 +24,17 @@ public class Estoque {
 	private int id;
 	
 	@OneToOne
-	@JoinColumn(name="est_produto")
+	@JoinColumn(name="pro_id")
 	private Produto produto;
 
 	@Column(name="est_qtd_produto")
 	private int quantidadeProduto;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name="est_data_entrada")
 	private Date dataEntrada;
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name="est_data_venda")
 	private Date dataVenda;
 	

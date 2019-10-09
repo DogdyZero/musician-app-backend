@@ -119,7 +119,6 @@ public class ProdutoController {
 			produto.setImagemString(produto.getImagemString().substring(totalCaracteres));
 			byte[]bytes = Base64.getDecoder().decode(produto.getImagemString().getBytes());
 			produto.setImagem(bytes);
-			System.out.println(produto.getImagem());
 		}
 		facade.salvar(produto);
 		return null;
@@ -129,8 +128,16 @@ public class ProdutoController {
 	public Object alterarProduto(@RequestBody Produto produto, @PathVariable int id){
 		produto.setId(id);
 		produto = (Produto) cadastroProduto.prepararParaSalvar(produto);
-
+		String atributos = "data:image/jpeg;base64,";
+		int totalCaracteres = atributos.length();
+		if(produto.getImagemString().contains(atributos)) {
+			produto.setImagemString(produto.getImagemString().substring(totalCaracteres));
+			byte[]bytes = Base64.getDecoder().decode(produto.getImagemString().getBytes());
+			produto.setImagem(bytes);
+		}
 		Resultado resultado = this.facade.alterar(produto);
+		
+		
 		
 		if(resultado!=null) {
 			return resultado;
