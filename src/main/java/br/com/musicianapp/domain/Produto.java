@@ -1,12 +1,13 @@
 package br.com.musicianapp.domain;
 
-import java.io.File;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -40,9 +41,6 @@ public class Produto extends EntidadeDominio {
 	@Column(name="prod_modelo")
 	private String modelo;
 	
-	@Column(name="prod_preco")
-	private double preco;
-	
 	@Column(name="prod_ean")
 	private String ean;
 	
@@ -62,15 +60,9 @@ public class Produto extends EntidadeDominio {
 	@Column(name="prod_foto_imagem_")
 	private String imagemString;
 	
-	@Transient
-	private File arquivo;
-	
 	@Column(name="prod_desc")
 	private String descricao;
 	
-	@Column(name="prod_qtd")
-	private int quantidade;
-
 	@OneToOne
 	@JoinColumn(name="prod_categoria_id")
 	private Categoria categoria;
@@ -81,6 +73,10 @@ public class Produto extends EntidadeDominio {
 	
 	@Column(name="prod_dimensao")
 	private String dimensao;
+	
+	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE}, fetch=FetchType.EAGER)
+	@JoinColumn(name="grp_id")
+	private GrupoPrecificacao grupoPrecificacao;
 
 	public Produto(){
 		
@@ -91,13 +87,11 @@ public class Produto extends EntidadeDominio {
 			Categoria categoriaProduto) {
 		super();
 		this.nome = nome;
-		this.preco = preco;
 		this.modelo = modelo;
 		this.ano = ano;
 		this.marca = marca;
 		this.pathImage = pathImage;
 		this.descricao = descricao;
-		this.quantidade = quantidade;
 //		this.categoriaProduto = categoriaProduto;
 	}
 
@@ -109,14 +103,6 @@ public class Produto extends EntidadeDominio {
 		this.id = id;
 	}
 	
-	public double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(double preco) {
-		this.preco = preco;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -163,14 +149,6 @@ public class Produto extends EntidadeDominio {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public int getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(int quantidade) {
-		this.quantidade = quantidade;
 	}
 
 	public String getEan() {
@@ -221,16 +199,12 @@ public class Produto extends EntidadeDominio {
 		this.imagemString = imagemString;
 	}
 
-	public File getArquivo() {
-		return arquivo;
+	public GrupoPrecificacao getGrupoPrecificacao() {
+		return grupoPrecificacao;
 	}
 
-	public void setArquivo(File arquivo) {
-		this.arquivo = arquivo;
+	public void setGrupoPrecificacao(GrupoPrecificacao grupoPrecificacao) {
+		this.grupoPrecificacao = grupoPrecificacao;
 	}
 	
-	
-	
-	
-
 }
