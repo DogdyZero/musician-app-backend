@@ -10,6 +10,7 @@ import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Estoque;
 import br.com.musicianapp.domain.ItemProduto;
 import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Pessoa;
@@ -33,6 +34,7 @@ public abstract class AbstractAdapter<E> implements IAdapter<E> {
 	protected ItemProduto itemProduto;
 	protected Cupom cupom;
 	protected CarrinhoCompra carrinhoCompra;
+	protected Estoque estoque;
 
 	protected Set<Telefone> telefones;
 	protected Set<Endereco> enderecos;
@@ -67,6 +69,9 @@ public abstract class AbstractAdapter<E> implements IAdapter<E> {
 		}
 		if (entidade instanceof Cupom) {
 			this.cupom = Cupom.class.cast(entidade);
+		}
+		if (entidade instanceof Estoque) {
+			this.estoque = Estoque.class.cast(entidade);
 		}
 
 		if (this.usuario != null) {
