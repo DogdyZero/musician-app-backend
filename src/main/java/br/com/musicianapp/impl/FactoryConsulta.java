@@ -12,12 +12,14 @@ import org.springframework.stereotype.Service;
 import br.com.musicianapp.daos.consultas.CartaoConsultaImpl;
 import br.com.musicianapp.daos.consultas.CupomConsultaImpl;
 import br.com.musicianapp.daos.consultas.PedidoConsultaImpl;
+import br.com.musicianapp.daos.consultas.ProdutoConsultaImpl;
 import br.com.musicianapp.daos.consultas.TelefoneConsultaImpl;
 import br.com.musicianapp.daos.consultas.TrocaConsultaImpl;
 import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pedido;
+import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.domain.Troca;
 
@@ -34,6 +36,7 @@ public class FactoryConsulta {
 	@Autowired private CupomConsultaImpl cupomImpl;
 	@Autowired private PedidoConsultaImpl pedidoImpl;
 	@Autowired private TrocaConsultaImpl trocaImpl;
+	@Autowired private ProdutoConsultaImpl produtoImpl;
 
 
 	
@@ -73,7 +76,7 @@ public class FactoryConsulta {
 		metodosPedidos.put(ConsultasPadrao.PEDIDO_ID, "pesquisarPorId");
 
 		/*
-		 * Mapa de Metodos Pedido
+		 * Mapa de Metodos Troca
 		 */
 		Map<ConsultasPadrao,String>metodosTroca = new HashMap<ConsultasPadrao, String>();
 		
@@ -82,6 +85,15 @@ public class FactoryConsulta {
 		metodosTroca.put(ConsultasPadrao.TROCA_USUARIO, "pesquisarUsuarioTroca");
 
 		/*
+		 * Mapa de Metodos Produto
+		 */
+		Map<ConsultasPadrao,String>metodosProduto = new HashMap<ConsultasPadrao, String>();
+		
+		metodosProduto.put(ConsultasPadrao.PRODUTO_TUDO, "pesquisarTodos");
+		metodosProduto.put(ConsultasPadrao.PRODUTO_ID, "pesquisarPorId");
+		metodosProduto.put(ConsultasPadrao.PRODUTO_ESTOQUE, "pesquisarProdutoEstoque");
+		metodosProduto.put(ConsultasPadrao.PRODUTO_ESTOQUE_DISPONIVEIS, "consultarProdutosDisponiveis");
+		/*
 		 * Mapa de metodos principais
 		 */
 		mapaMetodos.put(Telefone.class.getName(), metodosTelefone);
@@ -89,7 +101,7 @@ public class FactoryConsulta {
 		mapaMetodos.put(Cupom.class.getName(), metodosCupom);
 		mapaMetodos.put(Pedido.class.getName(), metodosPedidos);
 		mapaMetodos.put(Troca.class.getName(), metodosTroca);
-
+		mapaMetodos.put(Produto.class.getName(), metodosProduto);
 
 	}
 
@@ -103,6 +115,7 @@ public class FactoryConsulta {
 		objConsultaImpl.put(Cupom.class.getName(), cupomImpl);
 		objConsultaImpl.put(Pedido.class.getName(), pedidoImpl);
 		objConsultaImpl.put(Troca.class.getName(), trocaImpl);
+		objConsultaImpl.put(Produto.class.getName(), produtoImpl);
 
 	}
 	

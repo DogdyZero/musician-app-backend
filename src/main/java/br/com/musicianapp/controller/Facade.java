@@ -17,6 +17,7 @@ import br.com.musicianapp.Business.ValidarTelefone;
 import br.com.musicianapp.daos.AbstractDao;
 import br.com.musicianapp.daos.CartaoDao;
 import br.com.musicianapp.daos.EnderecoDao;
+import br.com.musicianapp.daos.EstoqueDao;
 import br.com.musicianapp.daos.IDAO;
 import br.com.musicianapp.daos.ItemProdutoDao;
 import br.com.musicianapp.daos.PedidoDao;
@@ -28,6 +29,7 @@ import br.com.musicianapp.daos.UsuarioDao;
 import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Endereco;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Estoque;
 import br.com.musicianapp.domain.ItemProduto;
 import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.domain.Pessoa;
@@ -51,6 +53,7 @@ public class Facade implements IFacade,IStyleQuery{
 	@Autowired private PedidoDao pedidoDao;
 	@Autowired private ItemProdutoDao itemProdutoDao;
 	@Autowired private TrocaDao trocaDao;
+	@Autowired private EstoqueDao estoqueDao;
 
 
 	
@@ -112,6 +115,7 @@ public class Facade implements IFacade,IStyleQuery{
 		daos.put(Pedido.class.getName(), pedidoDao);
 		daos.put(ItemProduto.class.getName(), itemProdutoDao);
 		daos.put(Troca.class.getName(), trocaDao);
+		daos.put(Estoque.class.getName(), estoqueDao);
 
 
 
@@ -137,10 +141,17 @@ public class Facade implements IFacade,IStyleQuery{
 		Map<String, List<IStrategy>> rnsProduto = new HashMap<String,List<IStrategy>>();
 		List<IStrategy> rnProduto = new ArrayList<IStrategy>();
 		rnsProduto.put(SALVAR,rnProduto);
+		
+		Map<String, List<IStrategy>> rnsEstoque = new HashMap<String,List<IStrategy>>();
+		List<IStrategy> rnEstoque = new ArrayList<IStrategy>();
+		rnsProduto.put(SALVAR,rnEstoque);
+		
 
 		rns.put(Pessoa.class.getName(),rnsPessoa);
 		rns.put(Usuario.class.getName(), rnsUsuario);		
 		rns.put(Produto.class.getName(),rnsProduto);
+		rns.put(Estoque.class.getName(),rnsEstoque);
+
 
 	}
 	private IDAO getDaoInstance(EntidadeDominio entidade) {
@@ -163,8 +174,9 @@ public class Facade implements IFacade,IStyleQuery{
 			entidade = this.dao.salvar(entidade);
 			if(entidade!=null) {
 				resultado.addEntidadeList(entidade);
+			}else {
+				resultado.setResultado("Erro ao salvar informação no banco de dados!");
 			}
-			resultado.setResultado("Erro ao salvar informação no banco de dados!");
 			
 		}
 		resultado.setResultado(r);

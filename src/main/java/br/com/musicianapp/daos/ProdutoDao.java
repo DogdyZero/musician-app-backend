@@ -1,6 +1,5 @@
 package br.com.musicianapp.daos;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +10,7 @@ import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.adapter.ProdutoAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Produto;
-import br.com.musicianapp.impl.ConsultasPadrao;
+import br.com.musicianapp.impl.FactoryConsulta;
 import br.com.musicianapp.repository.ProdutoRepository;
 
 @Service
@@ -19,6 +18,8 @@ public class ProdutoDao  extends AbstractDao  {
 	private List<EntidadeDominio> entidades;
 	private IAdapter<Produto> adapter;
 	private Optional<Produto> optProduto;
+	@Autowired
+	private FactoryConsulta fabrica;
 	
 	public ProdutoDao() {
 		adapter = new ProdutoAdapter<Produto>();
@@ -29,20 +30,8 @@ public class ProdutoDao  extends AbstractDao  {
 	
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
-		adapter.setAdapter(entidade);
-		if(adapter.getObject()!=null) {
-			entidades = new ArrayList<EntidadeDominio>();
-			ConsultasPadrao parametro=super.getParametro();
-			if(parametro.equals(ConsultasPadrao.PRODUTO_TUDO)) {
-				parametro=null;
-				return consultarAll();
-			}else if(parametro.equals(ConsultasPadrao.PRODUTO_ID)) {
-				parametro = null;
-				return consultaById(adapter.getObject());
-			}
-		}
-		
-		return null;
+		return fabrica.fabricarConsulta(Produto.class.cast(entidade), super.getParametro());
+
 	}
 
 	@Override
@@ -92,21 +81,4 @@ public class ProdutoDao  extends AbstractDao  {
 		adapter.setAdapter(entidade);
 		produtoRepository.deleteById(adapter.getObject().getId());
 	}
-	
-	private List<EntidadeDominio> consultarAll(){
-		List<Produto> produtos = produtoRepository.findAll();
-		for (Produto prod : produtos) {
-			entidades.add(prod);
-		}
-		return entidades;
-	}
-	
-	private List<EntidadeDominio> consultaById(Produto produto){
-		Optional<Produto> optionalProd = produtoRepository.findById(produto.getId());
-		produto = optionalProd.get();
-		entidades.add(produto);
-		return entidades;
-	}
-	
-
 }

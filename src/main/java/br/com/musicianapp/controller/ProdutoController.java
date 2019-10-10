@@ -5,7 +5,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -25,7 +24,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.controller.viewhelper.CadastroProdutoVH;
+import br.com.musicianapp.daos.consultas.ProdutoConsultaImpl;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.Estoque;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.impl.Resultado;
@@ -44,6 +45,38 @@ public class ProdutoController {
 	
 	@Autowired
 	private CadastroProdutoVH cadastroProduto;
+	
+	@Autowired
+	private ProdutoConsultaImpl cons;
+	
+	@GetMapping("{id}/estoque")
+	public Estoque buscarEstoqueProduto(@PathVariable int id) {
+		this.produto.setId(id);
+		this.facade.setParametro(ConsultasPadrao.PRODUTO_ESTOQUE);
+		List<EntidadeDominio> entidades = facade.consultar(this.produto);
+		return (Estoque) entidades.get(0);	
+	}
+	
+	@GetMapping("disponiveis")
+	public List<Produto> buscarProdutosEmEstoque() {
+		this.facade.setParametro(ConsultasPadrao.PRODUTO_ESTOQUE_DISPONIVEIS);
+//		cons.consultarProdutosEmEstoque(produto);
+		
+		List<EntidadeDominio> entidades = facade.consultar(this.produto);
+		List<Produto> produtos = new ArrayList<Produto>();
+		entidades.forEach(e->{
+			Estoque est =(Estoque) e;
+			Produto prod = est.getProduto();
+			byte[] imageByte = prod.getImagem();
+			if(imageByte!=null) {
+				String encodedFile = Base64.getEncoder().encodeToString(imageByte);
+				prod.setImagemString("data:image/jpeg;base64,"+encodedFile);
+			}
+			produtos.add(prod);
+		});
+		
+		return produtos;	
+	}
 	
 	@GetMapping("{id}")
 	public Produto consultarProduto(@PathVariable int id){
@@ -120,8 +153,10 @@ public class ProdutoController {
 			byte[]bytes = Base64.getDecoder().decode(produto.getImagemString().getBytes());
 			produto.setImagem(bytes);
 		}
-		facade.salvar(produto);
-		return null;
+		Resultado  r = facade.salvar(produto);
+		List<EntidadeDominio> entidades = r.getEntidades();
+		Produto p = (Produto) entidades.get(0);
+		return p;
 	}
 	
 	@PutMapping("{id}")
