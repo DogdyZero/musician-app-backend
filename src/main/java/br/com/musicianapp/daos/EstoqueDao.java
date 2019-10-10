@@ -1,15 +1,18 @@
 package br.com.musicianapp.daos;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.musicianapp.Enum.Status;
 import br.com.musicianapp.adapter.EstoqueAdapter;
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Estoque;
 import br.com.musicianapp.domain.Produto;
+import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.repository.EstoqueRepository;
 
@@ -17,8 +20,9 @@ import br.com.musicianapp.repository.EstoqueRepository;
 public class EstoqueDao extends AbstractDao {
 	
 	@Autowired
-	private EstoqueRepository repository;
+	private EstoqueRepository estoqueRepository;
 	private IAdapter<Estoque> adapter;
+	private Optional<Estoque> optEstoque;
 	
 	@Autowired
 	private ProdutoDao produtoDao;
@@ -36,12 +40,23 @@ public class EstoqueDao extends AbstractDao {
 			produto = (Produto) entidades.get(0);
 			estoque.setProduto(produto);
 		}
-		return repository.save(estoque);
+		return estoqueRepository.save(estoque);
 	}
 
 	@Override
 	public EntidadeDominio alterar(EntidadeDominio entidade) {
-		// TODO Auto-generated method stub
+		adapter.setAdapter(entidade);
+		Estoque estoque = adapter.getObject();
+		if(estoque!=null) {
+			optEstoque = estoqueRepository.findById(estoque.getId());
+			
+			Estoque estBD = optEstoque.get();
+			
+			if(estBD.getId()==estoque.getId()) {
+				estBD = estoque;
+				return estoqueRepository.save(estBD);
+			}
+		}
 		return null;
 	}
 
