@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.Estoque;
-import br.com.musicianapp.domain.Produto;
-import br.com.musicianapp.impl.Resultado;
 @CrossOrigin
 @RestController
 @RequestMapping("/estoque")
@@ -28,10 +26,10 @@ public class EstoqueController {
 	@PutMapping("{id}")
 	public Object alterarProduto(@RequestBody Estoque estoque, @PathVariable int id){
 		estoque.setId(id);
-		Resultado resultado = this.facade.alterar(estoque);
-		if(resultado!=null) {
-			return resultado;
-		}
+		this.facade.alterar(estoque);
+//		if(resultado!=null) {
+//			return resultado;
+//		}
 		return null;
 	}
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import br.com.musicianapp.adapter.CupomAdapter;
 import br.com.musicianapp.adapter.IAdapter;
-import br.com.musicianapp.domain.Cartao;
 import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.impl.FactoryConsulta;
@@ -35,7 +34,12 @@ public class CupomDao extends AbstractDao {
 
 	@Override
 	public EntidadeDominio alterar(EntidadeDominio entidade) {
-		return null;
+		adapter.setAdapter(entidade);
+		Cupom cupom = adapter.getObject();
+		optCupom = cupomRepository.findById(cupom.getId());
+		Cupom cupomBD = optCupom.get();
+		cupomBD.setStatus(cupom.getStatus());		
+		return cupomRepository.save(cupomBD);
 	}
 
 	@Override
