@@ -165,11 +165,11 @@ public class ProdutoController {
 		produto = (Produto) cadastroProduto.prepararParaSalvar(produto);
 		String atributos = "data:image/jpeg;base64,";
 		int totalCaracteres = atributos.length();
-		if(produto.getImagemString().contains(atributos)) {
-			produto.setImagemString(produto.getImagemString().substring(totalCaracteres));
-			byte[]bytes = Base64.getDecoder().decode(produto.getImagemString().getBytes());
-			produto.setImagem(bytes);
-		}
+//		if(produto.getImagemString().contains(atributos)) {
+//			produto.setImagemString(produto.getImagemString().substring(totalCaracteres));
+//			byte[]bytes = Base64.getDecoder().decode(produto.getImagemString().getBytes());
+//			produto.setImagem(bytes);
+//		}
 		Resultado resultado = this.facade.alterar(produto);
 		
 		
