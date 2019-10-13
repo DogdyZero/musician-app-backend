@@ -132,6 +132,7 @@ public class UsuarioDao extends AbstractDao {
 						itemProduto.setValorProduto(ip.getValorProduto());
 						itemProduto.setQuantidade(ip.getQuantidade());
 						Produto prod = ip.getProduto();
+						produtoDao.setParametro(ConsultasPadrao.PRODUTO_ID);
 						List<EntidadeDominio> updateProd = produtoDao
 								.consultar(prod);
 						itemProduto.setProduto((Produto) updateProd.get(0));

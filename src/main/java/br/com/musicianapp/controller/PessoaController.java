@@ -99,6 +99,7 @@ public class PessoaController {
 		// criar o metodo
 		pessoa.setId(idPessoa);
 		this.facade.alterar(pessoa);
+		
 		return null;
 	}
 	

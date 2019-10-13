@@ -54,7 +54,15 @@ public class ProdutoController {
 		this.produto.setId(id);
 		this.facade.setParametro(ConsultasPadrao.PRODUTO_ESTOQUE);
 		List<EntidadeDominio> entidades = facade.consultar(this.produto);
-		return (Estoque) entidades.get(0);	
+		Estoque estoque = (Estoque) entidades.get(0);
+		Produto produto = estoque.getProduto();
+		byte[] imageByte = produto.getImagem();
+		if(imageByte!=null) {
+			String encodedFile = Base64.getEncoder().encodeToString(imageByte);
+			produto.setImagemString("data:image/jpeg;base64,"+encodedFile);
+		}
+		estoque.setProduto(produto);
+		return estoque;	
 	}
 	
 	@GetMapping("disponiveis")

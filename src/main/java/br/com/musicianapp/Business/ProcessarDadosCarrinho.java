@@ -29,7 +29,8 @@ public class ProcessarDadosCarrinho implements IStrategyPreparToSave {
 		CarrinhoCompra carrinho = adapter.getObject();
 
 		if (carrinho.getItemProduto() != null) { 
-			for (ItemProduto prod : carrinho.getItemProduto()) {
+			List<ItemProduto> itens = carrinho.getItemProduto();
+			for (ItemProduto prod : itens) {
 				if (prod.getQuantidade() > 1) {
 					for (int i = 0; i < prod.getQuantidade(); i++) {
 						prod.setId(prod.getId());
