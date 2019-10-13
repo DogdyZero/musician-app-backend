@@ -42,7 +42,10 @@ public class ItemProdutoController {
 	
 	@PutMapping("{id}")
 	public ItemProduto alterarPedido(@RequestBody ItemProduto item, @PathVariable int id){
-		if(!item.getTroca().getStatusItem().equals(StatusItem.TROCA_APROVADA)) {
+		if(item.getTroca().getStatusItem().equals(StatusItem.TROCA_SOLICITADA)) {
+			item.setId(id);
+			this.facade.alterar(item);
+		} else if(item.getTroca().getStatusItem().equals(StatusItem.TROCA_APROVADA)) {
 			item.getTroca().setStatusItem(StatusItem.TROCA_APROVADA);
 			item.setId(id);
 			this.facade.alterar(item);
@@ -58,6 +61,9 @@ public class ItemProdutoController {
 			cupons.add(cupom);
 			pessoa.setCupom(cupons);
 			facade.alterar(pessoa);
+		} else if(item.getTroca().getStatusItem().equals(StatusItem.TROCA_NEGADA)) {
+			item.setId(id);
+			this.facade.alterar(item);
 		}
 		return null;
 	}
