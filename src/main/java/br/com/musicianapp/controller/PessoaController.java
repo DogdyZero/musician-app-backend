@@ -64,7 +64,7 @@ public class PessoaController {
 	
 	@GetMapping()
 	public List<Pessoa> consultarPessoa(){
-		this.facade.setParametro(ConsultasPadrao.PEDIDO_TUDO);
+		this.facade.setParametro(ConsultasPadrao.PESSOA_TUDO);
 		List<EntidadeDominio> entidades = facade.consultar(this.pessoa);
 		List<Pessoa> pessoas = new ArrayList<Pessoa>();
 		for (EntidadeDominio ent : entidades) {
