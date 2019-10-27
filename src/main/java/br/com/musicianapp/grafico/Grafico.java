@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import br.com.musicianapp.domain.EntidadeDominio;
+
 @Component
-public class Grafico {
+public class Grafico extends EntidadeDominio{
 	private List<String> labels;
 	private List<Datasets> datasets;
 	public List<String> getLabels() {

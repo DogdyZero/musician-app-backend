@@ -1,0 +1,22 @@
+select to_char(pedido.ped_data,'YYYY/MM') as data, sum(grupo_precificacao.gpr_custo_compra) as custo, 
+sum(item_produto.ipd_valor_produto) as venda from pedido
+join
+carrinho_compra
+on
+pedido.crc_id=carrinho_compra.crc_id
+join
+item_produto
+on
+carrinho_compra.crc_id=item_produto.crc_id
+join
+produto
+on
+item_produto.prod_id=produto.prod_id
+join
+grupo_precificacao
+on
+produto.grp_id=grupo_precificacao.gpr_id
+where pedido.ped_data>'2019-01-01'
+group by data
+order by data
+

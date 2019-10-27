@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @SequenceGenerator(name="precificacao_generator", sequenceName = "precificacao_seq", allocationSize=50,initialValue=1)
 public class GrupoPrecificacao {
 	@Id
-	@Column(name="gpr_id")
+	@Column(name="grp_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "precificacao_generator")
 	private int id;
 	

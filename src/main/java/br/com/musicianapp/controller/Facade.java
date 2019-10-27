@@ -19,6 +19,7 @@ import br.com.musicianapp.daos.CartaoDao;
 import br.com.musicianapp.daos.CupomDao;
 import br.com.musicianapp.daos.EnderecoDao;
 import br.com.musicianapp.daos.EstoqueDao;
+import br.com.musicianapp.daos.GraficoDao;
 import br.com.musicianapp.daos.IDAO;
 import br.com.musicianapp.daos.ItemProdutoDao;
 import br.com.musicianapp.daos.PedidoDao;
@@ -39,6 +40,7 @@ import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.domain.Troca;
 import br.com.musicianapp.domain.Usuario;
+import br.com.musicianapp.grafico.GraficoPesquisa;
 import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.impl.IStyleQuery;
 import br.com.musicianapp.impl.Resultado;
@@ -57,7 +59,7 @@ public class Facade implements IFacade,IStyleQuery{
 	@Autowired private TrocaDao trocaDao;
 	@Autowired private EstoqueDao estoqueDao;
 	@Autowired private CupomDao cupomDao;
-
+	@Autowired private GraficoDao graficoDao;
 
 	
 	@Autowired private CompletarDataCadastro completarDataCadastro;
@@ -120,6 +122,8 @@ public class Facade implements IFacade,IStyleQuery{
 		daos.put(Troca.class.getName(), trocaDao);
 		daos.put(Estoque.class.getName(), estoqueDao);
 		daos.put(Cupom.class.getName(), cupomDao);
+		daos.put(GraficoPesquisa.class.getName(), graficoDao);
+
 
 
 
