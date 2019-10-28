@@ -58,9 +58,9 @@ public class ProdutoDao  extends AbstractDao  {
 		if(!prodMem.getEan().equals(prodBD.getEan())) {
 			prodCopy.setEan(prodBD.getEan());
 		} 
-		prodCopy.getGrupoPrecificacao().setCustoCompra(prodMem.getGrupoPrecificacao().getCustoCompra());
-		prodCopy.getGrupoPrecificacao().setMargemLucroEstimada(prodMem.getGrupoPrecificacao().getMargemLucroEstimada());
-		prodCopy.getGrupoPrecificacao().setValorFinalProduto(prodMem.getGrupoPrecificacao().getValorFinalProduto());
+		prodCopy.setGrupoPrecificacao(prodMem.getGrupoPrecificacao());
+//		prodCopy.getGrupoPrecificacao().setMargemLucroEstimada(prodMem.getGrupoPrecificacao().getMargemLucroEstimada());
+//		prodCopy.getGrupoPrecificacao().setValorFinalProduto(prodMem.getGrupoPrecificacao().getValorFinalProduto());
 		prodCopy.setDescricao(prodMem.getDescricao());
 		prodCopy.setAno(prodMem.getAno());
 		prodCopy.setId(prodMem.getId());
