@@ -17,7 +17,7 @@ public class ProcessarDadosCarrinho implements IStrategyPreparToSave {
 
 	private IAdapter<CarrinhoCompra> adapter;
 
-	private List<ItemProduto> listProd = new ArrayList<ItemProduto>();
+	private List<ItemProduto> listProd;;
 
 	public ProcessarDadosCarrinho() {
 		adapter = new CarrinhoAdapter<CarrinhoCompra>();
@@ -25,10 +25,10 @@ public class ProcessarDadosCarrinho implements IStrategyPreparToSave {
 
 	@Override
 	public EntidadeDominio processarDados(EntidadeDominio entidade) {
-		adapter.setAdapter(entidade);
-		CarrinhoCompra carrinho = adapter.getObject();
+		CarrinhoCompra carrinho = (CarrinhoCompra) entidade;
 
 		if (carrinho.getItemProduto() != null) { 
+			listProd = new ArrayList<ItemProduto>();
 			List<ItemProduto> itens = carrinho.getItemProduto();
 			for (ItemProduto prod : itens) {
 				if (prod.getQuantidade() > 1) {
@@ -46,6 +46,7 @@ public class ProcessarDadosCarrinho implements IStrategyPreparToSave {
 			ip.setQuantidade(1);
 		}
 		carrinho.setItemProduto(listProd);
+//		listProd = null;
 
 		return carrinho;
 	}

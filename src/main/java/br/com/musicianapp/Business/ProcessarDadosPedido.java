@@ -19,6 +19,7 @@ import br.com.musicianapp.domain.Usuario;
 @Service
 public class ProcessarDadosPedido implements IStrategyPreparToSave {
 
+	private int i = 1;
 	private IAdapter<Pedido> adapter;
 
 	@Autowired
@@ -27,42 +28,46 @@ public class ProcessarDadosPedido implements IStrategyPreparToSave {
 	public ProcessarDadosPedido() {
 		adapter = new PedidoAdapter<Pedido>();
 	}
-	
-	private List<Pedido> checkPedidoList(Set<Pedido> pedidos) {
-		List<Pedido> lista = new ArrayList<>();
-		for(Pedido pedido : pedidos) {
-			pedido = processarDados(pedido);
-			lista.add(pedido);
-		}
-		return lista;
-	}
-	private Pedido processarDados(Pedido pedido) {
+
+//	private List<Pedido> checkPedidoList(Set<Pedido> pedidos) {
+//		List<Pedido> lista = new ArrayList<>();
+//		for (Pedido pedido : pedidos) {
+//			if (i == 1) {
+//				pedido = processarDados(pedido);
+//				lista.add(pedido);
+//				i++;
+//			}
+//		}
+//		i = 1;
+//		return lista;
+//	}
+
+	private List<Pedido> processarDados(Pedido pedido) {
+		List<Pedido> peds = new ArrayList<Pedido>(); 
+		System.out.println("Entrou 1 vez");
 		pedido.setData(new Date());
 		pedido.setStatusPedido(StatusPedido.AGUARDANDO_APROVACAO);
-		pedido.setCarrinhoCompra((CarrinhoCompra)processarDadosCarrinho.processarDados(pedido));
-		
-		return pedido;
+		pedido.setCarrinhoCompra((CarrinhoCompra) processarDadosCarrinho
+				.processarDados(pedido.getCarrinhoCompra()));
+		peds.add(pedido);
+		return peds;
 	}
 
 	@Override
 	public EntidadeDominio processarDados(EntidadeDominio entidade) {
-		adapter.setAdapter(entidade);
+		Usuario user = (Usuario) entidade;
 
-		if (adapter.getListObject() != null) {
-			if (entidade instanceof Usuario) {
-				Usuario usuario = (Usuario) entidade;
-				usuario.getPessoa().setPedido(
-						checkPedidoList(adapter.getListObject()));
-				return usuario;
+		if (user.getPessoa().getPedido() != null) {
+				user.getPessoa().setPedido(
+						processarDados(user.getPessoa().getPedido().get(user.getPessoa().getPedido().size()-1)));
+				return user;
 
-			}
 
-		} else if (adapter.getObject() != null) {
-			return processarDados(adapter.getObject());
+//		} else if (adapter.getObject() != null) {
+//			return processarDados(adapter.getObject());
 		} else {
 			return null;
 		}
-		return null;
 	}
 
 }
