@@ -3,7 +3,6 @@ package br.com.musicianapp.Business;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.musicianapp.adapter.CarrinhoAdapter;
@@ -25,12 +24,12 @@ public class ProcessarDadosCarrinho implements IStrategyPreparToSave {
 
 	@Override
 	public EntidadeDominio processarDados(EntidadeDominio entidade) {
-		adapter.setAdapter(entidade);
-		CarrinhoCompra carrinho = adapter.getObject();
-		listProd = new ArrayList<ItemProduto>();
+		CarrinhoCompra carrinho = (CarrinhoCompra) entidade;
+
 		if (carrinho.getItemProduto() != null) { 
-//			List<ItemProduto> itens = carrinho.getItemProduto();
-			for (ItemProduto prod : carrinho.getItemProduto()) {
+			listProd = new ArrayList<ItemProduto>();
+			List<ItemProduto> itens = carrinho.getItemProduto();
+			for (ItemProduto prod : itens) {
 				if (prod.getQuantidade() > 1) {
 					for (int i = 0; i < prod.getQuantidade(); i++) {
 						prod.setId(prod.getId());
@@ -46,6 +45,7 @@ public class ProcessarDadosCarrinho implements IStrategyPreparToSave {
 			ip.setQuantidade(1);
 		}
 		carrinho.setItemProduto(listProd);
+//		listProd = null;
 
 		return carrinho;
 	}

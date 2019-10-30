@@ -58,8 +58,9 @@ public class UsuarioDao extends AbstractDao {
 
 	@Override
 	public EntidadeDominio alterar(EntidadeDominio entidade) {
-		adapter.setAdapter(entidade);
-		Usuario usuario = adapter.getObject();
+		Usuario usuario = (Usuario) entidade;
+//		adapter.setAdapter(entidade);
+//		Usuario usuario = adapter.getObject();
 		optUsuario = usuarioRepository.findById(usuario.getId());
 		Usuario usuBD = optUsuario.get();
 		usuBD.setSenha(usuario.getSenha());
@@ -116,7 +117,8 @@ public class UsuarioDao extends AbstractDao {
 
 				}
 
-				List<ItemProduto> itens = pedido.getCarrinhoCompra()
+				List<ItemProduto> itens = new ArrayList<ItemProduto>();
+						itens = pedido.getCarrinhoCompra()
 						.getItemProduto();
 				List<ItemProduto> listIP = new ArrayList<ItemProduto>();
 				CarrinhoCompra car = new CarrinhoCompra();
@@ -138,8 +140,9 @@ public class UsuarioDao extends AbstractDao {
 						itemProduto.setProduto((Produto) updateProd.get(0));
 						ip = itemProduto;
 						listIP.add(ip);
+						
 					}
-
+					System.out.println("ALO ALO\n\n\n\n");
 				}
 				car.setItemProduto(listIP);
 
@@ -153,6 +156,7 @@ public class UsuarioDao extends AbstractDao {
 				p.getFrete().setEndereco(endereco);
 				p.setPagamento(pedido.getPagamento());
 				p.setTotal(valorCompra + p.getFrete().getCalculoFrete());
+				System.out.println("Pedido TOTAL:\n\n " + p.getTotal());
 				pedBD.add(p);
 
 			}

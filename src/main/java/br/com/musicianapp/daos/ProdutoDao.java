@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.adapter.ProdutoAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
-import br.com.musicianapp.domain.GrupoPrecificacao;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.impl.FactoryConsulta;
 import br.com.musicianapp.repository.ProdutoRepository;
