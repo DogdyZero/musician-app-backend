@@ -62,7 +62,7 @@ public class PedidoController {
 		
 	@PostMapping
 	public Pedido salvarPedido(@RequestBody Pedido pedido){
-		pedido = (Pedido) cadastroPedidoVH.prepararSalvar(pedido);
+//		pedido = (Pedido) cadastroPedidoVH.prepararSalvar(pedido);
 		facade.salvar(pedido);
 		System.out.println(pedido);
 		return pedido;

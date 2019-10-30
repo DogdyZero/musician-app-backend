@@ -110,4 +110,6 @@ public abstract class AbstractAdapter<E> implements IAdapter<E> {
 			}
 		}
 	}
+	
+	
 }

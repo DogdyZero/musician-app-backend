@@ -20,7 +20,7 @@ import br.com.musicianapp.Enum.Status;
 
 @Entity
 @Component
-@SequenceGenerator(name="usuario_generator", sequenceName = "usuario_seq", allocationSize=50,initialValue=1)
+@SequenceGenerator(name="usuario_generator", sequenceName = "usuario_seq", allocationSize=50,initialValue=2)
 public class Usuario extends EntidadeDominio {
 	
 	@Id
