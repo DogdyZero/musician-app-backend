@@ -205,23 +205,23 @@ create table carrinho_compra (
         primary key (usu_id)
     );
 	
- create sequence carrinho_produto_seq start 1 increment 50;
- create sequence categoria_seq start 1 increment 50;
- create sequence compra_seq start 1 increment 50;
- create sequence endereco_seq start 1 increment 50;
- create sequence estoque_seq start 1 increment 50;
- create sequence form_pagamento_seq start 1 increment 50;
- create sequence frete_seq start 1 increment 50;
- create sequence historico_produto_seq start 1 increment 50;
- create sequence item_produto_seq start 1 increment 50;
- create sequence pedido_seq start 1 increment 50;
- create sequence pessoa_seq start 1 increment 50;
- create sequence precificacao_seq start 1 increment 50;
- create sequence produto_seq start 1 increment 50;
- create sequence telefone_seq start 1 increment 50;
- create sequence tipo_pagamento_pagamento_seq start 1 increment 50;
- create sequence troca_seq start 1 increment 50;
- create sequence usuario_seq start 2 increment 50;
+ create sequence carrinho_produto_seq start 1 increment 1;
+ create sequence categoria_seq start 1 increment 1;
+ create sequence compra_seq start 1 increment 1;
+ create sequence endereco_seq start 1 increment 1;
+ create sequence estoque_seq start 1 increment 1;
+ create sequence form_pagamento_seq start 1 increment 1;
+ create sequence frete_seq start 1 increment 1;
+ create sequence historico_produto_seq start 1 increment 1;
+ create sequence item_produto_seq start 1 increment 1;
+ create sequence pedido_seq start 1 increment 1;
+ create sequence pessoa_seq start 1 increment 1;
+ create sequence precificacao_seq start 1 increment 1;
+ create sequence produto_seq start 1 increment 1;
+ create sequence telefone_seq start 1 increment 1;
+ create sequence tipo_pagamento_pagamento_seq start 1 increment 1;
+ create sequence troca_seq start 1 increment 1;
+ create sequence usuario_seq start 1 increment 1;
  
     alter table cartao 
        add constraint FKbq60c8babfph2alkjug91b9kf 
@@ -342,4 +342,7 @@ create table carrinho_compra (
        foreign key (pes_id) 
        references pessoa;
 
-insert into usuario (usu_id, usu_login,usu_perfil,usu_senha,usu_status) values (1,'adm','ADMINISTRADOR',123,'ATIVO');
+insert into usuario (usu_id, usu_login,usu_perfil,usu_senha,usu_status) values (nextval('usuario_seq'),'adm','ADMINISTRADOR',123,'ATIVO');
+insert into pessoa (pes_id, pes_cpf, pes_nome) values (nextval('pessoa_seq'),null,'administrador);
+update usuario set pes_id=(select pes_id from pessoa);
+

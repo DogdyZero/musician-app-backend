@@ -25,6 +25,7 @@ public class GraficoDao extends AbstractDao {
 	@Override
 	public List<EntidadeDominio> consultar(EntidadeDominio entidade) {
 		GraficoPesquisa pesquisa = (GraficoPesquisa)entidade;
+
 		
 //		String queryJoin="join pedido.carrinhoCompra as carrinhoCompra" + 
 //				"join carrinhoCompra.itemProduto as itemProduto " + 

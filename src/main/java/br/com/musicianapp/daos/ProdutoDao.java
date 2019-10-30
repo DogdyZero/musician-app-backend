@@ -59,8 +59,6 @@ public class ProdutoDao  extends AbstractDao  {
 			prodCopy.setEan(prodBD.getEan());
 		} 
 		prodCopy.setGrupoPrecificacao(prodMem.getGrupoPrecificacao());
-//		prodCopy.getGrupoPrecificacao().setMargemLucroEstimada(prodMem.getGrupoPrecificacao().getMargemLucroEstimada());
-//		prodCopy.getGrupoPrecificacao().setValorFinalProduto(prodMem.getGrupoPrecificacao().getValorFinalProduto());
 		prodCopy.setDescricao(prodMem.getDescricao());
 		prodCopy.setAno(prodMem.getAno());
 		prodCopy.setId(prodMem.getId());

@@ -3,7 +3,6 @@ package br.com.musicianapp.Business;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.musicianapp.adapter.CarrinhoAdapter;
@@ -17,7 +16,7 @@ public class ProcessarDadosCarrinho implements IStrategyPreparToSave {
 
 	private IAdapter<CarrinhoCompra> adapter;
 
-	private List<ItemProduto> listProd;;
+	private List<ItemProduto> listProd;
 
 	public ProcessarDadosCarrinho() {
 		adapter = new CarrinhoAdapter<CarrinhoCompra>();
