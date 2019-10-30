@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.musicianapp.adapter.IAdapter;
 import br.com.musicianapp.adapter.ProdutoAdapter;
 import br.com.musicianapp.domain.EntidadeDominio;
+import br.com.musicianapp.domain.GrupoPrecificacao;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.impl.FactoryConsulta;
 import br.com.musicianapp.repository.ProdutoRepository;
@@ -58,9 +59,7 @@ public class ProdutoDao  extends AbstractDao  {
 		if(!prodMem.getEan().equals(prodBD.getEan())) {
 			prodCopy.setEan(prodBD.getEan());
 		} 
-		prodCopy.getGrupoPrecificacao().setCustoCompra(prodMem.getGrupoPrecificacao().getCustoCompra());
-		prodCopy.getGrupoPrecificacao().setMargemLucroEstimada(prodMem.getGrupoPrecificacao().getMargemLucroEstimada());
-		prodCopy.getGrupoPrecificacao().setValorFinalProduto(prodMem.getGrupoPrecificacao().getValorFinalProduto());
+		prodCopy.setGrupoPrecificacao(prodMem.getGrupoPrecificacao());
 		prodCopy.setDescricao(prodMem.getDescricao());
 		prodCopy.setAno(prodMem.getAno());
 		prodCopy.setId(prodMem.getId());
