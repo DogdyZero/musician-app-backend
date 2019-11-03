@@ -50,9 +50,8 @@ public class ItemProdutoController {
 			item.setId(id);
 			Resultado resultado = this.facade.alterar(item);
 			ItemProduto itemAlterado = (ItemProduto) resultado.getEntidades().get(0);
-			this.troca.setId(itemAlterado.getProduto().getId());
 			this.facade.setParametro(ConsultasPadrao.TROCA_USUARIO);
-			List<EntidadeDominio> entidades = facade.consultar(this.troca);
+			List<EntidadeDominio> entidades = facade.consultar(itemAlterado.getTroca());
 			Pessoa pessoa = (Pessoa) entidades.get(0);
 			
 			Set<Cupom> cupons = new HashSet<Cupom>();
