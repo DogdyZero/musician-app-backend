@@ -40,7 +40,9 @@ public class PessoaDao extends AbstractDao {
 	
 	@Autowired
 	private FactoryConsulta fabrica;
-
+	
+	@Autowired
+	private CupomDao cupomDao;
 	
 	@PersistenceContext
 	private EntityManager em;
@@ -166,10 +168,10 @@ public class PessoaDao extends AbstractDao {
 		for(Cupom cupom: cupomMem) {
 			if(cupom.getId()==0) {
 				String codCupom = "testeCupom123";
-//				Cupom c = new Cupom(codCupom, OrigemCupom.TROCA, cupom.getValor(), Status.ATIVO);
-				cupom.setCodigo(codCupom);
-				cupom.setStatus(Status.ATIVO);
-				cupomBD.add(cupom);
+				Cupom c = new Cupom(codCupom, OrigemCupom.TROCA, cupom.getValor(), Status.ATIVO);
+//				c.setCodigo(codCupom);
+//				c.setStatus(Status.ATIVO);
+				cupomBD.add(c);
 			}
 			
 		}
