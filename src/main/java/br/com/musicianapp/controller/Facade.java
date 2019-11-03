@@ -194,8 +194,9 @@ public class Facade implements IFacade,IStyleQuery{
 
 	@Override
 	public Resultado alterar(EntidadeDominio entidade) {
-		getDaoInstance(entidade).alterar(entidade);
-		return null;
+		entidade = getDaoInstance(entidade).alterar(entidade);
+		resultado.addEntidadeList(entidade);
+		return resultado;
 	}
 
 	@Override

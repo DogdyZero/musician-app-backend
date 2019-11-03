@@ -41,7 +41,7 @@ public class GraficoDao extends AbstractDao {
 				+ "join carrinhoCompra.itemProduto as itemProduto "
 				+ "join itemProduto.produto as produto "
 				+ "join produto.grupoPrecificacao as grupoPrecificacao "
-				+ "where pedido.data>= :dataInicio and pedido.data< :dataFinal "
+				+ "where pedido.data>= :dataInicio and pedido.data<= :dataFinal "
 				+ "group by to_char(pedido.data,'YYYY/MM') "
 				+ "order by data");
 		
@@ -78,7 +78,7 @@ public class GraficoDao extends AbstractDao {
 					+ "join carrinhoCompra.itemProduto as itemProduto "
 					+ "join itemProduto.produto as produto "
 					+ "join produto.grupoPrecificacao as grupoPrecificacao "
-					+ "where pedido.data>= :dataInicio and pedido.data< :dataFinal "
+					+ "where pedido.data>= :dataInicio and pedido.data<= :dataFinal "
 					+ "group by pedido.data "
 					+ "order by pedido.data");
 			
