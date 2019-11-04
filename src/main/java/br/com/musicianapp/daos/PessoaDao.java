@@ -92,7 +92,7 @@ public class PessoaDao extends AbstractDao {
 				pesBD = updateCartao(pesBD, pessoa);
 			}
 			if(pessoa.getCupom()!=null) {
-				pesBD = updateCupom(pesBD, pessoa);
+//				pesBD = updateCupom(pesBD, pessoa);
 			}
 //			if(pessoa.getCompra()!=null) {
 //				
@@ -169,8 +169,8 @@ public class PessoaDao extends AbstractDao {
 			if(cupom.getId()==0) {
 				String codCupom = "testeCupom123";
 				Cupom c = new Cupom(codCupom, OrigemCupom.TROCA, cupom.getValor(), Status.ATIVO);
-//				c.setCodigo(codCupom);
-//				c.setStatus(Status.ATIVO);
+				c.setCodigo(codCupom);
+				c.setStatus(Status.ATIVO);
 				cupomBD.add(c);
 			}
 			

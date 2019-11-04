@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.Enum.OrigemCupom;
+import br.com.musicianapp.Enum.Status;
 import br.com.musicianapp.Enum.StatusItem;
 import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.EntidadeDominio;
@@ -54,9 +55,14 @@ public class ItemProdutoController {
 			List<EntidadeDominio> entidades = facade.consultar(itemAlterado.getTroca());
 			Pessoa pessoa = (Pessoa) entidades.get(0);
 			
-			Set<Cupom> cupons = new HashSet<Cupom>();
+			Set<Cupom> cupons = pessoa.getCupom();
+			
 			cupom.setOrigemCupom(OrigemCupom.TROCA);
 			cupom.setValor(item.getValorProduto());
+			cupom.setStatus(Status.ATIVO);
+			String valorProd = Double.toString(item.getValorProduto());
+			cupom.setCodigo("CUP"+valorProd.substring(0, valorProd.length()-2));
+			
 			cupons.add(cupom);
 			pessoa.setCupom(cupons);
 			facade.alterar(pessoa);
