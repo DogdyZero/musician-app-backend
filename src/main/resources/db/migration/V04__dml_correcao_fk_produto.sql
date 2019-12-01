@@ -1,0 +1,1 @@
+alter table grupo_precificacao rename column gpr_id TO grp_id ;

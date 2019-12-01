@@ -156,11 +156,11 @@ public class ProdutoController {
 
 		String atributos = "data:image/jpeg;base64,";
 		int totalCaracteres = atributos.length();
-//		if(produto.getImagemString().contains(atributos)) {
-//			produto.setImagemString(produto.getImagemString().substring(totalCaracteres));
-//			byte[]bytes = Base64.getDecoder().decode(produto.getImagemString().getBytes());
-//			produto.setImagem(bytes);
-//		}
+		if(produto.getImagemString().contains(atributos)) {
+			produto.setImagemString(produto.getImagemString().substring(totalCaracteres));
+			byte[]bytes = Base64.getDecoder().decode(produto.getImagemString().getBytes());
+			produto.setImagem(bytes);
+		}
 		Resultado  r = facade.salvar(produto);
 		List<EntidadeDominio> entidades = r.getEntidades();
 		Produto p = (Produto) entidades.get(0);
