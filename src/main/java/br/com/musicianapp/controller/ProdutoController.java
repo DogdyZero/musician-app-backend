@@ -29,6 +29,7 @@ import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Estoque;
 import br.com.musicianapp.domain.Produto;
 import br.com.musicianapp.impl.ConsultasPadrao;
+import br.com.musicianapp.impl.LoggerResourceImpl;
 import br.com.musicianapp.impl.Resultado;
 import br.com.musicianapp.repository.ProdutoRepository;
 
@@ -47,7 +48,7 @@ public class ProdutoController {
 	private CadastroProdutoVH cadastroProduto;
 	
 	@Autowired
-	private ProdutoConsultaImpl cons;
+	private LoggerResourceImpl logger;
 	
 	@GetMapping("{id}/estoque")
 	public Estoque buscarEstoqueProduto(@PathVariable int id) {
@@ -152,6 +153,8 @@ public class ProdutoController {
 	
 	@PostMapping
 	public Produto salvarProduto(@RequestBody Produto produto) throws IOException{
+		logger.salvarLoggerResource(ProdutoController.class, produto, "salvarProduto");
+
 		produto = (Produto) cadastroProduto.prepararParaSalvar(produto);
 
 		String atributos = "data:image/jpeg;base64,";
@@ -169,6 +172,8 @@ public class ProdutoController {
 	
 	@PutMapping("{id}")
 	public Object alterarProduto(@RequestBody Produto produto, @PathVariable int id){
+		logger.salvarLoggerResource(id, ProdutoController.class, produto, "alterarProduto");
+
 		produto.setId(id);
 		produto = (Produto) cadastroProduto.prepararParaSalvar(produto);
 		String atributos = "data:image/jpeg;base64,";

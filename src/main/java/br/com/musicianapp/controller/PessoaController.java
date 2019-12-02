@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.impl.ConsultasPadrao;
+import br.com.musicianapp.impl.LoggerResourceImpl;
 
 @CrossOrigin
 @RestController
@@ -28,6 +29,9 @@ public class PessoaController {
 	
 	@Autowired
 	private Pessoa pessoa;
+	
+	@Autowired
+	private LoggerResourceImpl logger;
 	
 	@GetMapping("{id}")
 	public Pessoa consultarPessoa(@PathVariable int id){
@@ -95,6 +99,8 @@ public class PessoaController {
 	
 	@PutMapping("{idPessoa}")
 	public Object alterarPessoa(@PathVariable int idPessoa, @RequestBody Pessoa pessoa) {
+		logger.salvarLoggerResource(idPessoa,PessoaController.class, pessoa, "alterarPessoa");
+
 		// adiciona novo numero ao banco relacionado ao cliente
 		// criar o metodo
 		pessoa.setId(idPessoa);

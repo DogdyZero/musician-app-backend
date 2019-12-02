@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.Cartao;
+import br.com.musicianapp.impl.LoggerResourceImpl;
 @CrossOrigin
 @RestController
 @RequestMapping("/cartoes")
@@ -21,6 +22,9 @@ public class CartaoController {
 
 	@Autowired
 	private Facade facade;
+	
+	@Autowired
+	private LoggerResourceImpl logger;
 	
 	@GetMapping
 	public List<Cartao> consultarCartao(){
@@ -40,6 +44,8 @@ public class CartaoController {
 	
 	@PutMapping("{id}")
 	public Cartao alterarCartao(@PathVariable int id, @RequestBody Cartao cartao){
+		logger.salvarLoggerResource(id,CartaoController.class, cartao, "alterarCartao");
+		
 		cartao.setId(id);
 		this.facade.alterar(cartao);
 		return null;

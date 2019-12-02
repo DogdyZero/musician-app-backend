@@ -18,6 +18,7 @@ import br.com.musicianapp.controller.viewhelper.CadastroPedidoVH;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.impl.ConsultasPadrao;
+import br.com.musicianapp.impl.LoggerResourceImpl;
 
 @CrossOrigin
 @RestController
@@ -32,6 +33,9 @@ public class PedidoController {
 	
 	@Autowired
 	private CadastroPedidoVH cadastroPedidoVH;
+	
+	@Autowired
+	private LoggerResourceImpl logger;
 	
 	@GetMapping
 	public List<Pedido> consultarPedido(){
@@ -63,6 +67,8 @@ public class PedidoController {
 	@PostMapping
 	public Pedido salvarPedido(@RequestBody Pedido pedido){
 //		pedido = (Pedido) cadastroPedidoVH.prepararSalvar(pedido);
+		logger.salvarLoggerResource(PedidoController.class, pedido, "salvarPedido");
+
 		facade.salvar(pedido);
 		System.out.println(pedido);
 		return pedido;
@@ -70,6 +76,8 @@ public class PedidoController {
 	
 	@PutMapping("{id}")
 	public Pedido alterarPedido(@RequestBody Pedido pedido, @PathVariable int id){
+		logger.salvarLoggerResource(id,PedidoController.class, pedido, "alterarPedido");
+
 		pedido.setId(id);
 		this.facade.alterar(pedido);
 		return null;

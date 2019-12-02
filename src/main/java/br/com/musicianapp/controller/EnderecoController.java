@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.musicianapp.domain.Endereco;
+import br.com.musicianapp.impl.LoggerResourceImpl;
 
 @CrossOrigin
 @RestController
@@ -27,6 +28,8 @@ public class EnderecoController {
 	public List<Endereco> consultarEndereco(){
 		return null;
 	}
+	@Autowired
+	private LoggerResourceImpl logger;
 	
 	@CrossOrigin
 	@PostMapping
@@ -40,6 +43,8 @@ public class EnderecoController {
 	
 	@PutMapping("{id}")
 	public Endereco alterarEndereco(@RequestBody Endereco endereco, @PathVariable int id){
+		logger.salvarLoggerResource(id,EnderecoController.class, endereco, "alterarEndereco");
+
 		endereco.setId(id);
 		facade.alterar(endereco);
 		return null;

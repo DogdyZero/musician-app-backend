@@ -21,6 +21,7 @@ import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Usuario;
 import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.impl.IStyleQuery;
+import br.com.musicianapp.impl.LoggerResourceImpl;
 
 @CrossOrigin
 @RestController
@@ -35,6 +36,10 @@ public class UsuarioController {
 	
 	@Autowired
 	private CadastroPessoaVH cadastroPessoaVH;
+	
+	@Autowired
+	private LoggerResourceImpl logger;
+	
 //	
 //	@GetMapping("{id}")
 //	public Usuario consultarUsuario(@PathVariable int id){
@@ -66,7 +71,9 @@ public class UsuarioController {
 	}
 	@PostMapping
 	public Usuario salvar(@RequestBody Usuario usuario) {
+
 		usuario = (Usuario) cadastroPessoaVH.prepararParaSalvar(usuario);
+		logger.salvarLoggerResource(usuario.getId(), UsuarioController.class, usuario, "salvarUsuario");
 
 		facade.salvar(usuario);
 		return null;
@@ -74,10 +81,12 @@ public class UsuarioController {
 	
 	@PostMapping("/login")
 	public Usuario fazerLogin(@RequestBody Usuario usuario) {
+
 		this.facade.setParametro(ConsultasPadrao.USUARIO_LOGIN);
 		List<EntidadeDominio> entidades = facade.consultar(usuario);
 		if(entidades!=null) {
 			usuario = (Usuario) entidades.get(0);
+			logger.salvarLoggerResource(usuario.getId(), UsuarioController.class, usuario, "fazerLogin");
 			return usuario;
 		}
 		return null;
@@ -85,6 +94,8 @@ public class UsuarioController {
 	
 	@PutMapping("{idUsuario}")
 	public Object alterarPessoa(@PathVariable int idUsuario, @RequestBody Usuario usuario) {
+		logger.salvarLoggerResource(idUsuario,UsuarioController.class, usuario, "alterarPessoa");
+
 		// adiciona novo numero ao banco relacionado ao cliente
 		// criar o metodo
 		usuario = (Usuario) cadastroPessoaVH.prepararParaSalvar(usuario);
