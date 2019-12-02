@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -19,12 +18,11 @@ import org.springframework.stereotype.Component;
 @Entity
 @Component
 @Table(name="carrinho_compra")
-@SequenceGenerator(name="carrinho_generator", sequenceName = "carrinho_produto_seq", allocationSize=50,initialValue=1)
 public class CarrinhoCompra extends EntidadeDominio {
 
 	@Id
 	@Column(name="crc_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "carrinho_generator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "carrinho_produto_seq")
 	private int id;
 	
 	@JoinColumn(name="crc_id")

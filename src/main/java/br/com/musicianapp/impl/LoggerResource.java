@@ -14,13 +14,11 @@ import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 @Entity
-@Component
 @Table(name="logger_resource")
-@SequenceGenerator(name="logger_generator", sequenceName = "logger_resource_seq")
 public class LoggerResource {
 	@Id
 	@Column(name="log_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "logger_generator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "logger_resource_seq")
 	private int id;
 	
 	@Temporal(TemporalType.TIMESTAMP)

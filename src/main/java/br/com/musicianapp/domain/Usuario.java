@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
@@ -20,11 +19,10 @@ import br.com.musicianapp.Enum.Status;
 
 @Entity
 @Component
-@SequenceGenerator(name="usuario_generator", sequenceName = "usuario_seq", allocationSize=50,initialValue=2)
 public class Usuario extends EntidadeDominio {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_generator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuario_seq")
 	@Column(name="usu_id")
 	private int id;
 	

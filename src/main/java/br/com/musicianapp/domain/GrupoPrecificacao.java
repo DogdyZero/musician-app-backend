@@ -5,18 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 @Entity @Component
-@SequenceGenerator(name="precificacao_generator", sequenceName = "precificacao_seq", allocationSize=50,initialValue=1)
 public class GrupoPrecificacao {
 	@Id
 	@Column(name="grp_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "precificacao_generator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "precificacao_seq")
 	private int id;
 	
 	@Column(name="gpr_custo_compra")

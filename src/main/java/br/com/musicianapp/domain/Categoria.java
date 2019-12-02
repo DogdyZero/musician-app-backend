@@ -7,18 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-@SequenceGenerator(name="categoria_generator", sequenceName = "categoria_seq", allocationSize=50,initialValue=1)
 public class Categoria extends EntidadeDominio {
 	
 	@Id
 	@Column(name="cat_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categoria_generator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categoria_seq")
 	private int Id;
 	
 	@Column(name="cat_nome")

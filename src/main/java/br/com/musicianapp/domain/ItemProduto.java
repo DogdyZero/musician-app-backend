@@ -8,19 +8,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
-import br.com.musicianapp.Enum.StatusItem;
-
 @Entity
 @Component
-@SequenceGenerator(name="item_produto_generator", sequenceName = "item_produto_seq", allocationSize=50,initialValue=1)
 public class ItemProduto extends EntidadeDominio{
 	@Id
 	@Column(name="ipr_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_produto_generator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_produto_seq")
 	private int id;
 	
 	@Column(name="prod_cod_barras")

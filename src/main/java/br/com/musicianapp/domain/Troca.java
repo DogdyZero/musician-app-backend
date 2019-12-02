@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,11 +21,10 @@ import br.com.musicianapp.Enum.StatusItem;
 
 @Entity
 @Component
-@SequenceGenerator(name="troca_generator", sequenceName = "troca_seq", allocationSize=50,initialValue=1)
 public class Troca extends EntidadeDominio {
 	@Id
 	@Column(name="tro_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "troca_generator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "troca_seq")
 	private int id;
 	
 	@Column(name="tro_data_solicitacao")

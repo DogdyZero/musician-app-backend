@@ -11,17 +11,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-@SequenceGenerator(name="compra_generator", sequenceName = "compra_seq", allocationSize=50,initialValue=1)
 public class Pagamento {
 	@Id
 	@Column(name="pag_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_generator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_seq")
 	private int id;
 	
 	@JoinColumn(name="pag_id")

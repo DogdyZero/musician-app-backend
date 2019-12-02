@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -23,12 +22,11 @@ import br.com.musicianapp.Enum.StatusPedido;
 
 @Entity
 @Component
-@SequenceGenerator(name="pedido_generator", sequenceName = "pedido_seq", allocationSize=50,initialValue=1)
 public class Pedido extends EntidadeDominio{
 
 	@Id
 	@Column(name="ped_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_generator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pedido_seq")
 	private int id;
 	
 	@JoinColumn(name="crc_id")
