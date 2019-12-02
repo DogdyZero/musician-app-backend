@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -22,10 +23,11 @@ import org.springframework.stereotype.Component;
 import br.com.musicianapp.Enum.Status;
 
 @Entity @Component
+@SequenceGenerator(name="produto_generator", sequenceName = "produto_seq", allocationSize=50,initialValue=1)
 public class Produto extends EntidadeDominio {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "produto_generator")
 	@Column(name="prod_id")
 	private int id;
 	

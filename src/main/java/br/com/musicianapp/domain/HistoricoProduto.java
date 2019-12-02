@@ -7,14 +7,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 @Entity @Component
+@SequenceGenerator(name="historico_produto_generator", sequenceName = "historico_produto_seq", allocationSize=50,initialValue=1)
 public class HistoricoProduto {
 	@Id
 	@Column(name="hpr_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "historico_produto_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "historico_produto_generator")
 	private int id;
 	@OneToOne
 	@JoinColumn(name="hpr_id")

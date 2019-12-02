@@ -2,6 +2,7 @@ package br.com.musicianapp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,53 +20,65 @@ import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Pedido;
 import br.com.musicianapp.impl.ConsultasPadrao;
 import br.com.musicianapp.impl.LoggerResourceImpl;
+import br.com.musicianapp.repository.PedidosRepository;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/pedidos")
 public class PedidoController {
-	
+
 	@Autowired
 	private Facade facade;
-	
+
 	@Autowired
 	private Pedido pedido;
-	
+
 	@Autowired
 	private CadastroPedidoVH cadastroPedidoVH;
-	
+
 	@Autowired
 	private LoggerResourceImpl logger;
-	
+	@Autowired
+	private PedidosRepository repository;
+
+	@PutMapping("/data/{id}")
+	public void atualizarData(@RequestBody Pedido pedido, @PathVariable int id) {
+		Optional<Pedido> optPedido = repository.findById(id);
+		Pedido pedidoBD = optPedido.get();
+		pedidoBD.setData(pedido.getData());
+		
+		repository.save(pedido);
+	}
+
 	@GetMapping
-	public List<Pedido> consultarPedido(){
+	public List<Pedido> consultarPedido() {
 		this.facade.setParametro(ConsultasPadrao.PEDIDO_TUDO);
 		List<EntidadeDominio> entidades = facade.consultar(this.pedido);
 		List<Pedido> pedidos = new ArrayList<Pedido>();
 		for (EntidadeDominio ent : entidades) {
-			
-			pedidos.add((Pedido)ent);
+
+			pedidos.add((Pedido) ent);
 		}
-		return pedidos;	
+		return pedidos;
 	}
-	
+
 	@GetMapping("/pedido/{idusuario}")
-	public Pedido consultarPedidoPorUsuario(@PathVariable int id){
+	public Pedido consultarPedidoPorUsuario(@PathVariable int id) {
 		this.facade.setParametro(ConsultasPadrao.PEDIDO_POR_USUARIO);
 		List<EntidadeDominio> entidades = facade.consultar(this.pedido);
-		return (Pedido) entidades.get(0);	
+		return (Pedido) entidades.get(0);
 	}
-	
+
 	@GetMapping("{id}")
-	public Pedido consultarPedidoPorId(@PathVariable int id){
+	public Pedido consultarPedidoPorId(@PathVariable int id) {
 		this.facade.setParametro(ConsultasPadrao.PEDIDO_ID);
 		this.pedido.setId(id);
 		List<EntidadeDominio> entidades = facade.consultar(this.pedido);
-		return (Pedido) entidades.get(0);	
+		return (Pedido) entidades.get(0);
 	}
-		
+
 	@PostMapping
-	public Pedido salvarPedido(@RequestBody Pedido pedido){
+	public Pedido salvarPedido(@RequestBody Pedido pedido) {
 //		pedido = (Pedido) cadastroPedidoVH.prepararSalvar(pedido);
 		logger.salvarLoggerResource(PedidoController.class, pedido, "salvarPedido");
 
@@ -73,20 +86,19 @@ public class PedidoController {
 		System.out.println(pedido);
 		return pedido;
 	}
-	
+
 	@PutMapping("{id}")
-	public Pedido alterarPedido(@RequestBody Pedido pedido, @PathVariable int id){
-		logger.salvarLoggerResource(id,PedidoController.class, pedido, "alterarPedido");
+	public Pedido alterarPedido(@RequestBody Pedido pedido, @PathVariable int id) {
+		logger.salvarLoggerResource(id, PedidoController.class, pedido, "alterarPedido");
 
 		pedido.setId(id);
 		this.facade.alterar(pedido);
 		return null;
 	}
-	
+
 	@DeleteMapping
-	public void deletarPedido(){
-		
+	public void deletarPedido() {
+
 	}
-	
 
 }

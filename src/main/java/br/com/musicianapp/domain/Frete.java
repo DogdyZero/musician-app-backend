@@ -10,14 +10,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 @Entity @Component
+@SequenceGenerator(name="frete_generator", sequenceName = "frete_seq", allocationSize=50,initialValue=1)
 public class Frete {
 	@Id
 	@Column(name="fre_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "frete_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "frete_generator")	
 	private int id;
 	
 	@OneToOne(cascade=CascadeType.MERGE)

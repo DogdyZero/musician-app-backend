@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 @Entity
 @Component
+@SequenceGenerator(name="tipo_pagamento_generator", sequenceName = "tipo_pagamento_pagamento_seq", allocationSize=50,initialValue=1)
 @Inheritance(strategy=InheritanceType.JOINED)
 @JsonTypeInfo(
 		  use = JsonTypeInfo.Id.NAME, 
@@ -30,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 public abstract class  TipoPagamento extends EntidadeDominio {
 	@Id
 	@Column(name="tpp_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_pagamento_pagamento_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tipo_pagamento_generator")
 	private int id;
 
 	public int getId() {

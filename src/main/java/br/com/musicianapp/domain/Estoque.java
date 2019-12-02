@@ -9,16 +9,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
 @Entity @Component
+@SequenceGenerator(name="estoque_generator", sequenceName = "estoque_seq", allocationSize=50,initialValue=1)
 public class Estoque extends EntidadeDominio{
 	@Id
 	@Column(name="est_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estoque_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "estoque_generator")	
 	private int id;
 	
 	@OneToOne

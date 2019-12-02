@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
@@ -15,11 +16,12 @@ import br.com.musicianapp.Enum.Status;
 
 @Entity
 @Component
+@SequenceGenerator(name="cupom_generator", sequenceName = "cupom_seq", allocationSize=50,initialValue=1)
 public class Cupom extends TipoPagamento{
 	
 	@Id
 	@Column(name="cpm_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cupom_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cupom_generator")
 	private int id;
 	
 	@Column(name="cpm_codigo")

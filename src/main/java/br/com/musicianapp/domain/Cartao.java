@@ -7,17 +7,19 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 import br.com.musicianapp.Enum.Status;
 
 @Entity @Component
+@SequenceGenerator(name="cartao_generator", sequenceName = "cartao_seq", allocationSize=50,initialValue=1)	
 public class Cartao extends TipoPagamento{
 	
 	@Id
 	@Column(name="car_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cartao_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cartao_generator")
 	private int id;
 	
 	@Column(name="car_nome_cartao")

@@ -7,16 +7,18 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 import org.springframework.stereotype.Component;
 
 import br.com.musicianapp.Enum.Status;
 
 @Entity @Component
+@SequenceGenerator(name="telefone_generator", sequenceName = "telefone_seq", allocationSize=50,initialValue=1)
 public class Telefone  extends EntidadeDominio{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "telefone_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "telefone_generator")
 	@Column(name="tel_id")
 	private int id;
 

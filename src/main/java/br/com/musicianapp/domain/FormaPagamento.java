@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -15,10 +16,11 @@ import org.springframework.stereotype.Component;
 @Entity
 @Component
 @Table(name="forma_pagamento")
+@SequenceGenerator(name="form_pagamento_generator", sequenceName = "form_pagamento_seq", allocationSize=50,initialValue=1)
 public class FormaPagamento {
 	@Id
 	@Column(name="fmp_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "form_pagamento_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "form_pagamento_generator")
 	private int id;
 	
 	@OneToOne(cascade=CascadeType.MERGE)

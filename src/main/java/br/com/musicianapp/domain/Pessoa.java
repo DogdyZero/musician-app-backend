@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -20,10 +21,11 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Component
+@SequenceGenerator(name="pessoa_generator", sequenceName = "pessoa_seq", allocationSize=50,initialValue=1)
 public class Pessoa extends EntidadeDominio{
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pessoa_generator")
 	@Column(name="pes_id")
 	private int id;
 
