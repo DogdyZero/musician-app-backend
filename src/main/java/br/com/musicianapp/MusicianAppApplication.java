@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@EntityScan("br.com.musicianapp.domain")
+@EntityScan({"br.com.musicianapp.domain","br.com.musicianapp.impl"})
 
 @ComponentScan("br.com.musicianapp")
 @EnableJpaRepositories("br.com.musicianapp.repository")

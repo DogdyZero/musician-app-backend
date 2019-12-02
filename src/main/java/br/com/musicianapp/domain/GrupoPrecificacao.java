@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class GrupoPrecificacao {
 	@Id
 	@Column(name="grp_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "precificacao_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "grupo_precificacao_seq")
 	private int id;
 	
 	@Column(name="gpr_custo_compra")

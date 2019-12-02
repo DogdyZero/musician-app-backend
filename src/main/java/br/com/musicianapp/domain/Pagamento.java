@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class Pagamento {
 	@Id
 	@Column(name="pag_id")
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_seq")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "pagamento_seq")
 	private int id;
 	
 	@JoinColumn(name="pag_id")

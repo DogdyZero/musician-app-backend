@@ -202,17 +202,19 @@
     );
 	
     create sequence carrinho_produto_seq start 1 increment 1;
+    create sequence cartao_seq start 1 increment 1;
  	create sequence categoria_seq start 1 increment 1;
-	create sequence compra_seq start 1 increment 1;
+	create sequence cupom_seq start 1 increment 1;
 	create sequence endereco_seq start 1 increment 1;
 	create sequence estoque_seq start 1 increment 1;
-	create sequence form_pagamento_seq start 1 increment 1;
+	create sequence forma_pagamento_seq start 1 increment 1;
 	create sequence frete_seq start 1 increment 1;
 	create sequence historico_produto_seq start 1 increment 1;
 	create sequence item_produto_seq start 1 increment 1;
 	create sequence pedido_seq start 1 increment 1;
 	create sequence pessoa_seq start 1 increment 1;
-	create sequence precificacao_seq start 1 increment 1;
+	create sequence grupo_precificacao_seq start 1 increment 1;
+	create sequence pagamento_seq start 1 increment 1;
 	create sequence produto_seq start 1 increment 1;
 	create sequence telefone_seq start 1 increment 1;
 	create sequence tipo_pagamento_pagamento_seq start 1 increment 1;
