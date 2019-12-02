@@ -16,6 +16,7 @@ import br.com.musicianapp.domain.Cupom;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.TipoPagamento;
 import br.com.musicianapp.impl.ConsultasPadrao;
+import br.com.musicianapp.impl.LoggerResourceImpl;
 
 @CrossOrigin
 @RestController
@@ -31,6 +32,9 @@ public class CupomController {
 //	@Autowired
 //	private TipoPagamento tipo;
 	
+	@Autowired
+	private LoggerResourceImpl logger;
+	
 	@GetMapping 
 	public List<Cupom> consultarCupom(){
 		facade.setParametro(ConsultasPadrao.CUPOM_TUDO);
@@ -45,6 +49,8 @@ public class CupomController {
 	
 	@PutMapping("{id}")
 	public Cupom alterarCupom(@PathVariable int id, @RequestBody Cupom cupom){
+		logger.salvarLoggerResource(id,CupomController.class, cupom, "alterarCupom");
+
 		cupom.setId(id);
 		facade.alterar(cupom);
 		return null;

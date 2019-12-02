@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.musicianapp.domain.EntidadeDominio;
 import br.com.musicianapp.domain.Telefone;
 import br.com.musicianapp.impl.ConsultasPadrao;
+import br.com.musicianapp.impl.LoggerResourceImpl;
 
 @CrossOrigin
 @RestController
@@ -27,6 +28,9 @@ public class TelefoneController {
 	private Facade facade;
 	@Autowired
 	private Telefone telefone;
+	
+	@Autowired
+	private LoggerResourceImpl logger;
 	
 	@GetMapping("{id}")
 	public List<Telefone> buscarTelefonePorId(@PathVariable int id){
@@ -64,6 +68,8 @@ public class TelefoneController {
 	
 	@PutMapping("{id}")
 	public Telefone alterarTelefone(@RequestBody Telefone telefone, @PathVariable int id){
+		logger.salvarLoggerResource(id, TelefoneController.class, telefone, "alterarTelefone");
+
 		telefone.setId(id);
 		this.facade.alterar(telefone);
 		return null;

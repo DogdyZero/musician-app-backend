@@ -23,6 +23,7 @@ import br.com.musicianapp.domain.ItemProduto;
 import br.com.musicianapp.domain.Pessoa;
 import br.com.musicianapp.domain.Troca;
 import br.com.musicianapp.impl.ConsultasPadrao;
+import br.com.musicianapp.impl.LoggerResourceImpl;
 import br.com.musicianapp.impl.Resultado;
 
 @RestController
@@ -41,8 +42,13 @@ public class ItemProdutoController {
 	@Autowired
 	private Cupom cupom;
 	
+	@Autowired
+	private LoggerResourceImpl logger;
+	
 	@PutMapping("{id}")
 	public ItemProduto alterarPedido(@RequestBody ItemProduto item, @PathVariable int id){
+		logger.salvarLoggerResource(id,ItemProdutoController.class, item, "alterarPedido");
+
 		if(item.getTroca().getStatusItem().equals(StatusItem.TROCA_SOLICITADA)) {
 			item.setId(id);
 			this.facade.alterar(item);
